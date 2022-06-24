@@ -1,20 +1,20 @@
-const SCALE = 2;
-const WIDTH = 16;
-const HEIGHT = 18;
-const SCALED_WIDTH = SCALE * WIDTH;
-const SCALED_HEIGHT = SCALE * HEIGHT;
-const CYCLE_LOOP = [0, 1, 0, 2];
-const FACING_DOWN = 0;
-const FACING_UP = 1;
-const FACING_LEFT = 2;
-const FACING_RIGHT = 3;
-const FRAME_LIMIT = 12;
-const MOVEMENT_SPEED = 1;
+const scale = 2;
+const width = 16;
+const height = 18;
+const scaled_width = scale * width;
+const scaled_height = scale * height;
+const cycle_loop = [0, 1, 0, 2];
+const facing_down = 0;
+const facing_up = 1;
+const facing_left = 2;
+const facing_right = 3;
+const frame_limit = 12;
+const movement_speed = 1;
 
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext("2d");
 let keyPresses = {};
-let currentDirection = FACING_DOWN;
+let currentDirection = facing_down;
 let currentLoopIndex = 0;
 let frameCount = 0;
 let positionX = 0;
@@ -42,14 +42,14 @@ function loadImage() {
 function drawFrame(frameX, frameY, canvasX, canvasY) {
   ctx.drawImage(
     img,
-    frameX * WIDTH,
-    frameY * HEIGHT,
-    WIDTH,
-    HEIGHT,
+    frameX * width,
+    frameY * height,
+    width,
+    height,
     canvasX,
     canvasY,
-    SCALED_WIDTH,
-    SCALED_HEIGHT
+    scaled_width,
+    scaled_height
   );
 }
 
@@ -61,27 +61,27 @@ function gameLoop() {
   let hasMoved = false;
 
   if (keyPresses.w) {
-    moveCharacter(0, -MOVEMENT_SPEED, FACING_UP);
+    moveCharacter(0, -movement_speed, facing_up);
     hasMoved = true;
   } else if (keyPresses.s) {
-    moveCharacter(0, MOVEMENT_SPEED, FACING_DOWN);
+    moveCharacter(0, movement_speed, facing_down);
     hasMoved = true;
   }
 
   if (keyPresses.a) {
-    moveCharacter(-MOVEMENT_SPEED, 0, FACING_LEFT);
+    moveCharacter(-movement_speed, 0, facing_left);
     hasMoved = true;
   } else if (keyPresses.d) {
-    moveCharacter(MOVEMENT_SPEED, 0, FACING_RIGHT);
+    moveCharacter(movement_speed, 0, facing_right);
     hasMoved = true;
   }
 
   if (hasMoved) {
     frameCount++;
-    if (frameCount >= FRAME_LIMIT) {
+    if (frameCount >= frame_limit) {
       frameCount = 0;
       currentLoopIndex++;
-      if (currentLoopIndex >= CYCLE_LOOP.length) {
+      if (currentLoopIndex >= cycle_loop.length) {
         currentLoopIndex = 0;
       }
     }
@@ -92,7 +92,7 @@ function gameLoop() {
   }
 
   drawFrame(
-    CYCLE_LOOP[currentLoopIndex],
+    cycle_loop[currentLoopIndex],
     currentDirection,
     positionX,
     positionY
@@ -103,13 +103,13 @@ function gameLoop() {
 function moveCharacter(deltaX, deltaY, direction) {
   if (
     positionX + deltaX > 0 &&
-    positionX + SCALED_WIDTH + deltaX < canvas.width
+    positionX + scaled_width + deltaX < canvas.width
   ) {
     positionX += deltaX;
   }
   if (
     positionY + deltaY > 0 &&
-    positionY + SCALED_HEIGHT + deltaY < canvas.height
+    positionY + scaled_height + deltaY < canvas.height
   ) {
     positionY += deltaY;
   }
