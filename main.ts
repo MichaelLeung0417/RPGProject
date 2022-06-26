@@ -19,8 +19,9 @@ main.use(express.static("public"));
 
 main.post("/login", (req, res) => {
   if (req.body.username === "tester" && req.body.password === "123") {
-    req.session["isLogin"] = true;
+    req.session["isUser"] = true;
   }
+  res.send("done");
 });
 
 const isLogin = (
@@ -28,7 +29,7 @@ const isLogin = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if ((req.session["isLogin"] = true)) {
+  if ((req.session["isUser"] = true)) {
     next();
   } else {
     res.send("wrong password");
@@ -40,7 +41,7 @@ main.get("/login", isLogin, (req, res) => {
 });
 
 main.post("/logout", (req, res) => {
-  req.session["isAdmin"] = false;
+  req.session["isUser"] = false;
   res.redirect("/");
 });
 
