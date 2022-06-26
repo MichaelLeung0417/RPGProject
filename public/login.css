@@ -1,0 +1,18 @@
+.title {
+  text-align: center;
+}
+
+.loginPanel {
+  background-color: #81d8d0;
+  width: 350px;
+  height: 350px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPanel > form input {
+  display: block;
+  margin: 10px;
+}
