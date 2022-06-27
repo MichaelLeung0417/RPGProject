@@ -14,11 +14,11 @@ main.use(
 
 main.use(express.urlencoded())
 
-main.get('/login', (req, res) => {
+main.get('/', (req, res) => {
 	res.redirect('login.html')
 })
 
-main.post('/login', (req, res) => {
+main.post('/', (req, res) => {
 	if (req.body.username === 'tester' && req.body.password === '123') {
 		req.session['isUser'] = true
 	}
@@ -70,10 +70,9 @@ main.post('/register', async (req, res) => {
 
 	await fs.promises.writeFile('users.json', JSON.stringify(users))
 
-	res.redirect('/login')
+	res.redirect('/')
 })
 
 main.use(express.static('private'))
 main.use(isLogin, express.static('public'))
-
 main.listen(8000)
