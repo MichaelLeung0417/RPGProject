@@ -1,11 +1,13 @@
 let toggle = false
 
 document.querySelector('.toggle').addEventListener('click', function () {
-	if ((toggel = false)) {
-		document.querySelector('.loginForm').classList.add('.noDisplay')
-		document.querySelector('.registerForm').classList.remove('.noDisplay')
+	if (toggle == false) {
+		document.querySelector('.loginForm').classList.toggle('.noDisplay')
+		document.querySelector('.registerForm').classList.toggle('.noDisplay')
+		toggle = true
 	} else {
-		document.querySelector('.loginForm').classList.remove('.noDisplay')
-		document.querySelector('.registerForm').classList.add('.noDisplay')
+		document.querySelector('.loginForm').classList.toggle('.noDisplay')
+		document.querySelector('.registerForm').classList.toggle('.noDisplay')
+		toggle = false
 	}
 })

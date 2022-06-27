@@ -19,11 +19,32 @@ main.get('/', (req, res) => {
 	res.redirect('login.html')
 })
 
-main.post('/login', (req, res) => {
-	if (req.body.username === 'tester' && req.body.password === '123') {
-		req.session['isUser'] = true
+main.post('/login', async (req, res) => {
+	try {
+		let users
+		try {
+			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+		} catch (err) {
+			console.error(err)
+			res.status(500).send('Internal Server Error')
+			return
+		}
+		for (const user of users) {
+			if (
+				user.username.trim() === req.body.username.trim() &&
+				user.password.trim() === req.body.password.trim()
+			) {
+				req.session['isUser'] = true
+				res.redirect('/index.html')
+			} else {
+				res.send('wrong username or password')
+			}
+		}
+	} catch (err) {
+		console.error(err)
+		console.log(req.body)
+		res.status(500).send('Internal Server Error')
 	}
-	res.redirect('/index.html')
 })
 
 const isLogin = (
@@ -48,8 +69,6 @@ main.get('/game', isLogin, (req, res) => {
 })
 
 main.post('/register', async (req, res) => {
-	console.log(req.body)
-
 	try {
 		let users
 		try {
