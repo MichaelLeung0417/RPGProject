@@ -1,4 +1,3 @@
-import { triggerAsyncId } from "async_hooks";
 import express from "express";
 import expressSession from "express-session";
 import fs from "fs";
@@ -16,6 +15,10 @@ main.use(
 main.use(express.urlencoded());
 
 main.use(express.static("public"));
+
+main.get("/", (req, res) => {
+  res.redirect("login.html");
+});
 
 main.post("/login", (req, res) => {
   if (req.body.username === "tester" && req.body.password === "123") {
@@ -36,13 +39,13 @@ const isLogin = (
   }
 };
 
-main.get("/login", isLogin, (req, res) => {
-  res.redirect("/index.html");
-});
-
 main.post("/logout", (req, res) => {
   req.session["isUser"] = false;
   res.redirect("/");
+});
+
+main.get("/game", isLogin, (req, res) => {
+  res.redirect("/index.html");
 });
 
 main.post("/register", async (req, res) => {

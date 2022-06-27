@@ -1,28 +1,31 @@
 {
-  "dependencies": {
-    "@types/express": "^4.17.13",
-    "@types/express-session": "^1.17.4",
-    "@types/node": "^18.0.0",
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.7.4"
-  },
-  "name": "rpgproject",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SevenBoii/RPGProject.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SevenBoii/RPGProject/issues"
-  },
-  "homepage": "https://github.com/SevenBoii/RPGProject#readme",
-  "description": ""
+	"dependencies": {
+		"@types/express": "^4.17.13",
+		"@types/express-session": "^1.17.4",
+		"@types/node": "^18.0.0",
+		"express": "^4.18.1",
+		"express-session": "^1.17.3",
+		"ts-node": "^10.8.1",
+		"typescript": "^4.7.4"
+	},
+	"name": "rpgproject",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SevenBoii/RPGProject.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SevenBoii/RPGProject/issues"
+	},
+	"homepage": "https://github.com/SevenBoii/RPGProject#readme",
+	"description": "",
+	"devDependencies": {
+		"prettier": "2.7.1"
+	}
 }
