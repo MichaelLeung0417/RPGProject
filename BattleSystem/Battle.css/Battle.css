@@ -1,0 +1,37 @@
+.Battle{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url(https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png);
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+.BattlePlayer1 .battleEnemy1{
+    position: absolute;
+    transform: scale(2);
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvRl59G3QLhFcZLS2FPiJE3YPf6lLytXO6cQ&usqp=CAU);
+}
+
+.BattlePlayer1 img .battleEnemy1 img{
+    pointer-events: none;
+}
+
+.BattlePlayer1 img{
+    bottom: 10px;
+    left: 20px;
+}
+
+.BattlePlayer1 img{
+    transform: translateY(-50px);
+}
+
+.battleEnemy1 img{
+    top: 10px;
+    right: 20px;
+}

@@ -51,6 +51,11 @@ function drawFrame(frameX, frameY, canvasX, canvasY) {
 		scaled_width,
 		scaled_height
 	)
+	this.map.startCutSence(
+		[
+			{ type: "battle" }
+		]
+	)
 }
 
 loadImage()
