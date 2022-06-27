@@ -22,11 +22,17 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-.loginPanel > form input {
+.loginPanel > div > form input {
 	display: block;
 	margin: 10px;
 }
 
 .noDisplay {
 	display: none;
+}
+
+.toggle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
