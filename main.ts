@@ -18,7 +18,7 @@ main.get('/', (req, res) => {
 	res.redirect('login.html')
 })
 
-main.post('/', (req, res) => {
+main.post('/login', (req, res) => {
 	if (req.body.username === 'tester' && req.body.password === '123') {
 		req.session['isUser'] = true
 	}
@@ -30,7 +30,7 @@ const isLogin = (
 	res: express.Response,
 	next: express.NextFunction
 ) => {
-	if ((req.session['isUser'] = true)) {
+	if (req.session['isUser'] == true) {
 		next()
 	} else {
 		res.send('wrong password')
