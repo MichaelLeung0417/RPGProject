@@ -12,8 +12,6 @@ main.use(
 	})
 )
 
-console.log('ab')
-
 main.use(express.urlencoded())
 
 main.get('/login', (req, res) => {
@@ -38,8 +36,6 @@ const isLogin = (
 		res.send('wrong password')
 	}
 }
-
-console.log('1234')
 
 main.post('/logout', (req, res) => {
 	req.session['isUser'] = false
@@ -76,5 +72,8 @@ main.post('/register', async (req, res) => {
 
 	res.redirect('/login')
 })
+
+main.use(express.static('private'))
+main.use(isLogin, express.static('public'))
 
 main.listen(8000)
