@@ -12,7 +12,7 @@ main.use(
 	})
 )
 
-console.log('a')
+console.log('ab')
 
 main.use(express.urlencoded())
 
