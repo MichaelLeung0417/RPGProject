@@ -12,6 +12,8 @@ main.use(
 	})
 )
 
+console.log('ab')
+
 main.use(express.urlencoded())
 
 main.get('/login', (req, res) => {
