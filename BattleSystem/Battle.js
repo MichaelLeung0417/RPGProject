@@ -13,12 +13,32 @@ class Battle {
     constructor() {
         this.conbatant = {
             "player1": new Conbatant({
-                hp:50,
+                //something we may not need here(the video refer to pokemon fight system so it may be some other thing for fight directly)
+                team: "player",
+                hp: 50,
                 maxHp: 50,
-                xp:0,
-                level:1,
-                status:null
-            },this)
+                xp: 0,
+                level: 1,
+                status: null
+            }, this),
+            "enemy1": new Conbatant({
+                //something we may not need here(the video refer to pokemon fight system so it may be some other thing for fight directly)
+                team: "enemy",
+                hp: 50,
+                maxHp: 50,
+                xp: 30,
+                level: 1,
+                //status: null
+            }, this),
+            "enemy2": new Conbatant({
+                //something we may not need here(the video refer to pokemon fight system so it may be some other thing for fight directly)
+                team: "enemy",
+                hp: 50,
+                maxHp: 50,
+                xp: 20,
+                level: 1,
+                //status: null
+            }, this)
         }
     }
 
@@ -36,7 +56,7 @@ class Battle {
         </div>  
         `)
     }
-    
+
 
     init(container) {
         this.createElement();

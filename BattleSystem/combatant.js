@@ -9,10 +9,13 @@ class combatant{
     }
 
     creatElement(){
-
+        this.hubElement = document.createElement('div');
+        this.hubElement.classList.add("Combatant");
+        this.hubElement.setAttribute('data-combatant', this.id);
+        this.hubElement.setAttribute('data-team', this.team);
     }
 
     init(){
-        
+
     }
 }

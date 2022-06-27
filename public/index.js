@@ -51,11 +51,13 @@ function drawFrame(frameX, frameY, canvasX, canvasY) {
 		scaled_width,
 		scaled_height
 	)
-	this.map.startCutSence(
-		[
-			{ type: "battle" }
-		]
-	)
+	//put back to backend battle system please
+	// this.map.startCutSence(
+	// 	[
+	// 		{ type: "battle" }
+	// 	]
+	// )
+	//put back to backend battle system please
 }
 
 loadImage()
