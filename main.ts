@@ -37,7 +37,7 @@ const isLogin = (
 	}
 }
 
-console.log('123')
+console.log('1234')
 
 main.post('/logout', (req, res) => {
 	req.session['isUser'] = false
