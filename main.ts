@@ -12,6 +12,8 @@ main.use(
 	})
 )
 
+console.log('a')
+
 main.use(express.urlencoded())
 
 main.use(express.static('public'))
