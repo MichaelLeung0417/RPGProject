@@ -14,9 +14,7 @@ main.use(
 
 main.use(express.urlencoded())
 
-main.use(express.static('public'))
-
-main.get('/', (req, res) => {
+main.get('/login', (req, res) => {
 	res.redirect('login.html')
 })
 
@@ -24,7 +22,7 @@ main.post('/login', (req, res) => {
 	if (req.body.username === 'tester' && req.body.password === '123') {
 		req.session['isUser'] = true
 	}
-	res.send('done')
+	res.redirect('/index.html')
 })
 
 const isLogin = (
@@ -39,9 +37,11 @@ const isLogin = (
 	}
 }
 
+console.log('123')
+
 main.post('/logout', (req, res) => {
 	req.session['isUser'] = false
-	res.redirect('/')
+	res.redirect('/login')
 })
 
 main.get('/game', isLogin, (req, res) => {
@@ -72,7 +72,7 @@ main.post('/register', async (req, res) => {
 
 	await fs.promises.writeFile('users.json', JSON.stringify(users))
 
-	res.redirect('/')
+	res.redirect('/login')
 })
 
 main.listen(8000)
