@@ -13,6 +13,7 @@ main.use(
 )
 
 main.use(express.urlencoded())
+main.use(express.json())
 
 main.get('/', (req, res) => {
 	res.redirect('login.html')
@@ -39,7 +40,7 @@ const isLogin = (
 
 main.post('/logout', (req, res) => {
 	req.session['isUser'] = false
-	res.redirect('/login')
+	res.redirect('/')
 })
 
 main.get('/game', isLogin, (req, res) => {
@@ -47,30 +48,38 @@ main.get('/game', isLogin, (req, res) => {
 })
 
 main.post('/register', async (req, res) => {
-	let users
-	try {
-		users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
-	} catch (err) {
-		console.error(err)
-		res.status(500).send('Internal Server Error')
-		return
-	}
+	console.log(req.body)
 
-	for (const user of users) {
-		if (user.username.trim() === req.body.username.trim()) {
-			res.redirect('/?error=重覆username')
+	try {
+		let users
+		try {
+			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+		} catch (err) {
+			console.error(err)
+			res.status(500).send('Internal Server Error')
 			return
 		}
+
+		for (const user of users) {
+			if (user.username.trim() === req.body.username.trim()) {
+				res.redirect('/?error=重覆username')
+				return
+			}
+		}
+
+		users.push({
+			username: req.body.username.trim(),
+			password: req.body.password.trim()
+		})
+
+		await fs.promises.writeFile('users.json', JSON.stringify(users))
+
+		res.redirect('/')
+	} catch (err) {
+		console.error(err)
+		console.log(req.body)
+		res.status(500).send('Internal Server Error')
 	}
-
-	users.push({
-		username: req.body.username.trim(),
-		password: req.body.password.trim()
-	})
-
-	await fs.promises.writeFile('users.json', JSON.stringify(users))
-
-	res.redirect('/')
 })
 
 main.use(express.static('private'))

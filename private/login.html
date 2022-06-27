@@ -10,21 +10,35 @@
 	<body>
 		<h1 class="title">RPG World</h1>
 		<div class="loginPanel">
-			<form action="/login" method="POST">
-				<label for="username">User ID:</label>
-				<input type="text" name="username" />
-				<label for="password">Password:</label>
-				<input type="password" name="password" />
-				<input type="submit" value="Login" />
-			</form>
+			<button class="toggle">login/register</button>
+			<div class="loginForm">
+				<form action="/login" method="POST">
+					<input type="text" name="username" placeholder="Username" />
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+					/>
+					<input type="submit" value="Login" />
+				</form>
+			</div>
 
-			<form action="/register" method="POST">
-				<input type="submit" value="register" />
-			</form>
+			<div class="registerForm noDisplay">
+				<form action="/register" method="POST">
+					<input type="text" name="username" placeholder="Username" />
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+					/>
+					<input type="submit" value="register" />
+				</form>
+			</div>
 
-			<form action="/logout" method="POST">
+			<!-- <form action="/logout" method="POST">
 				<input type="submit" value="Logout" />
-			</form>
+			</form> -->
 		</div>
 	</body>
+	<script src="login.js"></script>
 </html>

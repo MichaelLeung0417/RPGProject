@@ -1,22 +1,32 @@
+body {
+	box-sizing: border-box;
+}
+
 .title {
 	text-align: center;
 }
 
 .loginPanel {
-	background-color: #81d8d0;
-	width: 350px;
-	height: 350px;
+	background-color: rgba(0, 0, 255, 0.6);
+	position: relative;
+	width: 250px;
+	height: 500px;
 	display: flex;
 	margin: auto;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	top: 30%;
+	left: 20%;
 	transform: translate(-50%, -50%);
 }
 
 .loginPanel > form input {
 	display: block;
 	margin: 10px;
+}
+
+.noDisplay {
+	display: none;
 }
