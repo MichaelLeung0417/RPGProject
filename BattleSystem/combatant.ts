@@ -1,19 +1,18 @@
-class combatant{
-    constructor(config, battle){
-        {
-            Object.keys(config).forEach(key=>{
-                this.key = config[key];
-            })
-        }
+class Combatant {
+    battle: any;
+    hubElement: HTMLDivElement;
+    constructor(config:{},battle:any){
+        Object.keys(config).forEach(key =>{
+            this[key] = config[key];
+        })
         this.battle = battle;
     }
-
-    //draw battle sence I guess
-    creatElement(){
+    createElement(){
+        //draw battle sence I guess
         this.hubElement = document.createElement('div');
         this.hubElement.classList.add("Combatant");
-        this.hubElement.setAttribute('data-combatant', this.id);
-        this.hubElement.setAttribute('data-team', this.team);
+        this.hubElement.setAttribute('data-combatant', this.id); //id is eg,"player1" in Battle.ts(!understand at this monment)
+        this.hubElement.setAttribute('data-team', this.team); //team is eg,"player" in Battle.ts(!understand at this monment)
         this.hubElement.innerHTML = (`
             <p class="Combatant_name">${this.name}</p>
             <p class="Combatant_level"></p>
@@ -34,6 +33,6 @@ class combatant{
     }
 
     init(){
-
+        
     }
 }
