@@ -1,12 +1,29 @@
 class Combatant {
     battle: any;
     hubElement: HTMLDivElement;
+    container: HTMLDivElement;
+    hpFills: NodeListOf<Element>;
+    xpFills: NodeListOf<Element>;
     constructor(config:{},battle:any){
         Object.keys(config).forEach(key =>{
             this[key] = config[key];
         })
         this.battle = battle;
     }
+
+    get hpPercent(): number{
+        const percent = this.hp / this.maxHp *100
+        return percent > 0 ? percent: 0;
+     }
+
+     get xpPercent(): number{
+        return this.xp / this.maxXp *100
+     }
+
+     get isActive(): boolean{
+        return this.battle.activeCombatants[this.team] === this.id
+     }
+
     createElement(){
         //draw battle sence I guess
         this.hubElement = document.createElement('div');
@@ -30,9 +47,39 @@ class Combatant {
             </svg>
             <p class="Combatant_status"></p>
         `);
+
+        //it may be pokemon, weapon, skill, etc again(i don't know) but copy some as example belows
+        //this.pokemon.classList.add('pokemon1'); for css tidy up?
+        // this.pokemon.setAttribute("src", this.scr); weaspon image?
+        //this.pokemon.setAttribute("alt", this.name); occur when pervious image disappear?
+        //this.pokemon.setAttribute("data-team", this.team); tell weaspon belong to which team and its position
+
+        this.hpFills = this.hubElement.querySelectorAll(".Combatant_life-container > rect")
+        this.xpFills = this.hubElement.querySelectorAll(".Combatant_xp-container > rect")
     }
 
-    init(){
-        
+    update(change={}){
+        //Update anything change(similar to draw() of P5)
+        Object.keys(change).forEach(key =>{
+            this[key] = change[key]
+        });
+
+        //show correct hub & weaspon according to updated active
+        this.hubElement.setAttribute("data-active", this.isActive);
+        //this.weasponElement.setAttribute("data-active", this.isActive);
+
+        //update hp & xp precent fills (or what the bar look like)
+        this.hpFills.forEach(rect=>rect.style,width= `${this.hpPercent}%`)
+        this.xpFills.forEach(rect=>rect.style,width= `${this.xpPercent}%`)
+
+        this.hubElement.querySelector("Combatant_level").innerHTML = this.level; //show the level of both side during the battle
+
+    }
+
+    init(container: HTMLDivElement){
+        this.createElement();
+        container.appendChild(this.hubElement)
+        //it may be pokemon, weapon, skill, etc again(i don't know) but copy some as example belows
+        //container.appendChild(this.pokemonElement)
     }
 }

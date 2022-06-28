@@ -1,6 +1,7 @@
 export class Battle {
     element: HTMLDivElement;
     combatants: { player1: Combatant, enemy1: Combatant, enemy2: Combatant };
+    activeCombatants: { player: string; enemy: string; };
     constructor() {
         this.combatants = {
             "player1": new Combatant({
@@ -30,7 +31,10 @@ export class Battle {
                 level: 1,
                 //status: null
             }, this),
-
+        }
+        this.activeCombatants={
+            player: "player1",
+            enemy: "enemy1,"
         }
     }
 
@@ -51,5 +55,10 @@ export class Battle {
     init(container: any) {
         this.createElement();
         container.appendChild(this.element)
+        Object.keys(this.combatants).forEach(key =>{
+            let combatant = this.combatants[key]
+            combatant.id = key;
+            combatant.init(this.element)
+        })
     }
 }
