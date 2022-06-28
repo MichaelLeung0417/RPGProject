@@ -1,13 +1,9 @@
-let toggle = false
+document.querySelector('.login').addEventListener('click', function () {
+	document.querySelector('.registerForm').classList.add('noDisplay')
+	document.querySelector('.loginForm').classList.remove('noDisplay')
+})
 
-document.querySelector('.toggle').addEventListener('click', function () {
-	if (toggle == false) {
-		document.querySelector('.loginForm').classList.toggle('.noDisplay')
-		document.querySelector('.registerForm').classList.toggle('.noDisplay')
-		toggle = true
-	} else {
-		document.querySelector('.loginForm').classList.toggle('.noDisplay')
-		document.querySelector('.registerForm').classList.toggle('.noDisplay')
-		toggle = false
-	}
+document.querySelector('.register').addEventListener('click', function () {
+	document.querySelector('.registerForm').classList.remove('noDisplay')
+	document.querySelector('.loginForm').classList.add('noDisplay')
 })

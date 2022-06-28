@@ -36,8 +36,7 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				res.redirect('/index.html')
-			} else {
-				res.send('wrong username or password')
+				return
 			}
 		}
 	} catch (err) {
@@ -55,7 +54,7 @@ const isLogin = (
 	if (req.session['isUser'] == true) {
 		next()
 	} else {
-		res.send('wrong password')
+		res.redirect('/login.html')
 	}
 }
 
