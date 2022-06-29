@@ -1,9 +1,19 @@
-class Combatant {
+export class Combatant {
     battle: any;
     hubElement: HTMLDivElement;
     container: HTMLDivElement;
     hpFills: NodeListOf<Element>;
     xpFills: NodeListOf<Element>;
+    hp: number;
+    maxHp: number;
+    xp:number;
+    maxXp: number;
+    team: string;
+    id: string;
+    name:string;
+    scr: string;
+    icon: string;
+    type: string;
     constructor(config:{},battle:any){
         Object.keys(config).forEach(key =>{
             this[key] = config[key];
