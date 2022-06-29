@@ -1,7 +1,11 @@
+import { TurnCycle } from "./turnCycle";
+import { BattleEvent } from "./BattleEvent";
+import {Combatant} from "./combatant"
 export class Battle {
     element: HTMLDivElement;
     combatants: { player1: Combatant, enemy1: Combatant, enemy2: Combatant };
     activeCombatants: { player: string; enemy: string; };
+    turnCycle: TurnCycle;
     constructor() {
         this.combatants = {
             "player1": new Combatant({
@@ -60,5 +64,16 @@ export class Battle {
             combatant.id = key;
             combatant.init(this.element)
         })
+        
+        this.turnCycle = new TurnCycle({
+            battle:this,
+            onNewEvent: (event: any) =>{
+                return new Promise(resolve => {
+                    const battleEvent = new BattleEvent(event, this)
+                    battleEvent.init(resolve)
+                })
+            }
+        })
+        this.turnCycle.init();
     }
 }
