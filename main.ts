@@ -1,6 +1,17 @@
 import express from 'express'
 import expressSession from 'express-session'
 import fs from 'fs'
+import { Client } from 'pg'
+import dotenv from 'dotenv'
+dotenv.config()
+
+export const client = new Client({
+	database: process.env.DB_NAME,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD
+})
+
+client.connect()
 
 const main = express()
 
@@ -95,7 +106,6 @@ main.post('/register', async (req, res) => {
 		res.redirect('/')
 	} catch (err) {
 		console.error(err)
-		console.log(req.body)
 		res.status(500).send('Internal Server Error')
 	}
 })
