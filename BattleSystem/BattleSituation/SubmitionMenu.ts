@@ -1,5 +1,6 @@
-class Submission{
+export class Submission{
     caster: string;
+    enemy: string;
     onComplete: any;
     constructor({caster, enemy, onComplete}:{caster:string, enemy:string,onComplete:any}){
         this.caster = caster,
@@ -7,7 +8,14 @@ class Submission{
         this.onComplete = onComplete;
     }
 
-    init(container){
+    decide(){
+        this.onComplete({
+            action: Actions[this.caster[0]],
+            target: this.enemy
+        })
+    }
+
+    init(container: any){
 
     }
 }

@@ -9,6 +9,11 @@ export class BattleEvent{
     }
 
     textMessage(resolve: any){
+        const text = this.event.text
+        .replace("CASTER", this.event.caster?.name)
+        .replace("CASTER", this.event.target?.name)
+        .replace("CASTER", this.event.actiom?.name)
+        
         const message = new TextMessage({
             text: this.event.text,
             onComplete: () =>{
@@ -16,6 +21,29 @@ export class BattleEvent{
             }
         })
         message.init(this.battle.element)
+    }
+
+    async stateChange(resolve: any){
+        const {caster, target, damage} = this.event;
+
+        //decrease target hp
+        if(damage){
+            target.update({
+                hp: target.hp - damage
+            })
+            target.weaspon.classList.add('battle-damage-blanking')
+
+        //start blanking
+        }
+
+
+        //Wait a bit
+        //stop blanking
+
+        await utils.way(600)
+        target.weaspon.classList.remove('battle-damage-blanking')
+
+        resolve();
     }
 
     submissionMenu(resolve: any){
@@ -28,6 +56,11 @@ export class BattleEvent{
             }
         })
         menu.init(this.battle.element)
+    }
+
+    animation(resolve: any){
+        const fn = BattleAnimations[this.event.animation]
+        fn(this.event, resolve)    
     }
 
     init(resolve: (value: unknown) => void){

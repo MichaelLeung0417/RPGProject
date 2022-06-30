@@ -35,3 +35,21 @@
     top: 10px;
     right: 20px;
 }
+
+@keyframes battle-damage-blank {
+    to{visibility: hidden;}
+}
+
+.battle-damage-blank{
+    animation: battle-damage-blank 0.3s steps(2, start) infinite;
+}
+
+@keyframes battle-spin-right {
+    0%{ transform: translate3d(0,0,0) rotate(0deg) scale(2)}
+    25%{ transform: translate3d(155px,-30px,0) rotate(45deg) scale(2)}
+    100%{ transform: translate3d(0,0,0) scale(2)}
+}
+
+.battle-spin-right{
+    animation: battle-spin-right 0.8s;
+}

@@ -18,8 +18,23 @@ export class TurnCycle {
 
         const submission = await this.onNewEvent({
             type: "submissionMenu",
-            caster
+            caster,
+            enemy
         })
+
+        const resultingEvent = submission.action.success;
+        for(let i=0; i<resultingEvent.length; i++){
+            const event = {
+                ...resultingEvent[i],
+                submission,
+                actiom: submission.action,
+                caster,
+                target: submission.target
+            }
+            await this.onNewEvent(event);
+        }
+        this.currentTeam = this.currentTeam === "player"? "enemy" : "player";
+        this.turn();
     }
     async init(){
         await this.onNewEvent({

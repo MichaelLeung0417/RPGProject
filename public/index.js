@@ -1,3 +1,6 @@
+const { waitForDebugger } = require("inspector")
+const { resolve } = require("path")
+
 const scale = 2
 const width = 16
 const height = 18
@@ -122,3 +125,13 @@ function moveCharacter(deltaX, deltaY, direction) {
 	}
 	currentDirection = direction
 }
+
+
+//function for battle to look better only
+wait(ms) {
+	return new Promise(resolve=>{
+		setTimeout(() => {
+			resolve
+		}, ms);
+	})
+},
