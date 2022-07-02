@@ -1,3 +1,5 @@
+import { updateCommaList } from "typescript";
+
 export class Combatant {
     battle: any;
     hubElement: HTMLDivElement;
@@ -14,6 +16,7 @@ export class Combatant {
     scr: string;
     icon: string;
     type: string;
+    status: {};
     constructor(config:{},battle:any){
         Object.keys(config).forEach(key =>{
             this[key] = config[key];
@@ -84,12 +87,57 @@ export class Combatant {
 
         this.hubElement.querySelector("Combatant_level").innerHTML = this.level; //show the level of both side during the battle
 
+        //Update status
+        const statusElement = this.hubElement.querySelector(".Combatant_status");
+        if(this.status){
+            statusElement.innerText = this.status.type;
+            statusElement.style.display = 'block';
+        }else{
+            statusElement.innerText = '';
+            statusElement.style.display = 'none';
+        }
+
     }
+
+    getReplacedEvent(originalEvent:string){
+        if(this.status?.type === 'clumsy' && utils.randomFromArray([true,false,false])){
+            return [
+                {text: "textMessage", text: `${this.name} flops over!`},
+            ]
+        }
+    }
+
+    getPostEvent() {
+        if(this.status?.type === "saucy"){
+            return [
+                {type: "textMessage", text: "Feeling' saucy"},
+                {type: "stateChange", recover: 5, onCaster: true}
+            ]
+        }
+
+        return []
+    }
+
+    decrementStatus(){
+        if(this.status?.expiresIn > 0){
+            this.status.expiresIn === 0){
+                this.update({
+                    status: null
+                })
+                return {
+                    type: "textMessage",
+                    text: "Status expired"
+                }
+            }
+        }
+    }
+
 
     init(container: HTMLDivElement){
         this.createElement();
         container.appendChild(this.hubElement)
         //it may be pokemon, weapon, skill, etc again(i don't know) but copy some as example belows
         //container.appendChild(this.pokemonElement)
+        this.update();
     }
 }

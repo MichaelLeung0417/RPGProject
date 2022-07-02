@@ -1,5 +1,6 @@
 const { waitForDebugger } = require("inspector")
 const { resolve } = require("path")
+const { emitKeypressEvents } = require("readline")
 
 const scale = 2
 const width = 16
@@ -127,7 +128,7 @@ function moveCharacter(deltaX, deltaY, direction) {
 }
 
 
-//function for battle to look better only
+//function for battle to look better only(personal note: "utils" is a js file and it use as utils.xxx in the video )
 wait(ms) {
 	return new Promise(resolve=>{
 		setTimeout(() => {
@@ -135,3 +136,14 @@ wait(ms) {
 		}, ms);
 	})
 },
+
+randomFromArray(arry){
+	return array[Math.floor(Math.random()*array.length)]
+},
+
+emitEvent(name, detail) {
+	const event = new CustomEvent(name, {
+		detail
+	});
+	document.dispatchEvent(event);
+}

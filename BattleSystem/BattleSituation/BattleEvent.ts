@@ -24,7 +24,8 @@ export class BattleEvent{
     }
 
     async stateChange(resolve: any){
-        const {caster, target, damage} = this.event;
+        const {caster, target, damage, recover,status, action} = this.event;
+        let who = this.event.onCaster ? caster : target;
 
         //decrease target hp
         if(damage){
@@ -34,6 +35,28 @@ export class BattleEvent{
             target.weaspon.classList.add('battle-damage-blanking')
 
         //start blanking
+        }
+
+        if(recover){
+            const who = this.event.onCaster ? caster : target;
+            let newHp = who.hp + recover;
+            if(newHp > who.maxHp){
+                newHp = who.maxHp
+            }
+            who.update({
+                hp:newHp
+            })
+        }
+
+        if(status){
+            who.update({
+                status:{...status}
+            })
+        }
+        if(status === null){
+            who.update({
+                status:null
+            })
         }
 
 

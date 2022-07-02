@@ -15,7 +15,8 @@ export class Battle {
                 maxHp: 50,
                 xp: 0,
                 level: 1,
-                status: null
+                status: null,
+                isPlayerControlled: true
             }, this),
             "enemy1": new Combatant({
                 //something we may not need here(the video refer to pokemon fight system so it may be some other thing for fight directly)
