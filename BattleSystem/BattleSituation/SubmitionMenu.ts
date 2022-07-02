@@ -5,10 +5,28 @@ export class Submission{
     enemy: string;
     onComplete: any;
     keyboardMenu: any;
-    constructor({caster, enemy, onComplete}:{caster:string, enemy:string,onComplete:any}){
+    constructor({caster, enemy, onComplete, items}:{caster:string, enemy:string,onComplete:any, items:any}){
         this.caster = caster,
         this.enemy = enemy
         this.onComplete = onComplete;
+
+        let quantityMap = {};
+        items.forEach(item =>{
+            if(item.team === caster.team){
+
+                let existing = quantityMap[item.actionId];
+                if(existing){
+                    existing.quantity += 1
+                }else{
+                    quantityMap[item.actionId] = {
+                        actionId: item.actionId,
+                        quantity: 1
+                        instanceId: item.instanceId,
+                    }
+                }
+            }
+        })
+        this.items =Object.values(quantityMap);
     }
 
     getPages(){
@@ -53,7 +71,19 @@ export class Submission{
                 backOption
             ],
             item: [
-                //item will go here
+                ...this.items.map(item => {
+                    const action = Actions[item.actionId];
+                    return {
+                        label: action.name,
+                        description: action.description,
+                        right: ()=>{
+                          return "x"+item.quantity,  
+                        },
+                        hander: () =>{
+                            this.menuSubmit(action, item.instanceId)
+                        }
+                    }
+                })
                 backOption
             ]
         }
@@ -64,7 +94,8 @@ export class Submission{
 
         this.onComplete({
             action,
-            target: action.targetType === "friendly" ? this.caster : this.enemy
+            target: action.targetType === "friendly" ? this.caster : this.enemy,
+            instanceId
         })
     }
 

@@ -1,6 +1,3 @@
-import { updateCommaList } from "typescript";
-import { isArrayBufferView } from "util/types";
-
 window.BattleAnimations = {
     async spin(event: any, onComplete: any) {
         const element = event.caster.weasponElement;

@@ -31,7 +31,21 @@ window.Actions = {
    item_recoverStatus:{
       name: "Heating Lamp",
       description: "Freeling fresh an dwarm",
-      targetType: "friendly"
-   }
+      targetType: "friendly",
+      success: [
+         { type: "textMessage", text: '{attackerName} uses a {Action}!'}, //the attacker call caster in the video
+         { type: "statusChange", status: null },
+         { type: "textMessage", text: 'Feeling fresh',},
+      ]
+   },
+   item_recoverHp:{
+      name: "Parmesan",
+      targetType: "friendly",
+      success: [
+         { type: "textMessage", text: '{attackerName} sprinkles on some {Action}!'}, //the attacker call caster in the video
+         { type: "statusChange", recover: 10, },
+         { type: "textMessage", text: '{attacker} recovers HP!',},
+      ]
+   },
 }
 

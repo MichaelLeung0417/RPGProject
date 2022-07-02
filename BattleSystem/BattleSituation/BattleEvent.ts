@@ -73,6 +73,7 @@ export class BattleEvent{
         const menu = new Submission({
             caster: this.event.caster,
             enemy: this.event.enemy,
+            items: this.battle.items,
             onComplete: (submission: any) =>{
                 //submission {what move to use, who to use it on}
                 resolve(submission)

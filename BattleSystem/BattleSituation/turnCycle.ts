@@ -22,6 +22,10 @@ export class TurnCycle {
             enemy
         })
 
+        if(submission.instanceId){
+            this.battle.items = this.battle.item.filter(i=>i.instanceId!== submission.instanceId)
+        }
+
         const resultingEvent = caster.getReplaceedEvents(submission.action.success);
         for(let i=0; i<resultingEvent.length; i++){
             const event = {
