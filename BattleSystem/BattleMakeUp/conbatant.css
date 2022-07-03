@@ -7,6 +7,7 @@
 
 .Battle .Combatant {
     transform: scale(2);
+    transition: opacity 0.4s;
 }
 
 .Battle .Combatant[data-active="false"]{
@@ -116,33 +117,37 @@
 }
 
 /* i guess it is the buff or negative status on player or enemy (So, it may be an extra task)*/
-/* .Combatant_status[data-status="saucy"]{
+.Combatant_status[data-status="saucy"]{
     color: red;
 }
 
 .Combatant_status[data-status="drop"]{
     background: #582a79;
-} */
-/* i guess it is the buff or negative status on player or enemy (So, it may be an extra task)*/
+} 
+/* i guess it is the buff or negative status on player or enemy (So, it may be an extra task) */
 
 /* weaspon part css instead by comment now */
 /* .weaspon {
     position: absolute;
     transform: scale(2);
+    transition: opacity 0.4s, transform 0.4s;
     background: url() no-repeat no-repeat;
-} */
-/* .weaspon[data-team="player"]{
+}
+.weaspon[data-team="player"]{
     bottom: 47px;
     left: 51px;
 }
 .weaspon[data-team="enemy"]{
     bottom: 47px;
     left: 100px;
-} */
-/* .weaspon[data-active="false"]{
+}
+.weaspon[data-active="false"]{
     opacity: 0;
+    transform: translate3d(0,16px,0) scale(2);
+    
 }
 
 .weaspon[data-active="true"]{
     opacity: 1;
+    transform: translate3d(0,0,0) scale(2);
 } */

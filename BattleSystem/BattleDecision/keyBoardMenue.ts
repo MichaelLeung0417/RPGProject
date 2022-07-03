@@ -1,5 +1,5 @@
 //it will collaborate with keyPressListener and submitionMenue
-class KeyboardMenu{
+export class KeyboardMenu{
     options: any;
     constructor(){
         this.options = []; // set by updater method

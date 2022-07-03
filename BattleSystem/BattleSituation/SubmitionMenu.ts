@@ -1,13 +1,13 @@
-import { endianness } from "os";
-
 export class Submission{
     caster: string;
     enemy: string;
     onComplete: any;
     keyboardMenu: any;
-    constructor({caster, enemy, onComplete, items}:{caster:string, enemy:string,onComplete:any, items:any}){
+    replacements: any;
+    constructor({caster, enemy, onComplete, items, replacements}:{caster:string, enemy:string,onComplete:any, items:any, replacements:any }){
         this.caster = caster,
         this.enemy = enemy
+        this.replacements = replacements;
         this.onComplete = onComplete;
 
         let quantityMap = {};
@@ -54,6 +54,7 @@ export class Submission{
                     description: "Change another weapon",
                     handler: ()=>{
                         //See weaspon options...
+                        this.keyboardMenu.setOptions(this.getPages().replacements)
                     }
                 },
             ],
@@ -83,10 +84,30 @@ export class Submission{
                             this.menuSubmit(action, item.instanceId)
                         }
                     }
+                }),
+                backOption
+            ],
+            replacements: [
+                ...this.replacements.map(replacement =>{
+                    return {
+                        label : replacement.name,
+                        description: replacement.description,
+                        handler: () =>{
+                            //swap me in, coach!
+                            this.menuSubmitReplacement(replacement)
+                        }
+                    }
                 })
                 backOption
             ]
         }
+    }
+
+    menuSubmitReplacement(replacement) {
+        this.keyboardMenu?.end();
+        this.onComplete({
+            replacement
+        })
     }
 
     meueSubmit(action, instanceId=null){
