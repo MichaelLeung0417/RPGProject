@@ -3,6 +3,8 @@ import expressSession from 'express-session'
 import fs from 'fs'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
+import http from 'http'
+import { Server as SocketIO } from 'socket.io'
 dotenv.config()
 
 export const client = new Client({
@@ -14,6 +16,12 @@ export const client = new Client({
 client.connect()
 
 const main = express()
+const server = new http.Server(main)
+const io = new SocketIO(server)
+
+io.on('connection', function (socket) {
+	console.log(socket)
+})
 
 main.use(
 	expressSession({
@@ -102,6 +110,34 @@ main.post('/register', async (req, res) => {
 		})
 
 		await fs.promises.writeFile('users.json', JSON.stringify(users))
+
+		// let username = req.body.username.trim()
+		// let password = req.body.password.trim()
+
+		// {
+		// 	let output = await client.query(
+		// 		'SELECT * FROM account WHERE username=$1',
+		// 		[username]
+		// 	)
+
+		// 	if (output.rows.length > 0) {
+		// 		res.redirect('/?error=重覆username')
+		// 		return
+		// 	}
+		// }
+
+		// {
+		// 	try {
+		// 		let output = await client.query(
+		// 			'INSERT INTO account(username, password) VALUES($1,$2)',
+		// 			[username, password]
+		// 		)
+		// 	} catch (err) {
+		// 		console.error(err)
+		// 		res.status(500).send('Internal Server Error')
+		// 		return
+		// 	}
+		// }
 
 		res.redirect('/')
 	} catch (err) {
