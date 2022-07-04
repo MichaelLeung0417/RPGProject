@@ -1,9 +1,10 @@
 // const { waitForDebugger } = require('inspector')
 // const { resolve } = require('path')
 // const { emitKeypressEvents } = require('readline')
-const socket = io('http://localhost:8000')
-socket.on('init', hadnleInit)
-socket.on('gameState', handleGameState)
+
+// const socket = io('http://localhost:8000')
+// socket.on('init', hadnleInit)
+// socket.on('gameState', handleGameState)
 
 const scale = 2
 const width = 16

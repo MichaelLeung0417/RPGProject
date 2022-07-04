@@ -1,6 +1,6 @@
 import express from 'express'
 import expressSession from 'express-session'
-import fs from 'fs'
+// import fs from 'fs'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
 import http from 'http'
@@ -42,9 +42,20 @@ main.get('/', (req, res) => {
 
 main.post('/login', async (req, res) => {
 	try {
-		let users
+		let users: {
+			username: string
+			password: string
+		}[]
+
+		let username = req.body.username.trim()
+		let password = req.body.password.trim()
 		try {
-			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+			users = (
+				await client.query(
+					'SELECT * FROM accounts WHERE username=$1 AND password=$2',
+					[username, password]
+				)
+			).rows
 		} catch (err) {
 			console.error(err)
 			res.status(500).send('Internal Server Error')
@@ -59,6 +70,17 @@ main.post('/login', async (req, res) => {
 				res.redirect('/charInfo.html')
 				return
 			}
+		}
+
+		if (
+			client.query('SELECT * FROM accounts WHERE username=$1', [
+				username
+			]) !== req.body.username.trim() ||
+			client.query('SELECT * FROM accounts WHERE password=$1', [
+				password
+			]) !== req.body.password.trim()
+		) {
+			res.redirect('/')
 		}
 	} catch (err) {
 		console.error(err)
@@ -94,9 +116,18 @@ main.post('/comfirmLogin', isLogin, (req, res) => {
 
 main.post('/register', async (req, res) => {
 	try {
-		let users
+		let users: {
+			username: string
+		}[]
+
+		let username = req.body.username.trim()
+		let password = req.body.password.trim()
 		try {
-			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+			users = (
+				await client.query('SELECT * FROM accounts WHERE username=$1', [
+					username
+				])
+			).rows
 		} catch (err) {
 			console.error(err)
 			res.status(500).send('Internal Server Error')
@@ -110,40 +141,10 @@ main.post('/register', async (req, res) => {
 			}
 		}
 
-		users.push({
-			username: req.body.username.trim(),
-			password: req.body.password.trim()
-		})
-
-		await fs.promises.writeFile('users.json', JSON.stringify(users))
-
-		// let username = req.body.username.trim()
-		// let password = req.body.password.trim()
-
-		// {
-		// 	let output = await client.query(
-		// 		'SELECT * FROM account WHERE username=$1',
-		// 		[username]
-		// 	)
-
-		// 	if (output.rows.length > 0) {
-		// 		res.redirect('/?error=重覆username')
-		// 		return
-		// 	}
-		// }
-
-		// {
-		// 	try {
-		// 		let output = await client.query(
-		// 			'INSERT INTO account(username, password) VALUES($1,$2)',
-		// 			[username, password]
-		// 		)
-		// 	} catch (err) {
-		// 		console.error(err)
-		// 		res.status(500).send('Internal Server Error')
-		// 		return
-		// 	}
-		// }
+		await client.query(
+			'INSERT INTO accounts(username, password) VALUES($1,$2)',
+			[username, password]
+		)
 
 		res.redirect('/')
 	} catch (err) {
@@ -157,4 +158,6 @@ main.use(chat)
 
 main.use(express.static('private'))
 main.use(isLogin, express.static('public'))
-main.listen(8000)
+main.listen(8000, function () {
+	console.log(`Listening on 8000 port`)
+})
