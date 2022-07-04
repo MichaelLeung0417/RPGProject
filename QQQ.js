@@ -1,0 +1,85 @@
+(function(name,data){
+ if(typeof onTileMapLoaded === 'undefined') {
+  if(typeof TileMaps === 'undefined') TileMaps = {};
+  TileMaps[name] = data;
+ } else {
+  onTileMapLoaded(name,data);
+ }
+ if(typeof module === 'object' && module && module.exports) {
+  module.exports = data;
+ }})("QQQ",
+{ "compressionlevel":-1,
+ "height":50,
+ "infinite":false,
+ "layers":[
+        {
+         "draworder":"topdown",
+         "id":2,
+         "name":"\u7269\u4ef6\u5c64 1",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzNmr2Oo0AQhK15kQ3s2AQXmdiOTWxiHEOMYzuGGN71Fm2X\/NHL6TY43XRQmhFG2qrtn6mZ4WO32338AL\/+8vs+7XYHwwk4pq\/f9Dvf0\/wnf\/9\/QZyKT5wBaiH3wp4XQXWUn7gC0sI4FPbeycbc3Ld0XD5xA6SFOkp772xjbu4Ec6cBpIX5tHCv7HkVTAdzpwWkhXm3cK\/teR1MB3OnB9qNWCzc76bxHkwHc+cJ9BuxWLh3prELpoO5MwDPtO4BtXF\/mMZHMB0N+E7AgOeKxcL9ZRpfwXS0TsdseTPhuWKxcB9N4xhMx5Ij7L1nyxvqUCxG0ym9ubkTS46w915dbRwQi9kQ0V8Nad17b642CsRCcYjor6a07r2Ny6lyIxYR\/dWU1r3X1\/jFxWKfYvqryWLAWqeOytX2PsX0V5PF4PQHHbXVC3VE9FeT9dmzi4lq\/A4NqqOI\/mqyPntN3\/dNpfVc6VAdRfRX8iC39H3fdLGey5ySL47mr+SnGosJc6uynut1RPRX9FQ3l1v1Rs+VL47mr8Sxt5j4evc9l34yN3fimt613m7Uu++5hxTTl9zSu9b7jXr3GnReF82XyE8pJqp3niVSh87rovmSFv\/zAfXua8Sf10XzJT10aG1vXI3QR+q8LpoveUKH1obW1Qj38FF9yeB0qN65J2mRZ8cU15dIR4F6Zy71yLNTiutLFg1jep+3DS6Xnsizc4rtS+b0Pm\/j\/kO5pjy7ppi+ROvgnN7nbaVbL7T3Pab1+7m5Ew146bzt4tYL+eGTy7fc3Amugzpvq9x6ob3vOa3PH3NzJ7gOdq4utAfR\/JrW5\/C5uRNcB1kTGmsbC6cvmg6tg35frlF1X0KPkJs7IV\/r755UG6r7C\/QIubkTx\/SG7pUrm1eo+wp6hNzcCX7DoHvl2ubL+LKxhh4hN3eC3zDoXvlu82UcbbxDj5CbO8FvGHSv3Nm8Qz\/uoEfIzZ3gNwy6V37Y\/OHQOeTmTvAbBt0rv2z+cvC6cnMn+A2D7pVHm48OXldu7gS\/YdC98mzz2cHrys2d4DcMuleeoYf7RY9\/8fd\/A2eW3zU=",
+         "encoding":"base64",
+         "height":50,
+         "id":1,
+         "name":"top",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":50,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJy1mseTF0UUx+c3++Ok3gwgB8u0clgFDCyLVqlklWwgLaASliXDGkCXNQELVQYkKKUsVqkkq9RFMNwEsYwHtRRMB1MJeDL9Afrp+s2raXq7p3tmh8OnnHm\/2el+0++9\/vbDkdUoGgWjYQyMhYsiP+fHUXRBnP63L\/SDC6F\/AbtcZ435OHN7AtbBetgAnbAR7oA74S6YCtNy+nExXAKXwmVwOdQXsMt11phbmNtW2Abb4Tl4HnbAPJgPC6AFFub0owGuhKtgIAyCwQXscp015svM7RV4FXbDHtgL++A+uB8egAdhtcWPfhl+NMJQaIJhcD3c4LF\/yhifwefV1C7PyPsbjPHO8XxXW6x516JP6sdwGAEjYRSMhjEe+\/eM8QP8WE3t8syautoYx\/jtOHwL3wV+Wx\/mt6jX\/BgPE2AiTILJMKWAXa6VH4rfmfsJOAmnAmPdxPcthmh+TIPpMANmQjPMKmCXeiV+CK2wKKGlLp8fId9C6s5cmAfzYQG0wMICdqlXq+tOpwl2JPj8OAvOzrlmUneWwXJYASthVVKTGiz2NsfzbVq96o0f58J5Of2QerQGHoKH4epKFF1Tqf3WqNnbYS10GM\/rdqlXNj\/2JeSNqxCkHq2D9bBB1Rx8GA1jYGwltXfCRthkPK\/b9Xql8OVoUQZp1wOitO48A5vhWZXDzH06zICZlZ56Z5vx\/BbYGtfser0KzdF6uCKnH03GvdSdF+DFJKYWwxJYCssqPfXOS9rzO6ELdsU1+7BkPfLk7UDj+wq+PVNH6s5u2GOJKZXnpt55TXt+L+yD\/XHNPipZj97mrY8Bxr3UnW44YIkp5Yepd97Wnn8LDsKhuGZXcdUclztnnXcY\/114z4hRqTuyH5ox1ajVr2vhukq2bld7YksJfrhy5iPm\/zF8YvghdUfX4WZsmfdZun1Bspe45jeO8cfDBE\/tcuWMC6k7ug43Y8u8z9LtK5O9xDVeM\/OfBbNz1OAQLWnT7XpsNVhiLUvPtyd7iT6G\/l2XMP+lsKxq\/70oEh8ufd7osLue70z2En0Ms9abZP3+E\/7+DL\/Ar\/CbYx0lPsrS7WpP3FVivfqTef8Ff8M\/8K\/hh9RfiY+ydLvaE\/f30g99Df6DiPNFBWKo62P\/G4mPsnS72hMPOfwI1eO2NZiKfZEFsUt8uHR4XvtBS54LWfu61CRbPqg1UHNdDK1Rz2uFxIdLh+e1q3z39a903mSe3XCg6l6LduxroSM6\/Vp8UNcSH7IfHuTvDlX9+txlV\/nu61\/p+8H7jHUYjiR+qHywrclmR1wJEh+yHx7lbz6spjrcpc9ddpXv0r8yez42vmCsL+ErrQ7Z1iTLB4XEh0uH57WrfNf7V0XQa1To\/iHx4dLhee1y\/nidd7+h4h+6I\/993v3D1AASHy4dntcu54\/DvPsIfABHI\/+9K49c+4epAcrut8v542ve\/Q0cg+OR\/743cagQfVVWv13OHyd490k4BX9E\/vvQ+bazPmuhw8gT0Vdl9dt95w8hND9MnmT+T8HTmh+qpyH6qki\/3Wb3nT+kHofkh42dzL8LdlVTHxSir4r022122\/nDRmh+tCZ9u751PXvGOmX3223nDxuh+SF+LPT4IflaRLcPUX0IGApNlZpd7e2mvrKd90LzQ\/xo8fgh+VpEt9\/C3G+F22BcpWbvinvqK6n1eo8hND9C10PytYhub1ZrALNhTqVmHxa7\/31Q7zFk5Uc\/w49NCWbve3VdzzwP0edmHJn3HUnOu\/SV3mMoun+YiB+SryH63Iwj835TkvNl6qtQXySPQ\/S5GUfm\/bakFpSlr\/IgeRyio3xx1T+pBWdCX\/nO9pLHITrKF1f1SS04E\/rK17OXPA7RUb64GpzUiBB9NTzjtxupAzfBzTAcRgT0UCWPi+ir6bx\/BsyspvbO2K+vXMg5eCLvmwSTYQrcHuCH5HERfdWqzs2wuJrat8SpvtL38Tz\/ljyH990N98C9MDfADzlnl6WvuuJUX+lnNld8j7XYljPvFbASVkFbgB+7k29dVl9UndV9\/d2s3FA8wrwfhceq6f+r5fOjO\/mmZfVF1Vm9N\/3d\/wG+Ghni",
+         "encoding":"base64",
+         "height":50,
+         "id":3,
+         "name":"bottom",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":50,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":4,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.9.0",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"source\/forest.tsx"
+        }, 
+        {
+         "firstgid":82,
+         "source":"source\/tree & grass.tsx"
+        }, 
+        {
+         "firstgid":443,
+         "source":"source\/road.tsx"
+        }, 
+        {
+         "firstgid":696,
+         "source":"source\/path.tsx"
+        }, 
+        {
+         "firstgid":1087,
+         "source":"stone.tsx"
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.9",
+ "width":50
+});
