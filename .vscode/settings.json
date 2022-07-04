@@ -9,6 +9,16 @@
 			"database": "rpguserinfo",
 			"username": "michael",
 			"password": "admin123"
+		},
+		{
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "localhost",
+			"database": "rpgproject",
+			"username": "postgres",
+			"password": "postgres"
 		}
 	]
 }
