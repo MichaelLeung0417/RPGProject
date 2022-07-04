@@ -54,7 +54,7 @@ main.post('/login', async (req, res) => {
 				user.password.trim() === req.body.password.trim()
 			) {
 				req.session['isUser'] = true
-				res.redirect('/index.html')
+				res.redirect('/charInfo.html')
 				return
 			}
 		}
@@ -83,7 +83,11 @@ main.post('/logout', (req, res) => {
 })
 
 main.get('/game', isLogin, (req, res) => {
-	res.redirect('/index.html')
+	res.redirect('/charInfo.html')
+})
+
+main.post('/comfirmLogin', isLogin, (req, res) => {
+	res.redirect('index.html')
 })
 
 main.post('/register', async (req, res) => {

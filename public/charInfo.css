@@ -36,14 +36,6 @@ body {
 	background-color: #000;
 	height: 80vh;
 	color: #fff;
-}
-
-.characterInfo > div {
-	height: 40vh;
 	width: 500px;
 	border: 5px solid #777777;
-}
-
-.character > div:nth-child(1) {
-	border-bottom: 0;
 }
