@@ -10,7 +10,7 @@ dotenv.config()
 export const client = new Client({
 	database: process.env.DB_NAME,
 	user: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD
+	password: process.env.DB_PASSWORDsd
 })
 
 client.connect()
@@ -19,8 +19,8 @@ const main = express()
 const server = new http.Server(main)
 const io = new SocketIO(server)
 
-io.on('connection', function (socket) {
-	console.log(socket)
+io.on('connection', (client) => {
+	client.emit('init', { data: 'hello world' })
 })
 
 main.use(

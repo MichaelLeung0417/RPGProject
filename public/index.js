@@ -1,6 +1,9 @@
-const { waitForDebugger } = require("inspector")
-const { resolve } = require("path")
-const { emitKeypressEvents } = require("readline")
+// const { waitForDebugger } = require('inspector')
+// const { resolve } = require('path')
+// const { emitKeypressEvents } = require('readline')
+const socket = io('http://localhost:8000')
+socket.on('init', hadnleInit)
+socket.on('gameState', handleGameState)
 
 const scale = 2
 const width = 16
@@ -127,23 +130,31 @@ function moveCharacter(deltaX, deltaY, direction) {
 	currentDirection = direction
 }
 
-
-//function for battle to look better only(personal note: "utils" is a js file and it use as utils.xxx in the video )
-wait(ms) {
-	return new Promise(resolve=>{
-		setTimeout(() => {
-			resolve
-		}, ms);
-	})
-},
-
-randomFromArray(arry){
-	return array[Math.floor(Math.random()*array.length)]
-},
-
-emitEvent(name, detail) {
-	const event = new CustomEvent(name, {
-		detail
-	});
-	document.dispatchEvent(event);
+function hadnleInit(msg) {
+	console.log(msg)
 }
+
+function handleGameState(gameState) {
+	gameState = JSON.parse(gameState)
+	requestAnimationFrame(() => paintGame(gameState))
+}
+
+// //function for battle to look better only(personal note: "utils" is a js file and it use as utils.xxx in the video )
+// wait(ms) {
+// 	return new Promise(resolve=>{
+// 		setTimeout(() => {
+// 			resolve
+// 		}, ms);
+// 	})
+// },
+
+// randomFromArray(arry){
+// 	return array[Math.floor(Math.random()*array.length)]
+// },
+
+// emitEvent(name, detail) {
+// 	const event = new CustomEvent(name, {
+// 		detail
+// 	});
+// 	document.dispatchEvent(event);
+// }
