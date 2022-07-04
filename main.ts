@@ -5,8 +5,6 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import http from 'http'
 import { Server as SocketIO } from 'socket.io'
-import { chat } from './message'
-
 dotenv.config()
 
 export const client = new Client({
@@ -152,9 +150,6 @@ main.post('/register', async (req, res) => {
 		res.status(500).send('Internal Server Error')
 	}
 })
-
-main.use(chat)
-
 
 main.use(express.static('private'))
 main.use(isLogin, express.static('public'))
