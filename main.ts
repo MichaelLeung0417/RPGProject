@@ -1,6 +1,6 @@
 import express from 'express'
 import expressSession from 'express-session'
-import fs from 'fs'
+// import fs from 'fs'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
 import http from 'http'
@@ -40,9 +40,20 @@ main.get('/', (req, res) => {
 
 main.post('/login', async (req, res) => {
 	try {
-		let users
+		let users: {
+			username: string
+			password: string
+		}[]
+
+		let username = req.body.username.trim()
+		let password = req.body.password.trim()
 		try {
-			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+			users = (
+				await client.query(
+					'SELECT * FROM accounts WHERE username=$1 AND password=$2',
+					[username, password]
+				)
+			).rows
 		} catch (err) {
 			console.error(err)
 			res.status(500).send('Internal Server Error')
