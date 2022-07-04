@@ -69,6 +69,17 @@ main.post('/login', async (req, res) => {
 				return
 			}
 		}
+
+		if (
+			client.query('SELECT * FROM accounts WHERE username=$1', [
+				username
+			]) !== req.body.username.trim() ||
+			client.query('SELECT * FROM accounts WHERE password=$1', [
+				password
+			]) !== req.body.password.trim()
+		) {
+			res.redirect('/')
+		}
 	} catch (err) {
 		console.error(err)
 		console.log(req.body)
@@ -142,4 +153,6 @@ main.post('/register', async (req, res) => {
 
 main.use(express.static('private'))
 main.use(isLogin, express.static('public'))
-main.listen(8000)
+main.listen(8000, function () {
+	console.log(`Listening on 8000 port`)
+})
