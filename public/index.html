@@ -18,9 +18,17 @@
 	<body>
 		<h1 class="title">RPGWorld</h1>
 		<canvas width="800" height="800"></canvas>
+		<div id="messageBox">
+			<div id="messagehistroy"></div>
+			<form action="/chat" method="POST">
+				<textarea placeholder="提交" name="chat"></textarea>
+			<input type="submit" value="提交">
+			</form>
+		</div>
 	</body>
 
 	<script src="index.js"></script>
+	<script src="messageButton.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<!-- Battle system temporary area (comment it if it disturbs yours)-->
 

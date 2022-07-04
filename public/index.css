@@ -15,3 +15,19 @@ canvas {
 	display: flex;
 	flex-wrap: wrap;
 }
+
+#messageBox{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 0;
+	right: 60px;
+}
+
+#messageBox #messagehistroy{
+	width: 100px;
+	height: 100px;
+	background-color: rgba( 0, 0, 0, 0.2);
+	border: 2px solid red;
+
+}
