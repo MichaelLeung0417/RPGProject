@@ -10,7 +10,7 @@ dotenv.config()
 export const client = new Client({
 	database: process.env.DB_NAME,
 	user: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORDsd
+	password: process.env.DB_PASSWORD
 })
 
 client.connect()
@@ -92,9 +92,18 @@ main.post('/comfirmLogin', isLogin, (req, res) => {
 
 main.post('/register', async (req, res) => {
 	try {
-		let users
+		let users: {
+			username: string
+		}[]
+
+		let username = req.body.username.trim()
+		let password = req.body.password.trim()
 		try {
-			users = JSON.parse(await fs.promises.readFile('users.json', 'utf8'))
+			users = (
+				await client.query('SELECT * FROM accounts WHERE username=$1', [
+					username
+				])
+			).rows
 		} catch (err) {
 			console.error(err)
 			res.status(500).send('Internal Server Error')
@@ -108,40 +117,10 @@ main.post('/register', async (req, res) => {
 			}
 		}
 
-		users.push({
-			username: req.body.username.trim(),
-			password: req.body.password.trim()
-		})
-
-		await fs.promises.writeFile('users.json', JSON.stringify(users))
-
-		// let username = req.body.username.trim()
-		// let password = req.body.password.trim()
-
-		// {
-		// 	let output = await client.query(
-		// 		'SELECT * FROM account WHERE username=$1',
-		// 		[username]
-		// 	)
-
-		// 	if (output.rows.length > 0) {
-		// 		res.redirect('/?error=重覆username')
-		// 		return
-		// 	}
-		// }
-
-		// {
-		// 	try {
-		// 		let output = await client.query(
-		// 			'INSERT INTO account(username, password) VALUES($1,$2)',
-		// 			[username, password]
-		// 		)
-		// 	} catch (err) {
-		// 		console.error(err)
-		// 		res.status(500).send('Internal Server Error')
-		// 		return
-		// 	}
-		// }
+		await client.query(
+			'INSERT INTO accounts(username, password) VALUES($1,$2)',
+			[username, password]
+		)
 
 		res.redirect('/')
 	} catch (err) {
