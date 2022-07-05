@@ -2,6 +2,7 @@ const bg_color = '#81d8d0'
 const player_color = '#fff'
 const items_color = '#e99984'
 let canvas, ctx
+let gridsize = 200
 
 function init() {
 	canvas = document.querySelector('canvas')
@@ -9,7 +10,7 @@ function init() {
 
 	canvas.width = canvas.height = 800
 
-	ctx.fillRect(255, 255, canvas.width, canvas.height)
+	ctx.fillRect(0, 0, canvas.width, canvas.height)
 	ctx.rect(0, 0, 0, 0)
 
 	document.addEventListener('keydown', keydown)
