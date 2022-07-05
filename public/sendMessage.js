@@ -1,5 +1,5 @@
 const socket = io.connect();
-let sendbtn = document.querySelector("#messageBox")
+let sendbtn = document.querySelector("#messageBox")//may not need
 sendbtn.addEventListener("submit", function(event){
     event.preventDefault()
     let messages = document.querySelector("#enterMessage")
