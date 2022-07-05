@@ -5,6 +5,8 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import http from 'http'
 import { Server as SocketIO } from 'socket.io'
+import {chat} from "./message"
+
 dotenv.config()
 
 export const client = new Client({
@@ -17,10 +19,17 @@ client.connect()
 
 const main = express()
 const server = new http.Server(main)
-const io = new SocketIO(server)
+export const io = new SocketIO(server)
 
-io.on('connection', (client) => {
-	client.emit('init', { data: 'hello world' })
+io.on('connection', function(socket){
+    console.log('Sever connect to client')
+    socket.on('sendSever', async function(data){
+        client.query(`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,[data.messages])
+        let dbData = await client.query(`SELECT messages FROM text`)
+		let boardcastMessage =dbData.rows
+		console.log(boardcastMessage)
+        io.emit('sendClient', boardcastMessage)
+    })
 })
 
 main.use(
@@ -151,8 +160,12 @@ main.post('/register', async (req, res) => {
 	}
 })
 
+main.use(chat)
 main.use(express.static('private'))
 main.use(isLogin, express.static('public'))
-main.listen(8000, function () {
+
+
+
+server.listen(8000, function () {
 	console.log(`Listening on 8000 port`)
 })
