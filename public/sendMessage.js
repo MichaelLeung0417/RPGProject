@@ -6,11 +6,13 @@ sendbtn.addEventListener("submit", function(event){
     socket.emit('sendSever',{
         messages: messages.value,
     })
+    document.querySelector("#enterMessage").value=''
 })
 
 socket.on('sendClient', function(data){
     document.querySelector('#messagehistroy').innerHTML=''
-    for(let messages of data){
+    let messagesReorder = data.reverse()
+    for(let messages of messagesReorder){
         document.querySelector('#messagehistroy').innerHTML += '<p>' + messages.messages + '</p>'
     }
 })
