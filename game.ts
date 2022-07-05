@@ -1,51 +1,48 @@
-const GRID_SIZE = 200
+class player {
+	private hp: number = 10
+	private atk: number = 1
+	private location: {} = { x: 10, y: 10 }
+	private characterName: string
 
-function initGame() {
-	const state = createGameState()
-	return state
-}
-
-function createGameState() {
-	return {
-		players: {
-			pos: {
-				x: 3,
-				y: 10
-			},
-			vel: {
-				x: 1,
-				y: 0
-			},
-			snake: [
-				{ x: 1, y: 10 },
-				{ x: 2, y: 10 },
-				{ x: 3, y: 10 }
-			]
-		},
-		gridsize: GRID_SIZE
+	public constructor(hp: number, atk: number, name: string) {
+		this.hp = hp
+		this.atk = atk
+		this.characterName = name
 	}
-}
 
-function getUpdatedVelocity(keyCode: number): { x: number; y: number } {
-	switch (keyCode) {
-		case 37: {
-			// left
-			return { x: -1, y: 0 }
+	public gethp(): number {
+		return this.hp
+	}
+
+	public getatk(): number {
+		return this.atk
+	}
+
+	public getlocation(): {} {
+		return this.location
+	}
+
+	public moveLeft(keyCode: number) {
+		if (keyCode == 37) {
+			this.location = { x: -1, y: 0 }
 		}
-		case 38: {
-			// down
-			return { x: 0, y: -1 }
+	}
+
+	public moveRight(keyCode: number) {
+		if (keyCode == 38) {
+			this.location = { x: 0, y: -1 }
 		}
-		case 39: {
-			// right
-			return { x: 1, y: 0 }
+	}
+
+	public moveUp(keyCode: number) {
+		if (keyCode == 39) {
+			this.location = { x: 1, y: 0 }
 		}
-		case 40: {
-			// up
-			return { x: 0, y: 1 }
-		}
-		default: {
-			return { x: 0, y: 0 }
+	}
+
+	public moveDown(keyCode: number) {
+		if (keyCode == 40) {
+			this.location = { x: 0, y: 1 }
 		}
 	}
 }
