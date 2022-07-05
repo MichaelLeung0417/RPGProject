@@ -25,7 +25,7 @@ io.on('connection', function(socket){
     console.log('Sever connect to client')
     socket.on('sendSever', async function(data){
         client.query(`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,[data.messages])
-        let dbData = await client.query(`SELECT messages FROM text`)
+        let dbData = await client.query(`SELECT messages FROM text ORDER BY id DESC LIMIT 5`) 
 		let boardcastMessage =dbData.rows
         io.emit('sendClient', boardcastMessage)
     })

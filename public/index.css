@@ -18,21 +18,24 @@ canvas {
 
 #messageBox{
 	position: absolute;
-	width: 100px;
-	height: 100px;
-	top: 0;
-	right: 60px;
+    width: 200px;
+    height: 200px;
+    top: 150px;
+    right: 10px;
 }
 
 #messageBox #messagehistroy{
-	width: 100px;
-	height: 100px;
-	background-color: rgba( 0, 0, 0, 0.2);
-	border: 2px solid red;
+	width: 166px;
+    height: 200px;
+    background-color: rgba( 0, 0, 0, 0.2);
+    border: 2px solid red;
+	overflow: scroll;
 
 }
 
 #send{
-	width: 30px;
-	height: 30px;
+	position: absolute;
+    width: 30px;
+    height: 20px;
+    right: 0;
 }
