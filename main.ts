@@ -27,7 +27,6 @@ io.on('connection', function(socket){
         client.query(`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,[data.messages])
         let dbData = await client.query(`SELECT messages FROM text`)
 		let boardcastMessage =dbData.rows
-		console.log(boardcastMessage)
         io.emit('sendClient', boardcastMessage)
     })
 })

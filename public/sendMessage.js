@@ -11,7 +11,6 @@ sendbtn.addEventListener("submit", function(event){
 socket.on('sendClient', function(data){
     document.querySelector('#messagehistroy').innerHTML=''
     for(let messages of data){
-        console.log(messages)
         document.querySelector('#messagehistroy').innerHTML += '<p>' + messages.messages + '</p><br>'
     }
 })
