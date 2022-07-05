@@ -100,8 +100,3 @@ class Enemy {
 		return this.hp
 	}
 }
-
-const player = new Player('michael')
-const monster = new Enemy()
-
-player.attack(monster)

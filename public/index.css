@@ -16,36 +16,40 @@ canvas {
 	flex-wrap: wrap;
 }
 
-#messageBox{
+#messageBox {
 	position: absolute;
-    width: 200px;
-    height: 200px;
-    top: 150px;
-    right: 10px;
+	width: 200px;
+	height: 200px;
+	top: 150px;
+	right: 10px;
 }
 
-#messageBox #messagehistroy{
-	width: 166px;
-    height: 200px;
+#messageBox #messagehistroy {
+	width: 200px;
+	height: 200px;
 	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_pCElID5u8MLiVXye5k_SGJZGIcOvDDVOag&usqp=CAU);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-    background-color: rgba( 0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.2);
 	text-align: center;
-    /* border: 2px solid red; */
+	/* border: 2px solid red; */
 	overflow: scroll;
-
 }
 
-#send{
-	position: absolute;
-    width: 30px;
-    height: 20px;
-    right: 0;
+#send {
+	width: 100%;
 }
 
+.messagehistroy p {
+	max-width: 166px;
+}
 
-.messagehistroy p{
-	max-width:166px;
+.container {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.container input button {
+	display: block;
 }
