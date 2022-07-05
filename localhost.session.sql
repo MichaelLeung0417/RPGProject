@@ -25,6 +25,6 @@ SELECT * FROM accounts
 
 SELECT messages FROM text
 
-SELECT * FROM text
+SELECT * FROM text ORDER BY id DESC LIMIT 5
 
 TRUNCATE TABLE text;
