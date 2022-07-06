@@ -21,8 +21,10 @@ const main = express()
 const server = new http.Server(main)
 export const io = new SocketIO(server)
 
-io.on('connection', function (socket) {
+io.on('connection', async function (socket) {
 	console.log('Sever connect to client')
+	const req = socket.request as express.Request;
+
 	socket.on('sendSever', async function (data) {
 		client.query(
 			`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,
@@ -34,15 +36,28 @@ io.on('connection', function (socket) {
 		let boardcastMessage = dbData.rows
 		io.emit('sendClient', boardcastMessage)
 	})
+
+	if(req.session['isUser']){//may not need double check
+        socket.join(`${req.session['playing-user-game']}-chatRoom`);  
+     }
+
 })
 
-main.use(
-	expressSession({
-		secret: 'qwpoejqpwoejqpeoj',
-		saveUninitialized: true,
-		resave: true
-	})
-)
+const sessionMiddleware = expressSession({
+    secret: 'Tecky Academy teaches typescript',
+    resave:true,
+    saveUninitialized:true,
+});
+
+main.use(sessionMiddleware)
+
+io.use((socket,next)=>{
+    let req = socket.request as express.Request
+    let res = req.res as express.Response
+    sessionMiddleware(req, res, next as express.NextFunction)
+});
+
+
 
 main.use(express.urlencoded())
 main.use(express.json())
@@ -78,6 +93,7 @@ main.post('/login', async (req, res) => {
 				user.password.trim() === req.body.password.trim()
 			) {
 				req.session['isUser'] = true
+				req.session['playing-user-game'] =  `${req.body.username.trim()}`
 				res.redirect('/charInfo.html')
 				return
 			}
@@ -153,8 +169,8 @@ main.post('/register', async (req, res) => {
 		}
 
 		await client.query(
-			'INSERT INTO accounts(username, password) VALUES($1,$2)',
-			[username, password]
+			'INSERT INTO accounts(username, password, login, created_at, updated_at) VALUES($1,$2,$3,NOW(),NOW())',
+			[username, password, false]
 		)
 
 		res.redirect('/')

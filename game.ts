@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 interface Attack {
 	damage: number
 }
+=======
+export class Player {
+	private hp: number
+	private atk: number
+	// private location: Location = { x: 10, y: 10 }
+	// private vol: {} = { x: 0, y: 0 }
+	private locationX: number = 10
+	private locationY: number = 10
+	private characterName: string
+>>>>>>> 0db6473c188d7cf223d0107d2caaebdf022731ca
 
 class phyAtk implements Attack {
 	//Phy Attack here
