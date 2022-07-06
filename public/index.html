@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1 class="title">RPGWorld</h1>
-		<canvas width="800" height="800"></canvas>
+		<div id="canvas"></div>
 
 		<form id="messageBox">
 			<div id="messagehistroy" name="messagehistroy"></div>
@@ -24,9 +24,8 @@
 			</div>
 		</form>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/sendMessage.js"></script>
+		<script src="index.js"></script>
 	</body>
-
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/sendMessage.js"></script>
-	<script src="index.js"></script>
 </html>

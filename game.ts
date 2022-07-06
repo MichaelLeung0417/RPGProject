@@ -1,16 +1,16 @@
 export class Player {
 	private hp: number
 	private atk: number
-	// private location: {} = { x: 10, y: 10 }
+	// private location: Location = { x: 10, y: 10 }
 	// private vol: {} = { x: 0, y: 0 }
 	private locationX: number = 10
 	private locationY: number = 10
-	private name: string
+	private characterName: string
 
 	public constructor(name: string) {
 		this.hp = 100
 		this.atk = 20
-		this.name = name
+		this.characterName = name
 	}
 
 	public gethp(): number {
@@ -53,6 +53,10 @@ export class Player {
 		}
 	}
 
+	public getCharacterName(): string {
+		return this.characterName
+	}
+
 	attack(enemy: Enemy) {
 		while (enemy.gethp() > 0) {
 			if (Math.random() < 1 / 3) {
@@ -60,14 +64,14 @@ export class Player {
 				enemy.injure(this.atk * 2)
 				console.log(
 					`Player ${
-						this.name
+						this.characterName
 					} attacks a monster (HP: ${enemy.gethp()}) [CRITICAL]`
 				)
 			} else {
 				enemy.injure(this.atk)
 				console.log(
 					`Player ${
-						this.name
+						this.characterName
 					} attacks a monster (HP: ${enemy.gethp()})`
 				)
 			}
