@@ -1,17 +1,6 @@
-<<<<<<< HEAD
 interface Attack {
 	damage: number
 }
-=======
-export class Player {
-	private hp: number
-	private atk: number
-	// private location: Location = { x: 10, y: 10 }
-	// private vol: {} = { x: 0, y: 0 }
-	private locationX: number = 10
-	private locationY: number = 10
-	private characterName: string
->>>>>>> 0db6473c188d7cf223d0107d2caaebdf022731ca
 
 class phyAtk implements Attack {
 	//Phy Attack here
@@ -37,7 +26,7 @@ interface Position {
 interface Player {
 	attack(monster: Monster): void
 	switchAttack(): void
-	move(): void
+	move(keyCode: number): void
 }
 
 class character implements Player {
@@ -46,6 +35,7 @@ class character implements Player {
 	private secondary: Attack
 	private usePrimaryAttack: boolean
 	private position: Position
+
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
 		this.secondary = new magicAtk(40)
@@ -92,10 +82,16 @@ class character implements Player {
 		}
 	}
 
-	move() {}
-
-	getPosition(): {} {
-		return this.position
+	move(keyCode: number) {
+		if (keyCode == 37) {
+			this.position.x = -1
+		} else if (keyCode == 38) {
+			this.position.y - 1
+		} else if (keyCode == 39) {
+			this.position.x + 1
+		} else if (keyCode == 40) {
+			this.position.y + 1
+		}
 	}
 }
 

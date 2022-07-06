@@ -14,6 +14,7 @@ function setup() {
 			board[x][y] = (distance / maxDistance) * 255
 		}
 	}
+	document.addEventListener('keydown', keydown)
 	noLoop() // Run once and stop
 }
 
@@ -28,4 +29,8 @@ function draw() {
 			rect(i * gridSize, j * gridSize, gridSize - 1, gridSize - 1)
 		}
 	}
+}
+
+function keydown(e) {
+	socket.emit('keydown', e.keyCode)
 }
