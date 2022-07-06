@@ -3,9 +3,13 @@ let sendbtn = document.querySelector("#messageBox")//may not need
 sendbtn.addEventListener("submit", function(event){
     event.preventDefault()
     let messages = document.querySelector("#enterMessage")
-    socket.emit('sendSever',{
-        messages: messages.value,
-    })
+    if(messages.value!=''){
+        socket.emit('sendSever',{
+            messages: messages.value,
+        })
+    }else{
+        return;
+    }
     document.querySelector("#enterMessage").value=''
 })
 
