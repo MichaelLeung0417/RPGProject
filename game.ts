@@ -93,6 +93,10 @@ class character implements Player {
 			this.position.y + 1
 		}
 	}
+
+	getPosition(): {} {
+		return this.position
+	}
 }
 
 class Monster {
@@ -133,6 +137,10 @@ class MAP {
 				this.location[i][j] = new MAP()
 			}
 		}
+	}
+
+	checkPostion(): void {
+		console.log(`${player.getPosition()}`)
 	}
 }
 
