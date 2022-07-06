@@ -1,4 +1,4 @@
-class Player {
+export class Player {
 	private hp: number
 	private atk: number
 	// private location: {} = { x: 10, y: 10 }
