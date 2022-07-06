@@ -48,6 +48,7 @@ canvas {
 .container {
 	display: flex;
 	justify-content: flex-start;
+	padding-left: 0;
 }
 
 .container input button {
