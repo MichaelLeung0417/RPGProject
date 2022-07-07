@@ -19,11 +19,11 @@ export default class Gameroom {
 		this.boardRows = boardRows
 	}
 
-	AddPlayer(player: Character) {
+	addPlayer(player: Character) {
 		this.onlinePlayers.push(player)
 	}
 
-	AddBugs(bugs: Monster) {
+	addBugs(bugs: Monster) {
 		this.existedBugs.push(bugs)
 	}
 
