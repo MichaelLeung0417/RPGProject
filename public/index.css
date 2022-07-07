@@ -16,6 +16,33 @@ canvas {
 	flex-wrap: wrap;
 }
 
+.status {
+	position: absolute;
+	margin-right: 1px;
+	top: 55px;
+	left: 150px;
+	background-color: rgba(46, 245, 129, 0.671);
+	width: 300px;
+	height: 400px;
+	border-radius: 20px;
+}
+
+.HPtext {
+	position: relative;
+	top: 20px;
+	left: 11px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.maxHP {
+    position: relative;
+	top: 20px;
+	left: 10px;
+    background-color: grey;
+    width: 250px;
+    height: 20px;
+}
+
 #messageBox {
 	position: absolute;
 	width: 200px;
