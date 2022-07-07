@@ -2,6 +2,8 @@ let board = []
 let maxDistance, canvas, columns, rows
 let gridSize = 20
 
+const socket = io.connect('localhost:8000')
+
 function setup() {
 	canvas = createCanvas(800, 800)
 	canvas.parent('canvas')
