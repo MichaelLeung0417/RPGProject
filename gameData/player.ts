@@ -23,18 +23,20 @@ interface Position {
 	y: number
 }
 
-interface Player {
-	attack(monster: Monster): void
+interface Players {
+	attack(): void
 	switchAttack(): void
 	move(keyCode: number): void
 }
 
-class character implements Player {
+export class character implements Players {
 	private name: string
 	private primary: Attack
 	private secondary: Attack
 	private usePrimaryAttack: boolean
 	private position: Position
+	private hp: number = 10
+	private level: number = 1
 
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
@@ -45,7 +47,7 @@ class character implements Player {
 		this.position = { x: 1, y: 1 }
 	}
 
-	attack(monster: Monster): void {
+	attack(): void {
 		let damage = 0
 		if (this.usePrimaryAttack) {
 			// TODO: use primary attack
@@ -63,7 +65,7 @@ class character implements Player {
 			}
 
 			monster.injure(damage * strengthFactor)
-			let result = `Player ${
+			let result = `Players ${
 				this.name
 			} attacks a monster (HP: ${monster.getHP()})`
 			if (strengthFactor > 1) {
@@ -97,53 +99,19 @@ class character implements Player {
 	getPosition(): {} {
 		return this.position
 	}
-}
 
-class Monster {
-	// Think of how to write injure
-	private hp: number
-	private name: string
+	// levelUp(): number {
+	// 	if (monster.getHP() == 0) {
+	// 		return player.level + 1
+	// 	}
+	// }
 
-	constructor() {
-		this.hp = 100
-		this.name = 'Monster'
-	}
-
-	injure(attack: number) {
-		this.hp -= attack
-		if (this.hp < 0) {
-			this.hp = 0
-		}
-		return this.hp
-	}
-
-	getHP(): number {
-		return this.hp
-	}
-
-	getName(): string {
-		return this.name
-	}
-}
-
-class MAP {
-	private location: {}[][]
-
-	public constructor() {
-		this.location = []
-
-		for (let i: number = 0; i < 20; i++) {
-			for (let j: number = 0; j < 20; j++) {
-				this.location[i][j] = new MAP()
-			}
+	public getPlayerData() {
+		return {
+			name: this.name,
+			position: this.position,
+			hp: this.hp,
+			level: this.level
 		}
 	}
-
-	checkPostion(): void {
-		console.log(`${player.getPosition()}`)
-	}
 }
-
-const player = new character('Peter')
-const monster = new Monster()
-player.attack(monster)
