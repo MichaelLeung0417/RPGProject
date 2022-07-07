@@ -25,6 +25,13 @@ io.on('connection', async function (socket) {
 	console.log('Sever connect to client')
 	const req = socket.request as express.Request;
 
+	let updatedLoginUserList = await client.query(`
+	SELECT username FROM accounts WHERE login = TRUE
+	`)
+
+	io.emit('loginUserList', updatedLoginUserList.rows)
+
+	//boardcast
 	socket.on('sendSever', async function (data) {
 		client.query(
 			`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,
@@ -37,9 +44,23 @@ io.on('connection', async function (socket) {
 		io.emit('sendClient', boardcastMessage)
 	})
 
-	if(req.session['isUser']){//may not need double check
-        socket.join(`${req.session['playing-user-game']}-chatRoom`);  
-     }
+	//end to end
+	try{
+		if(req.session['isUser']){//may not need double check
+			socket.join(`${req.session['playing-user-game']}-chatRoom`);  
+		 }
+	}catch(err){
+		console.error(err)
+			console.log('Internal Server Error')
+			return
+	}
+
+	// socket.on("disconnect",()=>{
+    //     //... rest of the code
+	// 	socket.leave(`${req.session['playing-user-game']}-chatRoom`)
+	// 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.body.username])
+	// 	req.session['isUser'] = false;
+    // })
 
 })
 
@@ -94,6 +115,7 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user-game'] =  `${req.body.username.trim()}`
+				client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [req.body.username])
 				res.redirect('/charInfo.html')
 				return
 			}
