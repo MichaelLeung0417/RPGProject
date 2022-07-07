@@ -1,15 +1,30 @@
 import { Character } from './player'
 import { Monster } from './monster'
+import { Map } from './map'
 
 export default class Gameroom {
-	private onlinePlayers: string[] = []
-	private existedBugs: string[] = []
+	private onlinePlayers: Character[] = []
+	private existedBugs: Monster[] = []
 
 	AddPlayer(player: Character) {
-		this.onlinePlayers.push(player.getPlayerData().name)
+		this.onlinePlayers.push(player)
 	}
 
 	AddBugs(bugs: Monster) {
-		this.existedBugs.push(bugs.getMonsterData().name)
+		this.existedBugs.push(bugs)
+	}
+
+	getAllPlayers() {
+		let playerInMap: {
+			x: number
+			y: number
+		}[] = []
+
+		for (const player of this.onlinePlayers) {
+			playerInMap.push({
+				x: player.getPlayerData().position.x,
+				y: player.getPlayerData().position.y
+			})
+		}
 	}
 }
