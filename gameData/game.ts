@@ -1,4 +1,4 @@
-import { character } from './player'
+import { Character } from './player'
 
 export class ClientHandler {
 	// private boardColumns: number = 20
@@ -7,7 +7,7 @@ export class ClientHandler {
 	// private map: Map
 
 	getPlayers() {
-		this.playerNames.push(character.name)
+		this.playerNames.push(Character.name)
 		console.log(this.playerNames)
 	}
 }

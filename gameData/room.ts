@@ -1,21 +1,15 @@
-class MAP {
-	private location: {}[][]
-	// private playerPosition: {}
+import { Character } from './player'
+import { Monster } from './monster'
 
-	public constructor() {
-		this.location = []
+export default class Gameroom {
+	private onlinePlayers: string[] = []
+	private existedBugs: string[] = []
 
-		for (let i: number = 0; i < 20; i++) {
-			for (let j: number = 0; j < 20; j++) {
-				this.location[i][j] = new MAP()
-			}
-		}
+	AddPlayer(player: Character) {
+		this.onlinePlayers.push(player.getPlayerData().name)
 	}
 
-	// checkPosition(): {} {
-	// 	for (let i: number = 0; i < character.length; i++) {
-	// 		this.playerPosition = player.getPosition()
-	// 	}
-	// 	return this.playerPosition
-	// }
+	AddBugs(bugs: Monster) {
+		this.existedBugs.push(bugs.getMonsterData().name)
+	}
 }

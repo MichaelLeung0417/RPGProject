@@ -32,7 +32,7 @@ interface Players {
 	levelUp(bugs: Monster): void
 }
 
-export class character implements Players {
+export class Character implements Players {
 	private name: string
 	private primary: Attack
 	private secondary: Attack

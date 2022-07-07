@@ -23,4 +23,11 @@ export class Monster {
 	getName(): string {
 		return this.name
 	}
+
+	public getMonsterData() {
+		return {
+			hp: this.hp,
+			name: this.name
+		}
+	}
 }
