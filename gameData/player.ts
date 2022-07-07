@@ -1,3 +1,5 @@
+import { Monster } from './monster'
+
 interface Attack {
 	damage: number
 }
@@ -24,9 +26,10 @@ interface Position {
 }
 
 interface Players {
-	attack(): void
+	attack(bugs: Monster): void
 	switchAttack(): void
 	move(keyCode: number): void
+	levelUp(bugs: Monster): void
 }
 
 export class character implements Players {
@@ -47,7 +50,7 @@ export class character implements Players {
 		this.position = { x: 1, y: 1 }
 	}
 
-	attack(): void {
+	attack(bugs: Monster): void {
 		let damage = 0
 		if (this.usePrimaryAttack) {
 			// TODO: use primary attack
@@ -57,17 +60,17 @@ export class character implements Players {
 			damage = this.secondary.damage
 		}
 
-		while (monster.getHP() > 0) {
+		while (bugs.getHP() > 0) {
 			let strengthFactor = 1
 
 			if (Math.random() < 1 / 3) {
 				strengthFactor *= 2
 			}
 
-			monster.injure(damage * strengthFactor)
+			bugs.injure(damage * strengthFactor)
 			let result = `Players ${
 				this.name
-			} attacks a monster (HP: ${monster.getHP()})`
+			} attacks a bugs (HP: ${bugs.getHP()})`
 			if (strengthFactor > 1) {
 				result += ` [CRITICAL]`
 			}
@@ -100,11 +103,15 @@ export class character implements Players {
 		return this.position
 	}
 
-	// levelUp(): number {
-	// 	if (monster.getHP() == 0) {
-	// 		return player.level + 1
-	// 	}
-	// }
+	getLevel() {
+		return this.level
+	}
+
+	levelUp(bugs: Monster): void {
+		if (bugs.getHP() == 0) {
+			this.level += this.level + 1
+		}
+	}
 
 	public getPlayerData() {
 		return {

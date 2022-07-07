@@ -5,7 +5,7 @@ export class Monster {
 
 	constructor() {
 		this.hp = 100
-		this.name = 'Monster'
+		this.name = 'BUGS'
 	}
 
 	injure(attack: number) {

@@ -1,6 +1,6 @@
 class MAP {
 	private location: {}[][]
-	private playerPosition: {}
+	// private playerPosition: {}
 
 	public constructor() {
 		this.location = []
@@ -12,10 +12,10 @@ class MAP {
 		}
 	}
 
-	checkPosition(): {} {
-		for (let i: number = 0; i < character.length; i++) {
-			this.playerPosition = player.getPosition()
-		}
-		return this.playerPosition
-	}
+	// checkPosition(): {} {
+	// 	for (let i: number = 0; i < character.length; i++) {
+	// 		this.playerPosition = player.getPosition()
+	// 	}
+	// 	return this.playerPosition
+	// }
 }
