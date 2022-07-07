@@ -45,37 +45,45 @@ io.on('connection', async function (socket) {
 	})
 
 	//end to end
-	try{
-		if(req.session['isUser']){//may not need double check
-			socket.join(`${req.session['playing-user-game']}-chatRoom`);  
-		 }
-	}catch(err){
+	socket.on("private-message", function (data) {
+		io.to(`${data.receiver}`).emit('designateClient', {
+			sender: req.session['playing-user'],
+			messages: data.messages,
+		})
+	})
+
+	//join client own room
+	try {
+		if (req.session['isUser']) {//may not need double check
+			socket.join(`${req.session['playing-user']}-chatRoom`);
+		}
+	} catch (err) {
 		console.error(err)
-			console.log('Internal Server Error')
-			return
+		console.log('Internal Server Error')
+		return
 	}
 
 	// socket.on("disconnect",()=>{
-    //     //... rest of the code
-	// 	socket.leave(`${req.session['playing-user-game']}-chatRoom`)
+	//     //... rest of the code
+	// 	socket.leave(`${req.session['playing-user']}-chatRoom`)
 	// 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.body.username])
 	// 	req.session['isUser'] = false;
-    // })
+	// })
 
 })
 
 const sessionMiddleware = expressSession({
-    secret: 'Tecky Academy teaches typescript',
-    resave:true,
-    saveUninitialized:true,
+	secret: 'Tecky Academy teaches typescript',
+	resave: true,
+	saveUninitialized: true,
 });
 
 main.use(sessionMiddleware)
 
-io.use((socket,next)=>{
-    let req = socket.request as express.Request
-    let res = req.res as express.Response
-    sessionMiddleware(req, res, next as express.NextFunction)
+io.use((socket, next) => {
+	let req = socket.request as express.Request
+	let res = req.res as express.Response
+	sessionMiddleware(req, res, next as express.NextFunction)
 });
 
 
@@ -114,7 +122,7 @@ main.post('/login', async (req, res) => {
 				user.password.trim() === req.body.password.trim()
 			) {
 				req.session['isUser'] = true
-				req.session['playing-user-game'] =  `${req.body.username.trim()}`
+				req.session['playing-user'] = `${req.body.username.trim()}`
 				client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [req.body.username])
 				res.redirect('/charInfo.html')
 				return
