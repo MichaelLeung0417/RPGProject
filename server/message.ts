@@ -1,16 +1,10 @@
-import express from "express"
+import express from 'express'
 // import http from 'http'
 // import { Server } from 'socket.io'
 // import { Client } from 'pg'
 // import { io, client } from './main'
 
-
-
-
 export const chat = express.Router()
-
-
-console.log("message.ts");
 
 // io.on('connection', function(socket){
 //     console.log('Sever connect to client')

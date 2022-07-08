@@ -2,21 +2,16 @@ import { Character } from './player'
 import { Monster } from './monster'
 
 export default class Gameroom {
-	private onlinePlayers: Character[] = []
-	private existedBugs: Monster[] = []
-	private boardColumns: number = 16
-	private boardRows: number = 16
+	private onlinePlayers: Character[]
+	private existedBugs: Monster[]
+	private boardColumns: number
+	private boardRows: number
 
-	constructor(
-		onlinePlayers: Character[],
-		existedBugs: Monster[],
-		boardColumns: number,
-		boardRows: number
-	) {
-		this.onlinePlayers = onlinePlayers
-		this.existedBugs = existedBugs
-		this.boardColumns = boardColumns
-		this.boardRows = boardRows
+	constructor() {
+		this.onlinePlayers = []
+		this.existedBugs = []
+		this.boardColumns = 16
+		this.boardRows = 16
 	}
 
 	addPlayer(player: Character) {
@@ -25,6 +20,10 @@ export default class Gameroom {
 
 	addBugs(bugs: Monster) {
 		this.existedBugs.push(bugs)
+	}
+
+	getOnlinePlayers() {
+		return this.onlinePlayers
 	}
 
 	getAllPlayers() {

@@ -6,6 +6,8 @@ import dotenv from 'dotenv'
 import http from 'http'
 import { Server as SocketIO } from 'socket.io'
 import { chat } from './message'
+import { Character } from './gameData/player'
+import Gameroom from './gameData/room'
 
 dotenv.config()
 
@@ -21,9 +23,12 @@ const main = express()
 const server = new http.Server(main)
 export const io = new SocketIO(server)
 
+const gameroom = new Gameroom()
+let playerArr = gameroom.getOnlinePlayers()
+
 io.on('connection', async function (socket) {
-	console.log('Sever connect to client')
-	const req = socket.request as express.Request;
+	console.log(`${socket.id}: Sever connect to client`)
+	const req = socket.request as express.Request
 
 	let updatedLoginUserList = await client.query(`
 	SELECT username FROM accounts WHERE login = TRUE
@@ -45,17 +50,18 @@ io.on('connection', async function (socket) {
 	})
 
 	//end to end
-	socket.on("private-message", function (data) {
+	socket.on('private-message', function (data) {
 		io.to(`${data.receiver}`).emit('designateClient', {
 			sender: req.session['playing-user'],
-			messages: data.messages,
+			messages: data.messages
 		})
 	})
 
 	//join client own room
 	try {
-		if (req.session['isUser']) {//may not need double check
-			socket.join(`${req.session['playing-user']}-chatRoom`);
+		if (req.session['isUser']) {
+			//may not need double check
+			socket.join(`${req.session['playing-user']}-chatRoom`)
 		}
 	} catch (err) {
 		console.error(err)
@@ -70,13 +76,26 @@ io.on('connection', async function (socket) {
 	// 	req.session['isUser'] = false;
 	// })
 
+	//add player to game room
+	socket.on('CharacterSumbit', function (data: string) {
+		let player = new Character(data)
+		gameroom.addPlayer(player)
+	})
+
+	//get frontend keyCode value
+	socket.on('keydown', function (data: number) {
+		for (let i: number = 0; i < playerArr.length; i++) {
+			playerArr[i].move(data)
+			console.log(playerArr[i].getPosition())
+		}
+	})
 })
 
 const sessionMiddleware = expressSession({
 	secret: 'Tecky Academy teaches typescript',
 	resave: true,
-	saveUninitialized: true,
-});
+	saveUninitialized: true
+})
 
 main.use(sessionMiddleware)
 
@@ -84,15 +103,13 @@ io.use((socket, next) => {
 	let req = socket.request as express.Request
 	let res = req.res as express.Response
 	sessionMiddleware(req, res, next as express.NextFunction)
-});
-
-
+})
 
 main.use(express.urlencoded())
 main.use(express.json())
 
 main.get('/', (req, res) => {
-	res.redirect('login.html')
+	res.redirect('/login.html')
 })
 
 main.post('/login', async (req, res) => {
@@ -123,7 +140,10 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
-				client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [req.body.username])
+				client.query(
+					`UPDATE accounts SET login = TRUE WHERE username=$1`,
+					[req.body.username]
+				)
 				res.redirect('/charInfo.html')
 				return
 			}
@@ -211,8 +231,8 @@ main.post('/register', async (req, res) => {
 })
 
 main.use(chat)
-main.use(express.static('private'))
-main.use(isLogin, express.static('public'))
+main.use(express.static('../public'))
+main.use(isLogin, express.static('../private'))
 
 server.listen(8000, function () {
 	console.log(`Listening on 8000 port`)

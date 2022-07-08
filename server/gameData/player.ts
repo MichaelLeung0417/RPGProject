@@ -1,6 +1,6 @@
 import { Monster } from './monster'
 
-interface Attack {
+export interface Attack {
 	damage: number
 }
 
@@ -20,7 +20,7 @@ class magicAtk implements Attack {
 	}
 }
 
-interface Position {
+export interface Position {
 	x: number
 	y: number
 }
@@ -38,18 +38,22 @@ export class Character implements Players {
 	private secondary: Attack
 	private usePrimaryAttack: boolean
 	private position: Position
-	private hp: number = 10
-	private level: number = 1
-	private boardColumns: number = 16
-	private boardRows: number = 16
+	private hp: number
+	private level: number
+	private boardColumns: number
+	private boardRows: number
 
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
 		this.secondary = new magicAtk(40)
+		this.hp = 10
+		this.level = 1
 		// TODO: set the default value of usePrimaryAttack
 		this.name = name
 		this.usePrimaryAttack = false
 		this.position = { x: 1, y: 1 }
+		this.boardColumns = 16
+		this.boardRows = 16
 	}
 
 	attack(bugs: Monster): void {
@@ -82,21 +86,33 @@ export class Character implements Players {
 	}
 
 	move(keyCode: number) {
-		// left
-		if (keyCode == 37 && this.position.x > 0) {
-			this.position.x = -1
-		}
-		// down
-		else if (keyCode == 38 && this.position.y > 0) {
-			this.position.y - 1
-		}
-		// right
-		else if (keyCode == 39 && this.position.x < this.boardColumns) {
-			this.position.x + 1
-		}
-		// up
-		else if (keyCode == 40 && this.position.y < this.boardRows) {
-			this.position.y + 1
+		switch (keyCode) {
+			// left
+			case 65:
+				if (this.position.x > 0) {
+					this.position.x--
+				}
+				break
+			// down
+			case 83:
+				if (this.position.y > 0) {
+					this.position.y--
+				}
+				break
+			// right
+			case 68:
+				if (this.position.x < this.boardColumns) {
+					this.position.x++
+				}
+				break
+			// up
+			case 87:
+				if (this.position.y < this.boardRows) {
+					this.position.y++
+				}
+				break
+			default:
+				this.position = this.position
 		}
 	}
 
@@ -117,9 +133,14 @@ export class Character implements Players {
 	public getPlayerData() {
 		return {
 			name: this.name,
+			primary: this.primary,
+			secondary: this.secondary,
+			usePrimaryAttack: this.usePrimaryAttack,
 			position: this.position,
 			hp: this.hp,
-			level: this.level
+			level: this.level,
+			boardColumns: this.boardColumns,
+			boardRows: this.boardRows
 		}
 	}
 }
