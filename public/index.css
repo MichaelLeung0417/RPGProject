@@ -53,9 +53,11 @@ canvas {
 	height: 20px;
 }
 
-.text{
+
+.chatText{
 	position: relative;
     top: -5px;
+	left: -3px;
 }
 
 #messageBox {
