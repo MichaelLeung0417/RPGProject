@@ -1,9 +1,9 @@
 let board = []
 let maxDistance, canvas, columns, rows
-let gridSize = 20
+let gridSize = 40
 
 function setup() {
-	canvas = createCanvas(800, 800)
+	canvas = createCanvas(640, 640)
 	canvas.parent('canvas')
 	columns = floor(width / gridSize)
 	rows = floor(height / gridSize)
@@ -14,7 +14,10 @@ function setup() {
 			board[x][y] = (distance / maxDistance) * 255
 		}
 	}
-	document.addEventListener('keydown', keydown)
+	document.addEventListener('keydown', (e) => {
+		console.log('keydown')
+		keydown(e)
+	})
 	noLoop() // Run once and stop
 }
 
@@ -34,5 +37,3 @@ function draw() {
 function keydown(e) {
 	socket.emit('keydown', e.keyCode)
 }
-
-const socket = io()
