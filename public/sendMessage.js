@@ -1,5 +1,17 @@
 const socket = io.connect();
 
+//channel convertion
+document.querySelector('#public').addEventListener('click', function(){
+    document.querySelector('#PublicMessagehistroy').classList.remove('hide')
+    document.querySelector('#PrivateMessagehistroy').classList.add('hide')
+})
+
+document.querySelector('#private').addEventListener('click', function(){
+    document.querySelector('#PrivateMessagehistroy').classList.remove('hide')
+    document.querySelector('#PublicMessagehistroy').classList.add('hide')
+})
+//channel convertion
+
 let sendbtn = document.querySelector("#messageBox")
 
 sendbtn.addEventListener("submit", function (event) {
@@ -22,7 +34,7 @@ sendbtn.addEventListener("submit", function (event) {
                 receiver: `${messageReceiver}-chatRoom`,
                 messages: messages.value,
             });
-            document.querySelector('#messagehistroy').innerHTML += '<p>' + `You: ` + `${messages.value}` + '</p>'
+            document.querySelector('#PrivateMessagehistroy').innerHTML += '<p>' + `You: ` + `${messages.value}` + '</p>'
         }else{
             return
         }
@@ -51,17 +63,19 @@ socket.on('loginUserList', async function (updatedLoginUserList) {
 
 //print boardcast messages
 socket.on('sendClient', function (data) {
-    document.querySelector('#messagehistroy').innerHTML = ''
+    document.querySelector('#PublicMessagehistroy').innerHTML = ''
     let messagesReorder = data.reverse()
     for (let messages of messagesReorder) {
-        document.querySelector('#messagehistroy').innerHTML += '<p>' + messages.messages + '</p>'
+        document.querySelector('#PublicMessagehistroy').innerHTML += '<p>' + messages.messages + '</p>'
     }
 })
 //print boardcast messages
 
+//print private messages
 socket.on('designateClient', function (data) {
     console.log(data.messages)
-    document.querySelector('#messagehistroy').innerHTML += '<p>' + `${data.sender}: ` + `${data.messages}` + '</p>'
+    document.querySelector('#PrivateMessagehistroy').innerHTML += '<p>' + `${data.sender}: ` + `${data.messages}` + '</p>'
 })
+//print private messages
 
  //console.log(document.querySelector('#loginUser').value) select designate user

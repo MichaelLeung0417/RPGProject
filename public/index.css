@@ -43,6 +43,21 @@ canvas {
     height: 20px;
 }
 
+.channel{
+	display: flex;
+	justify-content: space-between;
+}
+
+.channel button{
+	width: 60px;
+	height: 20px;
+}
+
+.text{
+	position: relative;
+    top: -5px;
+}
+
 #messageBox {
 	position: absolute;
 	width: 200px;
@@ -51,7 +66,7 @@ canvas {
 	right: 10px;
 }
 
-#messageBox #messagehistroy {
+#messageBox #PublicMessagehistroy, #PrivateMessagehistroy {
 	width: 200px;
 	height: 200px;
 	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_pCElID5u8MLiVXye5k_SGJZGIcOvDDVOag&usqp=CAU);
@@ -68,8 +83,12 @@ canvas {
 	width: 100%;
 }
 
-.messagehistroy p {
+.PublicMessagehistroy p, #PrivateMessagehistroy p {
 	max-width: 166px;
+}
+
+.hide{
+	display: none;
 }
 
 .container {
