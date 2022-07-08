@@ -40,6 +40,8 @@ export class Character implements Players {
 	private position: Position
 	private hp: number = 10
 	private level: number = 1
+	private boardColumns: number = 16
+	private boardRows: number = 16
 
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
@@ -66,15 +68,7 @@ export class Character implements Players {
 			if (Math.random() < 1 / 3) {
 				strengthFactor *= 2
 			}
-
 			bugs.injure(damage * strengthFactor)
-			let result = `Players ${
-				this.name
-			} attacks a bugs (HP: ${bugs.getHP()})`
-			if (strengthFactor > 1) {
-				result += ` [CRITICAL]`
-			}
-			console.log(result)
 		}
 	}
 
@@ -88,13 +82,20 @@ export class Character implements Players {
 	}
 
 	move(keyCode: number) {
-		if (keyCode == 37) {
+		// left
+		if (keyCode == 37 && this.position.x > 0) {
 			this.position.x = -1
-		} else if (keyCode == 38) {
+		}
+		// down
+		else if (keyCode == 38 && this.position.y > 0) {
 			this.position.y - 1
-		} else if (keyCode == 39) {
+		}
+		// right
+		else if (keyCode == 39 && this.position.x < this.boardColumns) {
 			this.position.x + 1
-		} else if (keyCode == 40) {
+		}
+		// up
+		else if (keyCode == 40 && this.position.y < this.boardRows) {
 			this.position.y + 1
 		}
 	}

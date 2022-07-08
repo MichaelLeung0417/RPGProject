@@ -1,22 +1,11 @@
 import { Character } from './player'
 import { Monster } from './monster'
-import express from 'express'
-import http from 'http'
-import { Server as SocketIO } from 'socket.io'
-
-const app = express()
-const server = new http.Server(app)
-const io = new SocketIO(server)
-
-io.on('connection', function (socket) {
-	console.log(socket)
-})
 
 export default class Gameroom {
 	private onlinePlayers: Character[] = []
 	private existedBugs: Monster[] = []
-	private boardColumns: number = 20
-	private boardRows: number = 20
+	private boardColumns: number = 16
+	private boardRows: number = 16
 
 	constructor(
 		onlinePlayers: Character[],
