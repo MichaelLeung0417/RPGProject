@@ -77,7 +77,7 @@ io.on('connection', async function (socket) {
 	// })
 
 	//add player to game room
-	socket.on('CharacterSumbit', function (data: string) {
+	socket.on('CharacterSubmit', function (data: string) {
 		let player = new Character(data)
 		gameroom.addPlayer(player)
 	})
