@@ -1,7 +1,13 @@
-document.getElementById('playerName').addEventListener('click', (e) => {
-	CharacterSumbit(e)
-})
+const socket = io.connect()
 
-function CharacterSumbit(e) {
-	socket.emit('CharacterSumbit', e)
+let characterName = document.getElementById('nameSubmit').value
+
+document
+	.getElementById('playerName')
+	.addEventListener('click', (characterName) => {
+		CharacterSubmit(characterName)
+	})
+
+function CharacterSubmit(characterName) {
+	socket.emit('CharacterSubmit', characterName)
 }
