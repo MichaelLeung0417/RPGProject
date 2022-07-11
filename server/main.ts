@@ -29,7 +29,13 @@ let playerArr = gameroom.getOnlinePlayers()
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
-	await client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
+	socket.leave(`${req.session['playing-user']}-chatRoom`)
+	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+		req.session['playing-user']
+	])
+	req.session['isUser'] = false
+	console.log('reset user status')
+	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
 
@@ -73,33 +79,34 @@ io.on('connection', async function (socket) {
 	}
 
 	//disconnection check
-	// async function checkconnection() {
-	// 	io.emit('connectCheck', 'are you there')
+	async function checkconnection() {
+		io.emit('connectCheck', 'are you there')
 
-	// 	let reply = false
-	// 	socket.on('replyConnect', function () {
-	// 		reply = true
-	// 		return
-	// 	})
+		let reply = false
+		socket.on('replyConnect', function () {
+			reply = true
+			return
+		})
 
-	// 	setTimeout(function () {
-	// 		if (reply) {
-	// 			console.log(`playerOnline(${req.session['playing-user']})`)
-	// 			return
-	// 		} else {
-	// 			socket.leave(`${req.session['playing-user']}-chatRoom`)
-	// 			client.query(
-	// 				`UPDATE accounts SET login = FALSE WHERE username=$1`,
-	// 				[req.session['playing-user']]
-	// 			)
-	// 			req.session['isUser'] = false
-	// 			console.log(`disconnection`)
-	// 		}
-	// 	}, 5000)
-	// }
-	// setInterval(checkconnection, 5000)
+		let checkconnection = setTimeout(function () {
+			if (reply) {
+				console.log(`playerOnline(${req.session['playing-user']})`)
+				clearTimeout(checkconnection)
+				return
+			} else {
+				socket.leave(`${req.session['playing-user']}-chatRoom`)
+				client.query(
+					`UPDATE accounts SET login = FALSE WHERE username=$1`,
+					[req.session['playing-user']]
+				)
+				req.session['isUser'] = false
+				console.log(`disconnection`)
+			}
+		}, 5000)
+	}
+	setInterval(checkconnection, 5000)
 
-	// //add player to game room
+	//add player to game room
 	socket.on('CharacterSubmit', async function (data: string) {
 		let player = new Character(data)
 		gameroom.addPlayer(player)
