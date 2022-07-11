@@ -95,20 +95,20 @@ export class Character implements Players {
 				break
 			// down
 			case 83:
-				if (this.position.y > 0) {
-					this.position.y--
+				if (this.position.y < this.boardColumns) {
+					this.position.y++
 				}
 				break
 			// right
 			case 68:
-				if (this.position.x < this.boardColumns) {
+				if (this.position.x < this.boardRows) {
 					this.position.x++
 				}
 				break
 			// up
 			case 87:
-				if (this.position.y < this.boardRows) {
-					this.position.y++
+				if (this.position.y > 0) {
+					this.position.y--
 				}
 				break
 			default:

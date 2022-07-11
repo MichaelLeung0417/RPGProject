@@ -79,32 +79,32 @@ io.on('connection', async function (socket) {
 	}
 
 	//disconnection check
-	async function checkconnection() {
-		io.emit('connectCheck', 'are you there')
+	// async function checkconnection() {
+	// 	io.emit('connectCheck', 'are you there')
 
-		let reply = false
-		socket.on('replyConnect', function () {
-			reply = true
-			return
-		})
+	// 	let reply = false
+	// 	socket.on('replyConnect', function () {
+	// 		reply = true
+	// 		return
+	// 	})
 
-		let checkconnection = setTimeout(function () {
-			if (reply) {
-				console.log(`playerOnline(${req.session['playing-user']})`)
-				clearTimeout(checkconnection)
-				return
-			} else {
-				socket.leave(`${req.session['playing-user']}-chatRoom`)
-				client.query(
-					`UPDATE accounts SET login = FALSE WHERE username=$1`,
-					[req.session['playing-user']]
-				)
-				req.session['isUser'] = false
-				console.log(`disconnection`)
-			}
-		}, 5000)
-	}
-	setInterval(checkconnection, 5000)
+	// 	let checkconnection = setTimeout(function () {
+	// 		if (reply) {
+	// 			console.log(`playerOnline(${req.session['playing-user']})`)
+	// 			clearTimeout(checkconnection)
+	// 			return
+	// 		} else {
+	// 			socket.leave(`${req.session['playing-user']}-chatRoom`)
+	// 			client.query(
+	// 				`UPDATE accounts SET login = FALSE WHERE username=$1`,
+	// 				[req.session['playing-user']]
+	// 			)
+	// 			req.session['isUser'] = false
+	// 			console.log(`disconnection`)
+	// 		}
+	// 	}, 5000)
+	// }
+	// setInterval(checkconnection, 5000)
 
 	//add player to game room
 	socket.on('CharacterSubmit', async function (data: string) {

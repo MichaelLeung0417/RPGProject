@@ -34,8 +34,8 @@ export default class Gameroom {
 
 		for (const player of this.onlinePlayers) {
 			while (
-				player.getPlayerData().position.x < this.boardColumns &&
-				player.getPlayerData().position.y < this.boardRows
+				player.getPlayerData().position.x < this.boardRows &&
+				player.getPlayerData().position.y < this.boardColumns
 			) {
 				playerInMap.push({
 					x: player.getPlayerData().position.x,
