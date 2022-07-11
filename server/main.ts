@@ -34,7 +34,7 @@ io.on('connection', async function (socket) {
 		req.session['playing-user']
 	])
 	req.session['isUser'] = false
-	console.log('disconnection')
+	console.log('reset user status')
 	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
@@ -88,9 +88,10 @@ io.on('connection', async function (socket) {
 			return
 		})
 
-		setTimeout(function () {
+		let checkconnection = setTimeout(function () {
 			if (reply) {
 				console.log(`playerOnline(${req.session['playing-user']})`)
+				clearTimeout(checkconnection)
 				return
 			} else {
 				socket.leave(`${req.session['playing-user']}-chatRoom`)
