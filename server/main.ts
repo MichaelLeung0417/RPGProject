@@ -104,16 +104,6 @@ io.on('connection', async function (socket) {
 	}
 	setInterval(checkconnection, 5000)
 
-	// socket.on('disconnect', () => {
-	// 	//... rest of the code
-	// 	socket.leave(`${req.session['playing-user']}-chatRoom`)
-	// 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
-	// 		req.session['playing-user']
-	// 	])
-	// 	req.session['isUser'] = false
-	// 	console.log(`disconnection(${req.session['playing-user']})`)
-	// })
-
 	//add player to game room
 	socket.on('CharacterSubmit', function (data: string) {
 		let player = new Character(data)
