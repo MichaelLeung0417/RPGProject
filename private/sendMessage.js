@@ -81,4 +81,8 @@ socket.on('designateClient', function (data) {
 })
 //print private messages
 
-//console.log(document.querySelector('#loginUser').value) select designate user
+//reply client connection
+// socket.on('connectCheck', function(){
+// 	socket.emit('relpyConnect','client still there')
+// 	console.log('reply successful')
+// })
