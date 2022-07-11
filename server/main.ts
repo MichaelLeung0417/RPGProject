@@ -183,6 +183,10 @@ main.post('/logout', (req, res) => {
 	res.redirect('/')
 })
 
+main.get('/charNameInput', isLogin, (req, res) => {
+	res.redirect('/charNameInput.html')
+})
+
 main.get('/game', isLogin, (req, res) => {
 	res.redirect('/charInfo.html')
 })
