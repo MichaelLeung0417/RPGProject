@@ -15,10 +15,10 @@ function setup() {
 		}
 	}
 	document.addEventListener('keydown', (e) => {
-		console.log('keydown')
 		keydown(e)
 	})
-	noLoop() // Run once and stop
+	init()
+	noLoop()
 }
 
 function draw() {
@@ -32,6 +32,20 @@ function draw() {
 			rect(i * gridSize, j * gridSize, gridSize - 1, gridSize - 1)
 		}
 	}
+}
+
+function init() {
+	socket.on('playerLocation', (data) => {
+		for (let i = 0; i < columns; i++) {
+			for (let j = 0; j < rows; j++) {
+				if (board[i][j] == board[data.x][data.y]) {
+					fill(255)
+					stroke(255)
+				}
+			}
+		}
+		console.log('x: ' + data.x + ' y: ' + data.y)
+	})
 }
 
 function keydown(e) {
