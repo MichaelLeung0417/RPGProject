@@ -9,8 +9,6 @@ import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
 
-
-
 dotenv.config()
 
 export const client = new Client({
@@ -31,7 +29,9 @@ let playerArr = gameroom.getOnlinePlayers()
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
-	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [req.session['playing-user']])
+	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
+		req.session['playing-user']
+	])
 
 	let updatedLoginUserList = await client.query(`
 	SELECT username FROM accounts WHERE login = TRUE
@@ -93,13 +93,13 @@ io.on('connection', async function (socket) {
 	// }
 	// setInterval(checkconnection, 15000)
 
-
-
-	socket.on("disconnect", () => {
+	socket.on('disconnect', () => {
 		//... rest of the code
 		socket.leave(`${req.session['playing-user']}-chatRoom`)
-		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
-		req.session['isUser'] = false;
+		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+			req.session['playing-user']
+		])
+		req.session['isUser'] = false
 		console.log('disconnection')
 	})
 
@@ -175,10 +175,10 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
-				// client.query(
-				// 	`UPDATE accounts SET login = TRUE WHERE username=$1`,
-				// 	[req.body.username]
-				// )
+				client.query(
+					`UPDATE accounts SET login = TRUE WHERE username=$1`,
+					[req.body.username]
+				)
 				res.redirect('/charInfo.html')
 				return
 			} else if (
@@ -243,7 +243,6 @@ main.post('/charNameSubmit', isLogin, (req, res) => {
 })
 
 main.post('/comfirmLogin', isLogin, (req, res) => {
-	//client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [req.session['playing-user']])
 	res.redirect('index.html')
 })
 
