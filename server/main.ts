@@ -69,12 +69,13 @@ io.on('connection', async function (socket) {
 		return
 	}
 
-	// socket.on("disconnect",()=>{
-	//     //... rest of the code
-	// 	socket.leave(`${req.session['playing-user']}-chatRoom`)
-	// 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.body.username])
-	// 	req.session['isUser'] = false;
-	// })
+	socket.on("disconnect",()=>{
+	    //... rest of the code
+		socket.leave(`${req.session['playing-user']}-chatRoom`)
+		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['player-user']])
+		req.session['isUser'] = false;
+		console.log('disconnection')
+	})
 
 	//add player to game room
 	socket.on('CharacterSubmit', function (data: string) {
