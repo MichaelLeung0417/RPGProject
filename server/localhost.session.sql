@@ -32,4 +32,6 @@ SELECT * FROM text
 
 TRUNCATE TABLE text;
 
+TRUNCATE TABLE accounts;
+
 DROP TABLE accounts;
