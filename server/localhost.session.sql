@@ -24,6 +24,8 @@ INSERT INTO accounts (username, password, login, CHARACTER, LEVEL, created_at, u
 
 INSERT INTO text (messages, created_at, updated_at) VALUES ('hi', NOW(), NOW());
 
+UPDATE accounts SET login = FALSE WHERE username='admin'
+
 SELECT * FROM accounts
 
 SELECT messages FROM text

@@ -29,6 +29,12 @@ let playerArr = gameroom.getOnlinePlayers()
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
+	socket.leave(`${req.session['playing-user']}-chatRoom`)
+	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+		req.session['playing-user']
+	])
+	req.session['isUser'] = false
+	console.log('disconnection')
 	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
@@ -72,42 +78,42 @@ io.on('connection', async function (socket) {
 		return
 	}
 
-	//double disconnection check
-	// async function checkconnection() {
-	// 	io.emit('connectCheck', 'are you there')
-	// 	let reply = async function () {
-	// 		let isPlayOnline = socket.on('replyConnect', function () {
-	// 			return true
-	// 		})
-	// 		if (isPlayOnline) {
-	// 			return true
-	// 		} else {
-	// 			return false
-	// 		}
-	// 	}
+	//disconnection check
+	async function checkconnection() {
+		io.emit('connectCheck', 'are you there')
 
-	// 	if (await reply()) {
-	// 		return
-	// 	} else {
-	// 		socket.leave(`${req.session['playing-user']}-chatRoom`)
-	// 		client.query(
-	// 			`UPDATE accounts SET login = FALSE WHERE username=$1`,
-	// 			[req.session['playing-user']]
-	// 		)
-	// 		req.session['isUser'] = false
-	// 		console.log('disconnection')
-	// 	}
-	// }
-	// setInterval(checkconnection, 15000)
+		let reply = false
+		socket.on('replyConnect', function () {
+			reply = true
+			return
+		})
 
-	socket.on('disconnect', () => {
-		socket.leave(`${req.session['playing-user']}-chatRoom`)
-		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
-			req.session['playing-user']
-		])
-		req.session['isUser'] = false
-		console.log('disconnection')
-	})
+		setTimeout(function () {
+			if (reply) {
+				console.log(`playerOnline(${req.session['playing-user']})`)
+				return
+			} else {
+				socket.leave(`${req.session['playing-user']}-chatRoom`)
+				client.query(
+					`UPDATE accounts SET login = FALSE WHERE username=$1`,
+					[req.session['playing-user']]
+				)
+				req.session['isUser'] = false
+				console.log(`disconnection`)
+			}
+		}, 5000)
+	}
+	setInterval(checkconnection, 5000)
+
+	// socket.on('disconnect', () => {
+	// 	//... rest of the code
+	// 	socket.leave(`${req.session['playing-user']}-chatRoom`)
+	// 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+	// 		req.session['playing-user']
+	// 	])
+	// 	req.session['isUser'] = false
+	// 	console.log(`disconnection(${req.session['playing-user']})`)
+	// })
 
 	//add player to game room
 	socket.on('CharacterSubmit', async function (data: string) {
@@ -186,10 +192,6 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
-				client.query(
-					'UPDATE accounts SET login = TRUE WHERE username=$1',
-					[req.body.username]
-				)
 				res.redirect('/charInfo.html')
 				return
 			} else if (
