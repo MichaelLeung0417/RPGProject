@@ -73,25 +73,30 @@ io.on('connection', async function (socket) {
 	}
 
 	//double disconnection check
-	// let clientConnection = true;
+	async function checkconnection() {
+		io.emit('connectCheck', 'are you there')
+		let reply = async function () {
+			let isPlayOnline = socket.on('replyConnect', function () {
+				return true
+			})
+			if(isPlayOnline){
+				return true
+			}else{
+				return false
+			}
+		}
 
-	// function checkconnection() {
-	// 	io.emit('connectCheck', 'are you there')
-	// 	setTimeout(function () {
-	// 		socket.on('relpyConnect', function (data) {
-	// 			if (data == 'client still there') {
-	// 				clientConnection = true
-	// 			} else {
-	// 				clientConnection = false
-	// 				socket.leave(`${req.session['playing-user']}-chatRoom`)
-	// 				client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
-	// 				req.session['isUser'] = false;
-	// 				console.log('disconnection')
-	// 			}
-	// 		})
-	// 	}, 15000)
-	// }
-	// setInterval(checkconnection, 15000)
+		if (await reply()) {
+			return;
+		}else{
+			socket.leave(`${req.session['playing-user']}-chatRoom`)
+			client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
+			req.session['isUser'] = false;
+			console.log('disconnection')
+		}
+
+	}
+	setInterval(checkconnection, 15000)
 
 
 
