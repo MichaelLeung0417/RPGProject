@@ -72,7 +72,7 @@ io.on('connection', async function (socket) {
 		return
 	}
 
-	// double disconnection check
+	//double disconnection check
 	// let clientConnection = true;
 
 	// function checkconnection() {
