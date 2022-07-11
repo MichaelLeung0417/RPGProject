@@ -28,12 +28,23 @@
 			<div></div>
 		</div>
 
+		<form action="/logout" method="POST">
+			<input type="submit" value="Logout" />
+		</form>
+
 		<form id="messageBox">
 			<div class="channel">
-				<button id="public"><div class="chatText">public</div></button><button id="private"><div class="chatText">private</div></button>
+				<button id="public"><div class="chatText">public</div></button
+				><button id="private">
+					<div class="chatText">private</div>
+				</button>
 			</div>
 			<div id="PublicMessagehistroy" name="messagehistroy"></div>
-			<div id="PrivateMessagehistroy" class="hide" name="messagehistroy"></div>
+			<div
+				id="PrivateMessagehistroy"
+				class="hide"
+				name="messagehistroy"
+			></div>
 			<div class="container">
 				<input
 					id="enterMessage"

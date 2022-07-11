@@ -107,6 +107,12 @@ io.on('connection', async function (socket) {
 	socket.on('CharacterSubmit', function (data: string) {
 		let player = new Character(data)
 		gameroom.addPlayer(player)
+		if (
+			client.query('SELECT * FROM account WHERE charname=$1', [data]) ==
+			null
+		) {
+			client.query('INSERT INTO account (charname) VALUES ($1)', [data])
+		}
 	})
 
 	//get frontend keyCode value
@@ -144,6 +150,7 @@ main.post('/login', async (req, res) => {
 		let users: {
 			username: string
 			password: string
+			charname: string
 		}[]
 
 		let username = req.body.username.trim()
@@ -163,7 +170,8 @@ main.post('/login', async (req, res) => {
 		for (const user of users) {
 			if (
 				user.username.trim() === req.body.username.trim() &&
-				user.password.trim() === req.body.password.trim()
+				user.password.trim() === req.body.password.trim() &&
+				user.charname !== null
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
@@ -172,6 +180,19 @@ main.post('/login', async (req, res) => {
 				// 	[req.body.username]
 				// )
 				res.redirect('/charInfo.html')
+				return
+			} else if (
+				user.username.trim() === req.body.username.trim() &&
+				user.password.trim() === req.body.password.trim() &&
+				user.charname == null
+			) {
+				req.session['isUser'] = true
+				req.session['playing-user'] = `${req.body.username.trim()}`
+				client.query(
+					`UPDATE accounts SET login = TRUE WHERE username=$1`,
+					[req.body.username]
+				)
+				res.redirect('/charNameInput.html')
 				return
 			}
 		}
@@ -205,17 +226,19 @@ const isLogin = (
 	}
 }
 
-main.post('/logout', (req, res) => {
+main.post('/logout', isLogin, (req, res) => {
 	req.session['isUser'] = false
+	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+		req.body.username
+	])
 	res.redirect('/')
 })
 
-main.get('/charNameInput', isLogin, (req, res) => {
+main.post('/charNameInput', isLogin, (req, res) => {
 	res.redirect('/charNameInput.html')
 })
 
-main.get('/game', isLogin, (req, res) => {
-
+main.post('/charNameSubmit', isLogin, (req, res) => {
 	res.redirect('/charInfo.html')
 })
 
