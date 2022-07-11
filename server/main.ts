@@ -9,6 +9,7 @@ import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
 
+
 dotenv.config()
 
 export const client = new Client({
@@ -27,8 +28,13 @@ const gameroom = new Gameroom()
 let playerArr = gameroom.getOnlinePlayers()
 
 io.on('connection', async function (socket) {
+
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
+	socket.leave(`${req.session['playing-user']}-chatRoom`)
+	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
+	req.session['isUser'] = false;
+	console.log('disconnection')
 	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
@@ -75,28 +81,27 @@ io.on('connection', async function (socket) {
 	//double disconnection check
 	async function checkconnection() {
 		io.emit('connectCheck', 'are you there')
-		let reply = async function () {
-			let isPlayOnline = socket.on('replyConnect', function () {
-				return true
-			})
-			if(isPlayOnline){
-				return true
-			}else{
-				return false
-			}
-		}
 
-		if (await reply()) {
+		let reply = false
+		socket.on('replyConnect', function () {
+			reply = true
 			return;
-		}else{
-			socket.leave(`${req.session['playing-user']}-chatRoom`)
-			client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
-			req.session['isUser'] = false;
-			console.log('disconnection')
-		}
+		})
+		setTimeout(function () {
+			if (reply) {
+				console.log('playerOnline')
+				return;
+			} else {
+				socket.leave(`${req.session['playing-user']}-chatRoom`)
+				client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
+				req.session['isUser'] = false;
+				console.log('disconnection')
+			}
+		}, 5000)
+
 
 	}
-	setInterval(checkconnection, 15000)
+	setInterval(checkconnection, 5000)
 
 	socket.on('disconnect', () => {
 		//... rest of the code
@@ -180,10 +185,10 @@ main.post('/login', async (req, res) => {
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
-				client.query(
-					`UPDATE accounts SET login = TRUE WHERE username=$1`,
-					[req.body.username]
-				)
+				// client.query(
+				// 	`UPDATE accounts SET login = TRUE WHERE username=$1`,
+				// 	[req.body.username]
+				// )
 				res.redirect('/charInfo.html')
 				return
 			} else if (
