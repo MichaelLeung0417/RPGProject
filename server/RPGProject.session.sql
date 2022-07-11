@@ -1,0 +1,4 @@
+-- ALTER TABLE accounts ADD COLUMN charName VARCHAR(255);
+-- ALTER TABLE accounts ADD COLUMN level INTEGER;
+-- ALTER TABLE accounts ALTER COLUMN level SET DEFAULT 1;
+SELECT * FROM accounts;

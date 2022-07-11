@@ -9,7 +9,6 @@ import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
 
-
 dotenv.config()
 
 export const client = new Client({
@@ -28,12 +27,13 @@ const gameroom = new Gameroom()
 let playerArr = gameroom.getOnlinePlayers()
 
 io.on('connection', async function (socket) {
-
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
 	socket.leave(`${req.session['playing-user']}-chatRoom`)
-	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
-	req.session['isUser'] = false;
+	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+		req.session['playing-user']
+	])
+	req.session['isUser'] = false
 	console.log('disconnection')
 	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
@@ -85,34 +85,40 @@ io.on('connection', async function (socket) {
 		let reply = false
 		socket.on('replyConnect', function () {
 			reply = true
-			return;
+			return
 		})
 
 		setTimeout(function () {
 			if (reply) {
 				console.log(`playerOnline(${req.session['playing-user']})`)
-				return;
+				return
 			} else {
 				socket.leave(`${req.session['playing-user']}-chatRoom`)
-				client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [req.session['playing-user']])
-				req.session['isUser'] = false;
+				client.query(
+					`UPDATE accounts SET login = FALSE WHERE username=$1`,
+					[req.session['playing-user']]
+				)
+				req.session['isUser'] = false
 				console.log(`disconnection`)
 			}
 		}, 5000)
-
-
 	}
 	setInterval(checkconnection, 5000)
 
 	//add player to game room
-	socket.on('CharacterSubmit', function (data: string) {
+	socket.on('CharacterSubmit', async function (data: string) {
 		let player = new Character(data)
 		gameroom.addPlayer(player)
-		if (
-			client.query('SELECT * FROM account WHERE charname=$1', [data]) ==
-			null
-		) {
-			client.query('INSERT INTO account (charname) VALUES ($1)', [data])
+
+		let result = await client.query(
+			'SELECT * FROM accounts WHERE charname=$1',
+			[data]
+		)
+
+		if (result.rowCount == 0) {
+			await client.query('INSERT INTO accounts (charname) VALUES ($1)', [
+				data
+			])
 		}
 	})
 
@@ -172,14 +178,10 @@ main.post('/login', async (req, res) => {
 			if (
 				user.username.trim() === req.body.username.trim() &&
 				user.password.trim() === req.body.password.trim() &&
-				user.charname !== null
+				user.charname == null
 			) {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
-				// client.query(
-				// 	`UPDATE accounts SET login = TRUE WHERE username=$1`,
-				// 	[req.body.username]
-				// )
 				res.redirect('/charInfo.html')
 				return
 			} else if (
@@ -190,7 +192,7 @@ main.post('/login', async (req, res) => {
 				req.session['isUser'] = true
 				req.session['playing-user'] = `${req.body.username.trim()}`
 				client.query(
-					`UPDATE accounts SET login = TRUE WHERE username=$1`,
+					'UPDATE accounts SET login = TRUE WHERE username=$1',
 					[req.body.username]
 				)
 				res.redirect('/charNameInput.html')
