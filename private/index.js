@@ -8,7 +8,7 @@ let beforelocation = {}
 
 function setup() {
 	canvas = createCanvas(680, 680)
-	img = loadImage('./classroom2.png')
+	img = loadImage('./floor1.png')
 	canvas.parent('canvas')
 	columns = floor(width / gridSize)
 	rows = floor(height / gridSize)

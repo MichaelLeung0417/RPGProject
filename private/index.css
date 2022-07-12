@@ -8,12 +8,65 @@ body {
 	font-weight: bold;
 }
 
+.noshow{
+	display: none;
+}
+
+
+
 canvas {
 	max-width: 100%;
 	background-color: #fff;
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
+}
+
+#BattleScene{
+	display: flex;
+	justify-content: center;
+}
+
+#BattleScene1{
+	/* background: silver; */
+	background-image: url('./classroom2.png');
+	background-size:cover;
+	width: 750px;
+	height: 600px;
+	display: flex;
+	align-items: flex-end;
+}
+
+#playerCommand{
+	position: relative;
+	background: rgb(88, 27, 27);
+	width: 750px;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.commandBtn{
+	position: relative;
+	width: 100px;
+	height: 50px;
+}
+
+#phyAttack{
+	background: red;
+}
+
+#magicalAttack{
+	background: rgb(54, 130, 188);
+}
+
+#tools{
+	background: rgb(148, 67, 67);
+}
+
+#run{
+	background: grey;
 }
 
 .status {
