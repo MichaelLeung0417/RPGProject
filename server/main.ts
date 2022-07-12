@@ -8,6 +8,7 @@ import { Server as SocketIO } from 'socket.io'
 import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
+import { Monster } from './gameData/monster'
 
 dotenv.config()
 
@@ -24,6 +25,8 @@ const server = new http.Server(main)
 export const io = new SocketIO(server)
 
 const gameroom = new Gameroom()
+const bugs = new Monster()
+console.log(bugs.getPosition())
 let playerArr = gameroom.getOnlinePlayers()
 
 io.on('connection', async function (socket) {
@@ -93,10 +96,12 @@ io.on('connection', async function (socket) {
 	})
 
 	//add player to game room
-	socket.on('CharacterSubmit', async function (data: string) {
+	socket.on('CharacterSubmit', function (data: string) {
 		let player = new Character(data)
 		player.id = req.session['playing-user']
 		gameroom.addPlayer(player)
+		socket.emit('bugsLocation', bugs.getPosition())
+		console.log(`bugs position is: ${bugs.getPosition()}`)
 	})
 
 	//get frontend keyCode value
