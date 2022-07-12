@@ -1,29 +1,32 @@
-let board = []
+// const data = require('../map/QQQ')
+
+let board
+let next
 let maxDistance, canvas, columns, rows
 let gridSize = 40
 
 function setup() {
-	canvas = createCanvas(640, 640)
+	canvas = createCanvas(680, 680)
 	canvas.parent('canvas')
 	columns = floor(width / gridSize)
 	rows = floor(height / gridSize)
-	for (let x = 0; x < width; x++) {
-		board[x] = [] // create nested array
-		for (let y = 0; y < height; y++) {
-			let distance = dist(width / 2, height / 2, x, y)
-			board[x][y] = (distance / maxDistance) * 255
-		}
+	board = new Array(columns)
+	for (let i = 0; i < columns; i++) {
+		board[i] = new Array(rows)
+	}
+	// Going to use multiple 2D arrays and swap them
+	next = new Array(columns)
+	for (i = 0; i < columns; i++) {
+		next[i] = new Array(rows)
 	}
 	document.addEventListener('keydown', (e) => {
 		keydown(e)
 	})
 	init()
-	noLoop()
 }
 
 function draw() {
-	background(0)
-
+	generate()
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (board[i][j] == 1) fill(0)
@@ -35,19 +38,23 @@ function draw() {
 }
 
 function init() {
-	socket.on('playerLocation', (data) => {
-		for (let i = 0; i < columns; i++) {
-			for (let j = 0; j < rows; j++) {
-				if (board[i][j] == board[data.x][data.y]) {
-					fill(255)
-					stroke(255)
-				}
-			}
+	for (let i = 0; i < columns; i++) {
+		for (let j = 0; j < rows; j++) {
+			board[i][j] = 0
 		}
-		console.log('x: ' + data.x + ' y: ' + data.y)
+	}
+}
+
+function generate() {
+	socket.on('playerLocation', (data) => {
+		board[data.x][data.y] = 1
 	})
 }
 
 function keydown(e) {
 	socket.emit('keydown', e.keyCode)
 }
+
+let temp = board
+board = next
+next = temp
