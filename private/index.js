@@ -82,3 +82,18 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
+
+//battling player
+let battlePlayer = document.createElement('div')
+battlePlayer.classList.add('player')
+document.querySelector('#BattleScene1').appendChild(battlePlayer)
+
+//battling player fir ball
+let fireball = document.createElement('div')
+fireball.classList.add('fireball')
+document.querySelector('#BattleScene1').appendChild(fireball)
+
+//Alex
+let Alex = document.createElement('div')
+Alex.classList.add('Alex')
+document.querySelector('#BattleScene1').appendChild(Alex)
