@@ -1,5 +1,5 @@
 // const data = require('../map/QQQ')
-let img;
+let img
 let board
 let maxDistance, canvas, columns, rows
 let gridSize = 40
@@ -8,7 +8,7 @@ let beforelocation = {}
 
 function setup() {
 	canvas = createCanvas(680, 680)
-	img = loadImage('./classroom2.png');
+	img = loadImage('./classroom2.png')
 	canvas.parent('canvas')
 	columns = floor(width / gridSize)
 	rows = floor(height / gridSize)
@@ -32,8 +32,7 @@ document.querySelector('#enterMessage').addEventListener('blur', () => {
 })
 
 function draw() {
-	image(img, 0, 0);
-	generate()
+	image(img, 0, 0)
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (board[i][j] == 1) fill(0)
