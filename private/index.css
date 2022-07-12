@@ -37,6 +37,28 @@ canvas {
 	align-items: flex-end;
 }
 
+.player{
+	background-image: url('./characterImage/charStand.png');
+	background-size: 100px;
+	background-repeat: no-repeat;
+	position: absolute;
+	margin: 0;
+	bottom: 100px;
+	width: 100px;
+	height: 100px;
+	animation: battlePlayer 2s infinite;
+}
+
+@keyframes battlePlayer{
+	50%{
+		transform: translateX(100px);
+	}
+
+	100%{
+		transform: translateX(0px);
+	}
+}
+
 #playerCommand{
 	position: relative;
 	background: rgb(88, 27, 27);

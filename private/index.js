@@ -1,5 +1,3 @@
-
-
 // const data = require('../map/QQQ')
 let img
 let board
@@ -73,3 +71,8 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
+
+
+let battlePlayer = document.createElement('div')
+battlePlayer.classList.add('player')
+document.querySelector('#BattleScene1').appendChild(battlePlayer)
