@@ -4,6 +4,7 @@ let board
 let next
 let maxDistance, canvas, columns, rows
 let gridSize = 40
+let playerLocationX, playerLocationY
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -35,7 +36,7 @@ document.querySelector('#enterMessage').addEventListener('blur',()=>{
 })
 
 function draw() {
-	generate()
+	// generate()
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (board[i][j] == 1) fill(0)
@@ -46,18 +47,21 @@ function draw() {
 	}
 }
 
+let temp = board
+board = next
+next = temp
+
+socket.on('playerLocation', (data) => {
+	board[data.x][data.y] = 1
+})
+
 function init() {
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			board[i][j] = 0
+			next[i][j] = 0
 		}
 	}
-}
-
-function generate() {
-	socket.on('playerLocation', (data) => {
-		board[data.x][data.y] = 1
-	})
 }
 
 function keydown(e) {
@@ -67,6 +71,13 @@ function keydown(e) {
 	socket.emit('keydown', e.keyCode)
 }
 
-let temp = board
-board = next
-next = temp
+// function generate() {
+// 	socket.on('playerLocation', (data) => {
+// 		board[data.x][data.y] = 1
+// 		next[data.x][data.y] = 0
+// 	})
+
+// 	let temp = board
+// 	board = next
+// 	next = temp
+// }
