@@ -46,18 +46,78 @@ canvas {
 	bottom: 100px;
 	width: 100px;
 	height: 100px;
-	animation: battlePlayer 2s infinite;
+	animation: battlePlayer 3s infinite;
+}
+
+.fireball{
+	background-image: url('./characterImage/fireball.png');
+	background-size: 100px;
+	background-repeat: no-repeat;
+	position: absolute;
+	margin: 0;
+	bottom: 120px;
+	left: 360px;
+	width: 100px;
+	height: 100px;
+	animation: fireball 3s infinite;
+}
+
+.Alex{
+	background-image: url('./characterImage/npc_alex.png');
+	background-size: 100px;
+	background-repeat: no-repeat;
+	position: absolute;
+	margin: 0;
+	bottom: 460px;
+	left: 630px;
+	width: 100px;
+	height: 100px;
+}
+
+@keyframes fireball{
+	0%{
+		transform: translateX(0px) translateY(0px);
+	}
+	50%{
+		transform: translateX(600px) translateY(-330px);
+	}
 }
 
 @keyframes battlePlayer{
+	0%{
+		background-image: url('./characterImage/char_magic.png');
+	}
+	25%{
+		background-image: url('./characterImage/char_magic.png');
+	}
+	100%{
+		background-image: url('./characterImage/charStand.png');
+	}
+}
+
+/* @keyframes battlePlayer{
+	0%{
+		background-image: url('./characterImage/char2.png');
+	}
 	50%{
-		transform: translateX(100px);
+		background-image: url('./characterImage/char2.png');
+		transform: translateX(600px) translateY(-330px);
+	}
+
+	60%{
+		background-image: url('./characterImage/char_slash.png');
+		transform: translateX(600px) translateY(-330px);
+	}
+
+	61%{
+		background-image: url('./characterImage/char_left.png');
 	}
 
 	100%{
-		transform: translateX(0px);
+		background-image: url('./characterImage/charStand.png');
+		transform: translateX(0px) translateY(0px);
 	}
-}
+} */
 
 #playerCommand{
 	position: relative;
@@ -98,7 +158,7 @@ canvas {
 	left: 0;
 	background-color: rgba(46, 245, 129, 0.671);
 	width: 300px;
-	height: 400px;
+	height: 150px;
 	border-radius: 20px;
 }
 
