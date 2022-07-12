@@ -25,6 +25,15 @@ function setup() {
 	init()
 }
 
+//typing detection
+document.querySelector('#enterMessage').addEventListener('focus',()=>{
+	typing = true
+})
+
+document.querySelector('#enterMessage').addEventListener('blur',()=>{
+	typing = false
+})
+
 function draw() {
 	generate()
 	for (let i = 0; i < columns; i++) {
@@ -52,6 +61,9 @@ function generate() {
 }
 
 function keydown(e) {
+	if(typing){
+		return
+	}
 	socket.emit('keydown', e.keyCode)
 }
 
