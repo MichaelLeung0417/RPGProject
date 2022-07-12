@@ -28,11 +28,11 @@ function setup() {
 
 //typing detection
 let typing = false
-document.querySelector('#enterMessage').addEventListener('focus',()=>{
+document.querySelector('#enterMessage').addEventListener('focus', () => {
 	typing = true
 })
 
-document.querySelector('#enterMessage').addEventListener('blur',()=>{
+document.querySelector('#enterMessage').addEventListener('blur', () => {
 	typing = false
 })
 
@@ -67,7 +67,7 @@ socket.on('playerLocation', (data) => {
 })
 
 function keydown(e) {
-	if(typing){
+	if (typing) {
 		return
 	}
 	socket.emit('keydown', e.keyCode)
