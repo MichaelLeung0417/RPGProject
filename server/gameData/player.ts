@@ -33,6 +33,7 @@ interface Players {
 }
 
 export class Character implements Players {
+	public id: number
 	private name: string
 	private primary: Attack
 	private secondary: Attack
@@ -42,6 +43,7 @@ export class Character implements Players {
 	private level: number
 	private boardColumns: number
 	private boardRows: number
+	private direction: string
 
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
@@ -54,6 +56,7 @@ export class Character implements Players {
 		this.position = { x: 1, y: 1 }
 		this.boardColumns = 16
 		this.boardRows = 16
+		this.direction = 'down'
 	}
 
 	attack(bugs: Monster): void {
@@ -91,33 +94,42 @@ export class Character implements Players {
 			case 65:
 				if (this.position.x > 0) {
 					this.position.x--
+					this.direction = 'left'
 				}
 				break
 			// down
 			case 83:
 				if (this.position.y < this.boardColumns) {
 					this.position.y++
+					this.direction = 'down'
 				}
 				break
 			// right
 			case 68:
 				if (this.position.x < this.boardRows) {
 					this.position.x++
+					this.direction = 'right'
 				}
 				break
 			// up
 			case 87:
 				if (this.position.y > 0) {
 					this.position.y--
+					this.direction = 'up'
 				}
 				break
 			default:
 				this.position = this.position
+				this.direction = this.direction
 		}
 	}
 
 	getPosition(): {} {
 		return this.position
+	}
+
+	getDirection(): string {
+		return this.direction
 	}
 
 	getLevel() {

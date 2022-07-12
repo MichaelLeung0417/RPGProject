@@ -95,17 +95,22 @@ io.on('connection', async function (socket) {
 	//add player to game room
 	socket.on('CharacterSubmit', async function (data: string) {
 		let player = new Character(data)
+		player.id = req.session['playing-user']
 		gameroom.addPlayer(player)
 	})
 
 	//get frontend keyCode value
 	socket.on('keydown', function (data: number) {
 		for (let i: number = 0; i < playerArr.length; i++) {
-			const lz = playerArr[i].getPosition()
-			socket.emit('beforeLocation', lz)
-			playerArr[i].move(data)
-			socket.emit('currentLocation', playerArr[i].getPosition())
-			console.log(playerArr[i].getPosition())
+			if (req.session['playing-user'] === playerArr[i].id) {
+				const lz = playerArr[i].getPosition()
+				const dir = playerArr[i].getDirection()
+				socket.emit('beforeLocation', lz)
+				socket.emit('beforeDir', dir)
+				playerArr[i].move(data)
+				socket.emit('currentLocation', playerArr[i].getPosition())
+				socket.emit('currentDir', playerArr[i].getDirection())
+			}
 		}
 	})
 })

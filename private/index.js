@@ -19,6 +19,7 @@ function setup() {
 	document.addEventListener('keydown', (e) => {
 		keydown(e)
 	})
+	init()
 }
 
 //typing detection
@@ -42,7 +43,6 @@ function draw() {
 		}
 	}
 	board[currentLocation.x][currentLocation.y] = 1
-	init()
 }
 
 function init() {
