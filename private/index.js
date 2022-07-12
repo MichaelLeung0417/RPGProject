@@ -1,3 +1,5 @@
+
+
 // const data = require('../map/QQQ')
 let img
 let board

@@ -12,9 +12,7 @@ body {
 	display: none;
 }
 
-.show{
-	display: block;
-}
+
 
 canvas {
 	max-width: 100%;
@@ -22,7 +20,6 @@ canvas {
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
-	display: none;
 }
 
 #BattleScene{
@@ -31,7 +28,9 @@ canvas {
 }
 
 #BattleScene1{
-	background: silver;
+	/* background: silver; */
+	background-image: url('./classroom2.png');
+	background-size:cover;
 	width: 750px;
 	height: 600px;
 	display: flex;
@@ -40,7 +39,7 @@ canvas {
 
 #playerCommand{
 	position: relative;
-	background: rgb(88, 27, 27, 0.2);
+	background: rgb(88, 27, 27);
 	width: 750px;
 	height: 100px;
 	display: flex;
