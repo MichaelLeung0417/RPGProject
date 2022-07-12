@@ -26,6 +26,16 @@ function setup() {
 	init()
 }
 
+//typing detection
+let typing = false
+document.querySelector('#enterMessage').addEventListener('focus',()=>{
+	typing = true
+})
+
+document.querySelector('#enterMessage').addEventListener('blur',()=>{
+	typing = false
+})
+
 function draw() {
 	// generate()
 	for (let i = 0; i < columns; i++) {
@@ -57,6 +67,9 @@ socket.on('playerLocation', (data) => {
 })
 
 function keydown(e) {
+	if(typing){
+		return
+	}
 	socket.emit('keydown', e.keyCode)
 }
 
