@@ -1,10 +1,8 @@
-// const data = require('../map/QQQ')
-
 let board
-let next
 let maxDistance, canvas, columns, rows
 let gridSize = 40
-let playerlocation = { x: 1, y: 1 }
+let currentLocation = { x: 1, y: 1 }
+let beforelocation = {}
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -15,15 +13,9 @@ function setup() {
 	for (let i = 0; i < columns; i++) {
 		board[i] = new Array(rows)
 	}
-	// Going to use multiple 2D arrays and swap them
-	next = new Array(columns)
-	for (i = 0; i < columns; i++) {
-		next[i] = new Array(rows)
-	}
 	document.addEventListener('keydown', (e) => {
 		keydown(e)
 	})
-	init()
 }
 
 //typing detection
@@ -37,7 +29,6 @@ document.querySelector('#enterMessage').addEventListener('blur', () => {
 })
 
 function draw() {
-	// generate()
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (board[i][j] == 1) fill(0)
@@ -46,24 +37,28 @@ function draw() {
 			rect(i * gridSize, j * gridSize, gridSize - 1, gridSize - 1)
 		}
 	}
+	board[currentLocation.x][currentLocation.y] = 1
+	init()
 }
 
 function init() {
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			board[i][j] = 0
-			next[i][j] = 0
 		}
 	}
 }
 
-socket.on('playerLocation', (data) => {
-	playerlocation = data
-	board[playerlocation.x][playerlocation.y] = 1
+socket.on('beforeLocation', (data) => {
+	beforelocation = data
+	console.log(beforelocation)
+	board[beforelocation.x][beforelocation.y] = 0
+})
 
-	let temp = board
-	board = next
-	next = temp
+socket.on('currentLocation', (data) => {
+	currentLocation = data
+	console.log(currentLocation)
+	board[currentLocation.x][currentLocation.y] = 1
 })
 
 function keydown(e) {
@@ -72,14 +67,3 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
-
-// function generate() {
-// 	socket.on('playerLocation', (data) => {
-// 		board[data.x][data.y] = 1
-// 		next[data.x][data.y] = 0
-// 	})
-
-// 	let temp = board
-// 	board = next
-// 	next = temp
-// }

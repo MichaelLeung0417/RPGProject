@@ -79,20 +79,18 @@ io.on('connection', async function (socket) {
 	}
 
 	//offline detection
-	socket.on("connect", () => {
-		console.log(`${req.session['playing-user']} online`);
-	  });
+	socket.on('connect', () => {
+		console.log(`${req.session['playing-user']} online`)
+	})
 
 	socket.on('disconnect', function () {
 		socket.leave(`${req.session['playing-user']}-chatRoom`)
-		client.query(
-			`UPDATE accounts SET login = FALSE WHERE username=$1`,
-			[req.session['playing-user']]
-		)
+		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
+			req.session['playing-user']
+		])
 		req.session['isUser'] = false
 		console.log(`${req.session['playing-user']} disconnected`)
 	})
-
 
 	//add player to game room
 	socket.on('CharacterSubmit', async function (data: string) {
@@ -103,8 +101,10 @@ io.on('connection', async function (socket) {
 	//get frontend keyCode value
 	socket.on('keydown', function (data: number) {
 		for (let i: number = 0; i < playerArr.length; i++) {
+			const lz = playerArr[i].getPosition()
+			socket.emit('beforeLocation', lz)
 			playerArr[i].move(data)
-			socket.emit('playerLocation', playerArr[i].getPosition())
+			socket.emit('currentLocation', playerArr[i].getPosition())
 			console.log(playerArr[i].getPosition())
 		}
 	})
