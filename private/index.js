@@ -33,7 +33,6 @@ document.querySelector('#enterMessage').addEventListener('blur', () => {
 
 function draw() {
 	image(img, 0, 0);
-	generate()
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (board[i][j] == 1) fill(0)
