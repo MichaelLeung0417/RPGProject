@@ -4,7 +4,7 @@ let board
 let next
 let maxDistance, canvas, columns, rows
 let gridSize = 40
-let playerLocationX, playerLocationY
+let playerlocation = { x: 1, y: 1 }
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -38,14 +38,6 @@ function draw() {
 	}
 }
 
-let temp = board
-board = next
-next = temp
-
-socket.on('playerLocation', (data) => {
-	board[data.x][data.y] = 1
-})
-
 function init() {
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
@@ -54,6 +46,15 @@ function init() {
 		}
 	}
 }
+
+socket.on('playerLocation', (data) => {
+	playerlocation = data
+	board[playerlocation.x][playerlocation.y] = 1
+
+	let temp = board
+	board = next
+	next = temp
+})
 
 function keydown(e) {
 	socket.emit('keydown', e.keyCode)
