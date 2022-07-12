@@ -1,4 +1,4 @@
-const { url } = require("inspector");
+
 
 // const data = require('../map/QQQ')
 let img;
@@ -22,9 +22,6 @@ function setup() {
 		keydown(e)
 	})
 }
-
-//import battle image
-//document.querySelector('#BattleScene1').style.backgroundImage = loadImage('./classroom2.png')
 
 //typing detection
 let typing = false
