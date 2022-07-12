@@ -27,6 +27,7 @@ function setup() {
 }
 
 //typing detection
+let typing = false
 document.querySelector('#enterMessage').addEventListener('focus',()=>{
 	typing = true
 })
