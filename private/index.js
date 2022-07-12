@@ -5,6 +5,7 @@ let maxDistance, canvas, columns, rows
 let gridSize = 40
 let currentLocation = { x: 1, y: 1 }
 let beforelocation = {}
+let bugsLocation = {}
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -36,9 +37,13 @@ function draw() {
 	image(img, 0, 0)
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
-			if (board[i][j] == 1) fill(0)
-			else noFill()
-			stroke(0)
+			if (board[i][j] == 1) {
+				fill(0)
+			} else if (board[i][j] == 2) {
+				fill(150)
+			} else if (board[i][j] == 0) {
+				noFill()
+			}
 			rect(i * gridSize, j * gridSize, gridSize - 1, gridSize - 1)
 		}
 	}
@@ -53,15 +58,21 @@ function init() {
 	}
 }
 
+socket.on('bugsLocation', (data) => {
+	bugsLocation = data
+	board[bugsLocation.x][bugsLocation.y] = 2
+	console.log(data)
+})
+
+// player previous location
 socket.on('beforeLocation', (data) => {
 	beforelocation = data
-	console.log(beforelocation)
 	board[beforelocation.x][beforelocation.y] = 0
 })
 
+// player current location
 socket.on('currentLocation', (data) => {
 	currentLocation = data
-	console.log(currentLocation)
 	board[currentLocation.x][currentLocation.y] = 1
 })
 
