@@ -81,9 +81,3 @@ socket.on('designateClient', function (data) {
 })
 //print private messages
 
-//reply client connection
-socket.on('connectCheck', function(){
-	socket.emit('replyConnect','client still there')
-	console.log('reply successful')
-})
-//reply client connection
