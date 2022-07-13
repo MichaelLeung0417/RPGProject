@@ -1,12 +1,18 @@
 body {
-	background: rgb(2, 137, 195);
+	/* background: rgb(2, 137, 195); */
+	background-image: url(./image/Background.png);
+	background-size: cover;
+}
+
+body img{
+	animation: backgroundslide 5s linear infinite;
 }
 
 .title {
 	text-align: center;
 	color: #fff;
 	font-weight: bold;
-}
+} 
 
 .noshow {
 	display: none !important;
@@ -35,11 +41,7 @@ canvas {
 	align-items: flex-end;
 }
 
-<<<<<<< HEAD
-.player {
-=======
 .battlePlayer{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 	background-image: url('./characterImage/charStand.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -83,11 +85,7 @@ canvas {
 	height: 100px;
 }
 
-<<<<<<< HEAD
-.enemy {
-=======
 .enemyCat{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 	background-image: url('./characterImage/enemy_cat1.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -131,22 +129,13 @@ canvas {
 	0% {
 		transform: translateX(0px) translateY(0px);
 	}
-<<<<<<< HEAD
-	50% {
-=======
 	100%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		transform: translateX(550px) translateY(-300px);
 	}
 }
 
-<<<<<<< HEAD
-@keyframes battlePlayer {
-	0% {
-=======
 @keyframes plyerMagic{
 	0%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/char_magic.png');
 	}
 	25% {
@@ -157,13 +146,8 @@ canvas {
 	}
 }
 
-<<<<<<< HEAD
-@keyframes enemy {
-	0% {
-=======
 @keyframes enemyCatSlash{
 	0%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/enemy_cat1.png');
 	}
 	5% {
@@ -190,18 +174,6 @@ canvas {
 	}
 }
 
-<<<<<<< HEAD
-/* @keyframes battlePlayer{
-	0%{
-		background-image: url('./characterImage/char2.png');
-	}
-	50%{
-		background-image: url('./characterImage/char2.png');
-		transform: translateX(600px) translateY(-330px);
-	}
-=======
-
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 
 
 #playerCommand {
@@ -280,6 +252,16 @@ canvas {
 .channel button {
 	width: 60px;
 	height: 20px;
+}
+
+.messagebtnImg{
+	position: relative;
+	top: -6px;
+	left: -5px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 120%;
+	height: 120%;
 }
 
 .chatText {
