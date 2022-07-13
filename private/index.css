@@ -8,7 +8,7 @@ body {
 	text-align: center;
 	color: #fff;
 	font-weight: bold;
-} 
+}
 
 .noshow {
 	display: none !important;
@@ -20,6 +20,12 @@ canvas {
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #BattleScene {
@@ -212,30 +218,29 @@ canvas {
 }
 
 .status {
-	position: absolute;
 	margin-right: 1px;
 	top: 55px;
 	left: 0;
-	background-color: rgba(46, 245, 129, 0.671);
-	width: 300px;
+	background-color: #000;
+	width: 200px;
 	height: 150px;
 	border-radius: 20px;
+	border: 10px solid #81d8d0;
 }
 
-.HPtext {
-	position: relative;
-	top: 20px;
-	left: 11px;
-	font-family: Arial, Helvetica, sans-serif;
+.Hp,
+.Level {
+	font-size: 25px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.maxHP {
-	position: relative;
-	top: 20px;
-	left: 10px;
-	background-color: grey;
-	width: 250px;
-	height: 20px;
+.logout {
+	position: fixed;
+	bottom: 0;
+	left: 0;
 }
 
 .channel {
@@ -248,7 +253,7 @@ canvas {
 	height: 20px;
 }
 
-.messagebtnImg{
+.messagebtnImg {
 	position: relative;
 	top: -6px;
 	left: -5px;
@@ -265,7 +270,6 @@ canvas {
 }
 
 #messageBox {
-	position: absolute;
 	width: 200px;
 	height: 200px;
 	top: 150px;

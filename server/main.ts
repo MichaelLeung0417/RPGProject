@@ -137,13 +137,13 @@ io.on('connection', async function (socket) {
 				socket.emit('currentLocation', playerArr[i].getPosition())
 				//tell client player current direction
 				socket.emit('currentDir', playerArr[i].getDirection())
-			})
 
-			//check if player coli with bugs. If true, tell client battle start
-			if (playerArr[i].getPosition() == bugs.getPosition()) {
-				battleEvent.battleStart()
-				socket.emit('battleEvent', battleEvent.getEvent())
-			}
+				console.log(battleEvent.checkEvent(playerArr[i], bugs))
+				//check if player coli with bugs. If true, tell client battle start
+				if (battleEvent.checkEvent(playerArr[i], bugs)) {
+					socket.emit('battleEvent', battleEvent.getEvent())
+				}
+			})
 
 			//player attack
 			socket.on('playerAtk', function (data: boolean) {

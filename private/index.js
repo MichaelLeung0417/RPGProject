@@ -11,27 +11,7 @@ let bugsHp = 100
 let bugsName
 // let checkLocation = [{}]
 
-//spritesheet
-// const scale = 2
-// const width = 16
-// const height = 18
-// const scaled_width = scale * width
-// const scaled_height = scale * height
-// const cycle_loop = [0, 1, 0, 2]
-// const facing_down = 0
-// const facing_up = 1
-// const facing_left = 2
-// const facing_right = 3
-// const frame_limit = 12
-var sprite_sheet
-var character_animation
-
 const socket = io.connect()
-
-// function preload() {
-// 	sprite_sheet = loadSpriteSheet('./image/Soldier-Red.png', 16, 18, 192)
-// 	character_animation = loadAnimation(sprite_sheet)
-// }
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -91,6 +71,7 @@ function init() {
 socket.on('bugsLocation', (data) => {
 	bugsLocation = data
 	board[bugsLocation.x][bugsLocation.y] = 2
+	console.log(`bugs: ${data}`)
 })
 
 //get bugs hp
@@ -113,6 +94,7 @@ socket.on('beforeLocation', (data) => {
 socket.on('currentLocation', (data) => {
 	currentLocation = data
 	board[currentLocation.x][currentLocation.y] = 1
+	console.log(`player: ${data.x}`)
 })
 
 socket.on('currentDir', (data) => {
@@ -198,6 +180,26 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
+
+//spritesheet
+// const scale = 2
+// const width = 16
+// const height = 18
+// const scaled_width = scale * width
+// const scaled_height = scale * height
+// const cycle_loop = [0, 1, 0, 2]
+// const facing_down = 0
+// const facing_up = 1
+// const facing_left = 2
+// const facing_right = 3
+// const frame_limit = 12
+// var sprite_sheet
+// var character_animation
+
+// function preload() {
+// 	sprite_sheet = loadSpriteSheet('./image/Soldier-Red.png', 16, 18, 192)
+// 	character_animation = loadAnimation(sprite_sheet)
+// }
 
 // function loadImage() {
 // 	img.src =

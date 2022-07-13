@@ -1,5 +1,5 @@
-// import { Character } from './player'
-// import { Monster } from './monster'
+import { Character } from './player'
+import { Monster } from './monster'
 
 export class BattleEvent {
 	private isEvent: boolean
@@ -12,17 +12,24 @@ export class BattleEvent {
 		return this.isEvent
 	}
 
-	battleStart() {
-		this.isEvent = true
-	}
+	// battleStart() {
+	// 	this.isEvent = true
+	// }
 
 	battleFinished() {
 		this.isEvent = false
 	}
 
-	// checkEvent(player: Character, bugs: Monster) {
-	// 	if (player.getPosition() == bugs.getPosition()) {
-	// 		this.isEvent = true
-	// 	}
-	// }
+	checkEvent(player: Character, bugs: Monster) {
+		if (player.getPosition() == bugs.getPosition()) {
+			this.isEvent = true
+		}
+		return this.isEvent
+	}
+
+	getEventInfo() {
+		return {
+			isEvent: this.isEvent
+		}
+	}
 }
