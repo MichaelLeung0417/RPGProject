@@ -37,7 +37,7 @@ canvas {
 	align-items: flex-end;
 }
 
-.player{
+.battlePlayer{
 	background-image: url('./characterImage/charStand.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -46,7 +46,14 @@ canvas {
 	bottom: 100px;
 	width: 100px;
 	height: 100px;
-	animation: battlePlayer 3s linear;
+}
+
+.playerSlash{
+	animation: playerSlash 3s linear;
+}
+
+.playerMagic{
+	animation: plyerMagic 3s linear;
 }
 
 .fireball{
@@ -59,7 +66,7 @@ canvas {
 	left: 360px;
 	width: 100px;
 	height: 100px;
-	animation: fireball 3s linear;
+	animation: fireball 1s linear;
 }
 
 .Alex{
@@ -74,7 +81,7 @@ canvas {
 	height: 100px;
 }
 
-.enemy{
+.enemyCat{
 	background-image: url('./characterImage/enemy_cat1.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -84,19 +91,46 @@ canvas {
 	left: 960px;
 	width: 100px;
 	height: 100px;
-	animation: enemy 3s linear;
+}
+
+.enemyCatSlash{
+	animation: enemyCatSlash 3s linear;
+}
+
+@keyframes playerSlash{
+	0%{
+		background-image: url('./characterImage/char2.png');
+	}
+	50%{
+		background-image: url('./characterImage/char2.png');
+		transform: translateX(580px) translateY(-300px);
+	}
+
+	60%{
+		background-image: url('./characterImage/char_slash.png');
+		transform: translateX(580px) translateY(-300px);
+	}
+
+	61%{
+		background-image: url('./characterImage/char_left.png');
+	}
+
+	100%{
+		background-image: url('./characterImage/charStand.png');
+		transform: translateX(0px) translateY(0px);
+	}
 }
 
 @keyframes fireball{
 	0%{
 		transform: translateX(0px) translateY(0px);
 	}
-	50%{
+	100%{
 		transform: translateX(550px) translateY(-300px);
 	}
 }
 
-@keyframes battlePlayer{
+@keyframes plyerMagic{
 	0%{
 		background-image: url('./characterImage/char_magic.png');
 	}
@@ -108,7 +142,7 @@ canvas {
 	}
 }
 
-@keyframes enemy{
+@keyframes enemyCatSlash{
 	0%{
 		background-image: url('./characterImage/enemy_cat1.png');
 	}
@@ -137,29 +171,7 @@ canvas {
 }
 
 
-/* @keyframes battlePlayer{
-	0%{
-		background-image: url('./characterImage/char2.png');
-	}
-	50%{
-		background-image: url('./characterImage/char2.png');
-		transform: translateX(600px) translateY(-330px);
-	}
 
-	60%{
-		background-image: url('./characterImage/char_slash.png');
-		transform: translateX(600px) translateY(-330px);
-	}
-
-	61%{
-		background-image: url('./characterImage/char_left.png');
-	}
-
-	100%{
-		background-image: url('./characterImage/charStand.png');
-		transform: translateX(0px) translateY(0px);
-	}
-} */
 
 #playerCommand{
 	position: relative;
