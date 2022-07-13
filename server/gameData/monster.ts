@@ -1,4 +1,6 @@
 import { Position } from './player'
+// import { Character } from './player'
+// import { Attack } from './player'
 
 export class Monster {
 	// Think of how to write injure
@@ -7,6 +9,7 @@ export class Monster {
 	private position: Position
 	private boardColumns: number
 	private boardRows: number
+	// private damage: Attack
 
 	constructor() {
 		this.hp = 100
@@ -18,6 +21,11 @@ export class Monster {
 			y: Math.floor(Math.random() * this.boardColumns)
 		}
 	}
+
+	// attack(player: Character) {
+	// 	let damage = 5
+	// 	if()
+	// }
 
 	injure(attack: number) {
 		this.hp -= attack

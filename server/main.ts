@@ -144,6 +144,17 @@ io.on('connection', async function (socket) {
 				socket.emit('battleEvent', battleEvent.getEvent())
 			}
 
+			socket.on('playerAtk', function (data: boolean) {
+				if (data) {
+					playerArr[i].attack(bugs)
+				}
+			})
+
+			socket.emit('bugsAtk', function (data: boolean) {
+				if (data) {
+				}
+			})
+
 			//listen to client when battle finished
 			socket.on('battleFinished', function (data: boolean) {
 				if (data) {
