@@ -146,7 +146,7 @@ io.on('connection', async function (socket) {
 
 			//listen to client when battle finished
 			socket.on('battleFinished', function (data: boolean) {
-				if ((data = true)) {
+				if (data) {
 					battleEvent.battleFinished()
 				}
 			})
