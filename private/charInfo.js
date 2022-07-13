@@ -1,15 +1,15 @@
-// const socket = io.connect()
+const socket = io.connect()
 
-// let characterName = document.getElementById('nameSubmit').value
-// console.log(characterName)
+let characterName = document.getElementById('nameSubmit').value
+console.log(characterName)
 
-// document.getElementById('playerName').addEventListener('click', (e) => {
-// 	CharacterSubmit(e)
-// })
+document.getElementById('playerName').addEventListener('click', (e) => {
+	CharacterSubmit(e)
+})
 
-// function CharacterSubmit(characterName) {
-// 	socket.emit('CharacterSubmit', characterName)
-// }
+function CharacterSubmit(characterName) {
+	socket.emit('CharacterSubmit', characterName)
+}
 
 // socket.on('playerLevel', (data) => {
 // 	document.getElementById('characterLevel').innerHTML = data
