@@ -1,5 +1,5 @@
-import { Character } from './player'
-import { Monster } from './monster'
+// import { Character } from './player'
+// import { Monster } from './monster'
 
 export class BattleEvent {
 	private isEvent: boolean
@@ -16,11 +16,11 @@ export class BattleEvent {
 		this.isEvent = false
 	}
 
-	checkEvent(player: Character, bugs: Monster) {
-		if (player.getPosition() == bugs.getPosition()) {
-			this.isEvent = true
-		}
-	}
+	// checkEvent(player: Character, bugs: Monster) {
+	// 	if (player.getPosition() == bugs.getPosition()) {
+	// 		this.isEvent = true
+	// 	}
+	// }
 
 	public getBattleEventData() {
 		return {

@@ -110,10 +110,16 @@ io.on('connection', async function (socket) {
 		console.log(`bugs position is: ${bugs.getPosition()}`)
 	})
 
-	//get frontend keyCode value
-	socket.on('keydown', function (data: number) {
-		for (let i: number = 0; i < playerArr.length; i++) {
-			if (req.session['playing-user'] === playerArr[i].id) {
+	for (let i: number = 0; i < playerArr.length; i++) {
+		if (req.session['playing-user'] === playerArr[i].id) {
+			//tell client player Hp
+			socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+
+			//tell client player Level
+			socket.emit('playerLevel', playerArr[i].getPlayerData().level)
+
+			//get client keyCode value
+			socket.on('keydown', function (data: number) {
 				const lz = playerArr[i].getPosition()
 				const dir = playerArr[i].getDirection()
 				//tell client player pre location
@@ -128,14 +134,14 @@ io.on('connection', async function (socket) {
 				socket.emit('currentLocation', playerArr[i].getPosition())
 				//tell client player current direction
 				socket.emit('currentDir', playerArr[i].getDirection())
+			})
 
-				//check if player coli with bugs. If true, tell client battle start
-				if (playerArr[i].getPosition() == bugs.getPosition()) {
-					socket.emit('battleEvent', battleEvent.getEvent())
-				}
+			//check if player coli with bugs. If true, tell client battle start
+			if (playerArr[i].getPosition() == bugs.getPosition()) {
+				socket.emit('battleEvent', battleEvent.getEvent())
 			}
 		}
-	})
+	}
 
 	//listen to client when battle finished
 	socket.on('battleFinished', function (data: boolean) {
