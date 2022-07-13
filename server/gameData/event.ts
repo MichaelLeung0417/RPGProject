@@ -21,7 +21,10 @@ export class BattleEvent {
 	}
 
 	checkEvent(player: Character, bugs: Monster) {
-		if (player.getPosition() == bugs.getPosition()) {
+		if (
+			JSON.stringify(player.getPosition()) ==
+			JSON.stringify(bugs.getPosition())
+		) {
 			this.isEvent = true
 		}
 		return this.isEvent

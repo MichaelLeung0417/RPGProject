@@ -15,16 +15,7 @@
 	</head>
 
 	<body>
-		<h1 class="title">RPGWorld</h1>
 		<section>
-
-		<div class="status">
-				<div>
-					<div class="Hp"><p>HP: <span id="playerHp"></span></p></div>
-					<div class="Level"><p>Level: <span id="playerLevel"></span></p></span></div>
-				</div>
-		</div>
-
 		<div id="canvas"></div>
 
 		<div id="BattleScene" class="noshow">
@@ -50,7 +41,13 @@
 			</form>
 		</div>
 
-
+		<div class="info">
+		<div class="status">
+			<div>
+				<div class="Hp"><p>HP: <span id="playerHp"></span></p></div>
+				<div class="Level"><p>Level: <span id="playerLevel"></span></p></span></div>
+			</div>
+		</div>
 		<form id="messageBox">
 			<div class="channel">
 				<button id="public">
@@ -86,6 +83,7 @@
 				<option selected>communication</option>
 			</select>
 		</form>
+		</div>
 		</section>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
 		<script src="https://molleindustria.github.io/p5.play/lib/p5.play.js"></script>
