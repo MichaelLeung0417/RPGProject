@@ -33,12 +33,6 @@ let bugs = new Monster()
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
-	socket.leave(`${req.session['playing-user']}-chatRoom`)
-	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
-		req.session['playing-user']
-	])
-	req.session['isUser'] = false
-	console.log('reset user status')
 	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
