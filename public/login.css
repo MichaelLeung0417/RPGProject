@@ -8,7 +8,6 @@ body {
 
 .loginPanel {
 	background-color: rgba(0, 0, 255, 0.6);
-	position: relative;
 	width: 250px;
 	height: 500px;
 	display: flex;

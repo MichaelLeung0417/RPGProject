@@ -1,4 +1,3 @@
-// const data = require('../map/QQQ')
 let img
 let board
 let maxDistance, canvas, columns, rows
@@ -12,7 +11,27 @@ let bugsHp = 100
 let bugsName
 // let checkLocation = [{}]
 
+//spritesheet
+// const scale = 2
+// const width = 16
+// const height = 18
+// const scaled_width = scale * width
+// const scaled_height = scale * height
+// const cycle_loop = [0, 1, 0, 2]
+// const facing_down = 0
+// const facing_up = 1
+// const facing_left = 2
+// const facing_right = 3
+// const frame_limit = 12
+var sprite_sheet
+var character_animation
+
 const socket = io.connect()
+
+// function preload() {
+// 	sprite_sheet = loadSpriteSheet('./image/Soldier-Red.png', 16, 18, 192)
+// 	character_animation = loadAnimation(sprite_sheet)
+// }
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -42,6 +61,7 @@ document.querySelector('#enterMessage').addEventListener('blur', () => {
 
 //draw the map
 function draw() {
+	clear()
 	image(img, 0, 0)
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
@@ -178,3 +198,72 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
+
+// function loadImage() {
+// 	img.src =
+// 		'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
+// 	img.onload = function () {
+// 		window.requestAnimationFrame(gameLoop)
+// 	}
+// }
+
+// function drawFrame(frameX, frameY, canvasX, canvasY) {
+// 	ctx.drawImage(
+// 		img,
+// 		frameX * width,
+// 		frameY * height,
+// 		width,
+// 		height,
+// 		canvasX,
+// 		canvasY,
+// 		scaled_width,
+// 		scaled_height
+// 	)
+// }
+
+// loadImage()
+
+// function gameLoop() {
+// 	ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+// 	let hasMoved = false
+
+// 	if (keyPresses.w) {
+// 		moveCharacter(0, -movement_speed, facing_up)
+// 		hasMoved = true
+// 	} else if (keyPresses.s) {
+// 		moveCharacter(0, movement_speed, facing_down)
+// 		hasMoved = true
+// 	}
+
+// 	if (keyPresses.a) {
+// 		moveCharacter(-movement_speed, 0, facing_left)
+// 		hasMoved = true
+// 	} else if (keyPresses.d) {
+// 		moveCharacter(movement_speed, 0, facing_right)
+// 		hasMoved = true
+// 	}
+
+// 	if (hasMoved) {
+// 		frameCount++
+// 		if (frameCount >= frame_limit) {
+// 			frameCount = 0
+// 			currentLoopIndex++
+// 			if (currentLoopIndex >= cycle_loop.length) {
+// 				currentLoopIndex = 0
+// 			}
+// 		}
+// 	}
+
+// 	if (!hasMoved) {
+// 		currentLoopIndex = 0
+// 	}
+
+// 	drawFrame(
+// 		cycle_loop[currentLoopIndex],
+// 		currentDirection,
+// 		positionX,
+// 		positionY
+// 	)
+// 	window.requestAnimationFrame(gameLoop)
+// }
