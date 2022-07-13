@@ -28,7 +28,6 @@ export const io = new SocketIO(server)
 const gameroom = new Gameroom()
 const bugs = new Monster()
 const battleEvent = new BattleEvent()
-console.log(bugs.getPosition())
 let playerArr = gameroom.getOnlinePlayers()
 
 io.on('connection', async function (socket) {
