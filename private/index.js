@@ -8,6 +8,8 @@ let beforelocation = {}
 let bugsLocation = {}
 let battleFinished = true
 let playerDir = 'down'
+let bugsHp = 100
+let bugsName
 
 const socket = io.connect()
 
@@ -71,6 +73,16 @@ socket.on('bugsLocation', (data) => {
 	console.log(data)
 })
 
+//get bugs hp
+socket.on('bugsHp', (data) => {
+	bugsHp = data
+})
+
+//get bugs name
+socket.on('bugsName', (data) => {
+	bugsName = data
+})
+
 //get player previous location
 socket.on('beforeLocation', (data) => {
 	beforelocation = data
@@ -90,9 +102,10 @@ socket.on('currentDir', (data) => {
 // get battle event
 socket.on('battleEvent', (data) => {
 	console.log(data)
-	if ((data = false)) {
+	if (data) {
 		//select canvas
 		document.getElementById('canvas').classList.add('noshow')
+		document.getElementById('BattleScene').classList.remove('noshow')
 
 		//battling player
 		let battlePlayer = document.createElement('div')
@@ -111,11 +124,11 @@ socket.on('battleEvent', (data) => {
 	}
 })
 
-// //check bugs hp
-// if (bugHP == 0) {
-// 	//tell server battle is finished
-// 	socket.emit('battleFinished', battleFinished)
-// }
+//check bugs hp
+if (bugsHp == 0) {
+	//tell server battle is finished
+	socket.emit('battleFinished', battleFinished)
+}
 
 //tell server client keydown event
 function keydown(e) {

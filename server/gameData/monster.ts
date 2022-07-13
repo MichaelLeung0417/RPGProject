@@ -38,11 +38,4 @@ export class Monster {
 	getPosition(): {} {
 		return this.position
 	}
-
-	public getMonsterData() {
-		return {
-			hp: this.hp,
-			name: this.name
-		}
-	}
 }
