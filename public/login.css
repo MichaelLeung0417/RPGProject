@@ -1,9 +1,47 @@
 body {
+	background-image: url("classroom.png");
+	background-repeat: no-repeat;
+	background-size: cover;
 	box-sizing: border-box;
 }
 
 .title {
 	text-align: center;
+	font-family: g;
+}
+
+.fontPage{
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+}
+
+.opening{
+	position: relative;
+	top: 145px;
+	left: 150px;
+	background: black;
+	width: 800px;
+	height: 400px;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+.opening section{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+h2{
+	position: relative;
+	align-items: center;
+	font-size: 5em;
+	color: rgb(0, 187, 255);
+	-webkit-box-reflect: below -0.46em linear-gradient(transparent, black) ;
 }
 
 .loginPanel {
@@ -18,7 +56,7 @@ body {
 	position: fixed;
 	top: 30%;
 	left: 20%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -16%);
 }
 
 .loginPanel > div > form input {
