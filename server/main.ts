@@ -77,10 +77,6 @@ io.on('connection', async function (socket) {
 	}
 
 	//offline detection
-	socket.on('connect', () => {
-		console.log(`${req.session['playing-user']} online`)
-	})
-
 	socket.on('disconnect', function () {
 		socket.leave(`${req.session['playing-user']}-chatRoom`)
 		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
