@@ -4,10 +4,6 @@ body {
 	background-size: cover;
 }
 
-body img{
-	animation: backgroundslide 5s linear infinite;
-}
-
 .title {
 	text-align: center;
 	color: #fff;
