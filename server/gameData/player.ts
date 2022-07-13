@@ -48,7 +48,7 @@ export class Character implements Players {
 	constructor(name: string) {
 		this.primary = new phyAtk(30)
 		this.secondary = new magicAtk(40)
-		this.hp = 10
+		this.hp = 100
 		this.level = 1
 		// TODO: set the default value of usePrimaryAttack
 		this.name = name
@@ -140,6 +140,10 @@ export class Character implements Players {
 		if (bugs.getHP() == 0) {
 			this.level += this.level + 1
 		}
+	}
+
+	heal() {
+		this.hp += 10
 	}
 
 	public getPlayerData() {

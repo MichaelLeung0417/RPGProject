@@ -1,5 +1,3 @@
-const socket = io.connect()
-
 //channel convertion
 document.querySelector('#public').addEventListener('click', function () {
 	document.querySelector('#PublicMessagehistroy').classList.remove('hide')
@@ -80,4 +78,3 @@ socket.on('designateClient', function (data) {
 		'<p>' + `${data.sender}: ` + `${data.messages}` + '</p>'
 })
 //print private messages
-
