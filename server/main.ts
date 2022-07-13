@@ -26,9 +26,9 @@ const server = new http.Server(main)
 export const io = new SocketIO(server)
 
 const gameroom = new Gameroom()
-const bugs = new Monster()
 const battleEvent = new BattleEvent()
 let playerArr = gameroom.getOnlinePlayers()
+let bugs = new Monster()
 
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
@@ -104,6 +104,7 @@ io.on('connection', async function (socket) {
 		player.id = req.session['playing-user']
 		//add player to current game room
 		gameroom.addPlayer(player)
+		gameroom.addBugs(bugs)
 	})
 
 	for (let i: number = 0; i < playerArr.length; i++) {
@@ -144,16 +145,15 @@ io.on('connection', async function (socket) {
 				socket.emit('battleEvent', battleEvent.getEvent())
 			}
 
+			//player attack
 			socket.on('playerAtk', function (data: boolean) {
 				if (data) {
 					playerArr[i].attack(bugs)
 				}
 			})
 
-			socket.emit('bugsAtk', function (data: boolean) {
-				if (data) {
-				}
-			})
+			//bugs attack
+			// socket.emit('bugsAtk', bugs.attack(playerArr[i]))
 
 			//listen to client when battle finished
 			socket.on('battleFinished', function (data: boolean) {
@@ -162,6 +162,8 @@ io.on('connection', async function (socket) {
 				}
 			})
 		}
+
+		// socket.emit('allPlayerLocation', gameroom.getAllPlayers())
 	}
 })
 

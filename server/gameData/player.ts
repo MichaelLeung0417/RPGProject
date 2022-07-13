@@ -146,6 +146,11 @@ export class Character implements Players {
 		this.hp += 10
 	}
 
+	injure(attack: number) {
+		this.hp -= attack
+		return this.hp
+	}
+
 	public getPlayerData() {
 		return {
 			name: this.name,

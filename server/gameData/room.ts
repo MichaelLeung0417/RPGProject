@@ -26,6 +26,10 @@ export default class Gameroom {
 		return this.onlinePlayers
 	}
 
+	// getBugsInMap() {
+	// 	return this.existedBugs
+	// }
+
 	getAllPlayers() {
 		let playerInMap: {
 			x: number

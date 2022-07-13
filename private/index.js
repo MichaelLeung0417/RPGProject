@@ -10,6 +10,7 @@ let battleFinished = true
 let playerDir = 'down'
 let bugsHp = 100
 let bugsName
+// let checkLocation = [{}]
 
 const socket = io.connect()
 
@@ -97,6 +98,10 @@ socket.on('currentLocation', (data) => {
 socket.on('currentDir', (data) => {
 	playerDir = data
 })
+
+// socket.on('allPlayerLocation', (data) => {
+// 	checkLocation = data
+// })
 
 // get battle event
 socket.on('battleEvent', (data) => {
