@@ -9,6 +9,7 @@ import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
 import { Monster } from './gameData/monster'
+import { BattleEvent } from './gameData/event'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ export const io = new SocketIO(server)
 
 const gameroom = new Gameroom()
 const bugs = new Monster()
+const battleEvent = new BattleEvent()
 console.log(bugs.getPosition())
 let playerArr = gameroom.getOnlinePlayers()
 
@@ -97,9 +99,13 @@ io.on('connection', async function (socket) {
 
 	//add player to game room
 	socket.on('CharacterSubmit', function (data: string) {
+		//new player
 		let player = new Character(data)
+		//generate a player id to each player
 		player.id = req.session['playing-user']
+		//add player to current game room
 		gameroom.addPlayer(player)
+		//tell client bugs location
 		socket.emit('bugsLocation', bugs.getPosition())
 		console.log(`bugs position is: ${bugs.getPosition()}`)
 	})
@@ -110,12 +116,31 @@ io.on('connection', async function (socket) {
 			if (req.session['playing-user'] === playerArr[i].id) {
 				const lz = playerArr[i].getPosition()
 				const dir = playerArr[i].getDirection()
+				//tell client player pre location
 				socket.emit('beforeLocation', lz)
+				//tell client player pre direction
 				socket.emit('beforeDir', dir)
+
+				//chenge player location
 				playerArr[i].move(data)
+
+				//tell client player current location
 				socket.emit('currentLocation', playerArr[i].getPosition())
+				//tell client player current direction
 				socket.emit('currentDir', playerArr[i].getDirection())
+
+				//check if player coli with bugs. If true, tell client battle start
+				if (playerArr[i].getPosition() == bugs.getPosition()) {
+					socket.emit('battleEvent', battleEvent.getEvent())
+				}
 			}
+		}
+	})
+
+	//listen to client when battle finished
+	socket.on('battleFinished', function (data: boolean) {
+		if ((data = true)) {
+			battleEvent.battleFinished()
 		}
 	})
 })
@@ -141,6 +166,7 @@ main.get('/', (req, res) => {
 	res.redirect('/login.html')
 })
 
+//login
 main.post('/login', async (req, res) => {
 	try {
 		let users: {
@@ -207,6 +233,7 @@ main.post('/login', async (req, res) => {
 	}
 })
 
+//check login
 const isLogin = (
 	req: express.Request,
 	res: express.Response,
@@ -219,6 +246,7 @@ const isLogin = (
 	}
 }
 
+//logout
 main.post('/logout', isLogin, (req, res) => {
 	req.session['isUser'] = false
 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
@@ -231,6 +259,7 @@ main.post('/logout', isLogin, (req, res) => {
 // 	res.redirect('/charNameInput.html')
 // })
 
+//get player's character name
 main.post('/charNameSubmit', isLogin, async (req, res) => {
 	res.redirect('index.html')
 })
@@ -239,6 +268,7 @@ main.post('/charNameSubmit', isLogin, async (req, res) => {
 // 	res.redirect('index.html')
 // })
 
+//register
 main.post('/register', async (req, res) => {
 	try {
 		let users: {

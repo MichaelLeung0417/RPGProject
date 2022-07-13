@@ -6,6 +6,7 @@ let gridSize = 40
 let currentLocation = { x: 1, y: 1 }
 let beforelocation = {}
 let bugsLocation = {}
+let battleFinished = true
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -33,6 +34,7 @@ document.querySelector('#enterMessage').addEventListener('blur', () => {
 	typing = false
 })
 
+//draw the map
 function draw() {
 	image(img, 0, 0)
 	for (let i = 0; i < columns; i++) {
@@ -50,6 +52,7 @@ function draw() {
 	board[currentLocation.x][currentLocation.y] = 1
 }
 
+//reset the map
 function init() {
 	for (let i = 0; i < columns; i++) {
 		for (let j = 0; j < rows; j++) {
@@ -58,42 +61,55 @@ function init() {
 	}
 }
 
+//get bugs location
 socket.on('bugsLocation', (data) => {
 	bugsLocation = data
 	board[bugsLocation.x][bugsLocation.y] = 2
 	console.log(data)
 })
 
-// player previous location
+//get player previous location
 socket.on('beforeLocation', (data) => {
 	beforelocation = data
 	board[beforelocation.x][beforelocation.y] = 0
 })
 
-// player current location
+//get player current location
 socket.on('currentLocation', (data) => {
 	currentLocation = data
 	board[currentLocation.x][currentLocation.y] = 1
 })
 
+// get battle event
+socket.on('battleEvent', (data) => {
+	if ((data = true)) {
+		//select canvas
+		document.getElementById('canvas').classList.add('noshow')
+
+		//battling player
+		let battlePlayer = document.createElement('div')
+		battlePlayer.classList.add('player')
+		document.querySelector('#BattleScene1').appendChild(battlePlayer)
+
+		//battling player fir ball
+		let fireball = document.createElement('div')
+		fireball.classList.add('fireball')
+		document.querySelector('#BattleScene1').appendChild(fireball)
+
+		//Alex
+		let Alex = document.createElement('div')
+		Alex.classList.add('Alex')
+		document.querySelector('#BattleScene1').appendChild(Alex)
+	}
+})
+
+//tell server battle is finished
+socket.emit('battleFinished', battleFinished)
+
+//tell server client keydown event
 function keydown(e) {
 	if (typing) {
 		return
 	}
 	socket.emit('keydown', e.keyCode)
 }
-
-// //battling player
-// let battlePlayer = document.createElement('div')
-// battlePlayer.classList.add('player')
-// document.querySelector('#BattleScene1').appendChild(battlePlayer)
-
-// //battling player fir ball
-// let fireball = document.createElement('div')
-// fireball.classList.add('fireball')
-// document.querySelector('#BattleScene1').appendChild(fireball)
-
-// //Alex
-// let Alex = document.createElement('div')
-// Alex.classList.add('Alex')
-// document.querySelector('#BattleScene1').appendChild(Alex)
