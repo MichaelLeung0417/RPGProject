@@ -21,22 +21,25 @@
 		<div id="BattleScene" class="noshow">
 			<div id="BattleScene1">
 				<div id="playerCommand">
-					<button id="phyAttack" class="commandBtn"><img src="./characterImage/sword.png"></button>
-					<button id="magicalAttack" class="commandBtn"><img src="./characterImage/fireball.png"></button>
+					<button id="phyAttack" class="commandBtn">
+						<img src="./characterImage/sword.png" />
+					</button>
+					<button id="magicalAttack" class="commandBtn">
+						<img src="./characterImage/fireball.png" />
+					</button>
 					<button id="tools" class="commandBtn">Tools</button>
-					<button id="run" class="commandBtn"><img src="./characterImage/char_left.png"></button>
+					<button id="run" class="commandBtn">
+						<img src="./characterImage/char_left.png" />
+					</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="status">
 			<div>
-				<div class="HPtext">HP:</div>
-				<div class="maxHP"></div>
+				<div class="Hp">HP: <span id="playerHp"></span></div>
+				<div class="Level">Level: <span id="playerLevel"></span></div>
 			</div>
-
-			<div></div>
-			<div></div>
 		</div>
 
 		<form action="/logout" method="POST">
@@ -76,8 +79,8 @@
 		></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<script src="Hpbar.js"></script>
-		<script src="/sendMessage.js"></script>
 		<script src="index.js"></script>
+		<script src="status.js"></script>
+		<script src="/sendMessage.js"></script>
 	</body>
 </html>

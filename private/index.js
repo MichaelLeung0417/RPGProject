@@ -7,6 +7,9 @@ let currentLocation = { x: 1, y: 1 }
 let beforelocation = {}
 let bugsLocation = {}
 let battleFinished = true
+let playerDir = 'down'
+
+const socket = io.connect()
 
 function setup() {
 	canvas = createCanvas(680, 680)
@@ -80,9 +83,14 @@ socket.on('currentLocation', (data) => {
 	board[currentLocation.x][currentLocation.y] = 1
 })
 
+socket.on('currentDir', (data) => {
+	playerDir = data
+})
+
 // get battle event
-// socket.on('battleEvent', (data) => {
-// 	if ((data = true)) {
+socket.on('battleEvent', (data) => {
+	console.log(data)
+	if ((data = false)) {
 		//select canvas
 		document.getElementById('canvas').classList.add('noshow')
 
@@ -135,11 +143,14 @@ socket.on('currentLocation', (data) => {
 			}, 3000);
 		}, 5000);
 		//enemyCatSlash
-// 	}
-// })
+	}
+})
 
-//tell server battle is finished
-socket.emit('battleFinished', battleFinished)
+// //check bugs hp
+// if (bugHP == 0) {
+// 	//tell server battle is finished
+// 	socket.emit('battleFinished', battleFinished)
+// }
 
 //tell server client keydown event
 function keydown(e) {
