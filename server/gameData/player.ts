@@ -142,6 +142,10 @@ export class Character implements Players {
 		}
 	}
 
+	heal() {
+		this.hp += 10
+	}
+
 	public getPlayerData() {
 		return {
 			name: this.name,
