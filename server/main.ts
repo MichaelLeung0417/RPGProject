@@ -28,7 +28,6 @@ export const io = new SocketIO(server)
 const gameroom = new Gameroom()
 const bugs = new Monster()
 const battleEvent = new BattleEvent()
-console.log(bugs.getPosition())
 let playerArr = gameroom.getOnlinePlayers()
 
 io.on('connection', async function (socket) {
@@ -147,7 +146,7 @@ io.on('connection', async function (socket) {
 
 			//listen to client when battle finished
 			socket.on('battleFinished', function (data: boolean) {
-				if ((data = true)) {
+				if (data) {
 					battleEvent.battleFinished()
 				}
 			})

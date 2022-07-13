@@ -10,3 +10,7 @@ document.getElementById('playerName').addEventListener('click', (e) => {
 function CharacterSubmit(characterName) {
 	socket.emit('CharacterSubmit', characterName)
 }
+
+// socket.on('playerLevel', (data) => {
+// 	document.getElementById('characterLevel').innerHTML = data
+// })
