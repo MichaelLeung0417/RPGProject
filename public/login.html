@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Login</title>
-		<link rel="stylesheet" href="login.css" />
-	</head>
-	<body>
-		<h1 class="title">RPG World</h1>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Login</title>
+	<link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+	<h1 class="title">RPG World</h1>
+
+	<div class="fontPage">
 		<div class="loginPanel">
 			<div class="toggle">
 				<button class="login">login</button>
@@ -18,11 +22,7 @@
 			<div class="loginForm">
 				<form action="/login" method="POST">
 					<input type="text" name="username" placeholder="Username" />
-					<input
-						type="password"
-						name="password"
-						placeholder="Password"
-					/>
+					<input type="password" name="password" placeholder="Password" />
 					<input type="submit" value="Login" />
 				</form>
 			</div>
@@ -30,15 +30,17 @@
 			<div class="registerForm noDisplay">
 				<form action="/register" method="POST">
 					<input type="text" name="username" placeholder="Username" />
-					<input
-						type="password"
-						name="password"
-						placeholder="Password"
-					/>
+					<input type="password" name="password" placeholder="Password" />
 					<input type="submit" value="register" />
 				</form>
 			</div>
 		</div>
-	</body>
-	<script src="login.js"></script>
+		<div class="opening">
+			<section>
+				<h2 class="animateText">Group 7 出品</h2>
+			</section>
+		</div>
+	</div>
+</body>
+<script src="login.js"></script>
 </html>
