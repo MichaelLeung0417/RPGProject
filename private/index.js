@@ -70,7 +70,6 @@ function init() {
 socket.on('bugsLocation', (data) => {
 	bugsLocation = data
 	board[bugsLocation.x][bugsLocation.y] = 2
-	console.log(data)
 })
 
 //get bugs hp
@@ -113,29 +112,31 @@ socket.on('battleEvent', (data) => {
 		document.querySelector('#BattleScene1').appendChild(battlePlayer)
 
 		//player sword attack
-		document.querySelector('#phyAttack').addEventListener('click', ()=>{
+		document.querySelector('#phyAttack').addEventListener('click', () => {
 			battlePlayer.classList.add('playerSlash')
 			setTimeout(() => {
 				battlePlayer.classList.remove('playerSlash')
-			}, 3000);
+			}, 3000)
 		})
 		//player sword attack
 
 		//player magical action
-		document.querySelector('#magicalAttack').addEventListener('click', ()=>{
-			battlePlayer.classList.add('playerMagic')
-			//battling player fire ball
-			let fireball = document.createElement('div')
-			fireball.classList.add('fireball')
-			document.querySelector('#BattleScene1').appendChild(fireball)
-			setTimeout(() => {
-				fireball.remove()
-			}, 1000);
-			setTimeout(() => {
-				battlePlayer.classList.remove('playerMagic')
-				fireball.remove()
-			}, 3000);
-		})
+		document
+			.querySelector('#magicalAttack')
+			.addEventListener('click', () => {
+				battlePlayer.classList.add('playerMagic')
+				//battling player fire ball
+				let fireball = document.createElement('div')
+				fireball.classList.add('fireball')
+				document.querySelector('#BattleScene1').appendChild(fireball)
+				setTimeout(() => {
+					fireball.remove()
+				}, 1000)
+				setTimeout(() => {
+					battlePlayer.classList.remove('playerMagic')
+					fireball.remove()
+				}, 3000)
+			})
 		//player magical action
 
 		//Alex
@@ -147,14 +148,14 @@ socket.on('battleEvent', (data) => {
 		let enemyCat = document.createElement('div')
 		enemyCat.classList.add('enemyCat')
 		document.querySelector('#BattleScene1').appendChild(enemyCat)
-		
+
 		//enemyCatSlash
 		setInterval(() => {
 			enemyCat.classList.add('enemyCatSlash')
 			setTimeout(() => {
 				enemyCat.classList.remove('enemyCatSlash')
-			}, 3000);
-		}, 5000);
+			}, 3000)
+		}, 5000)
 		//enemyCatSlash
 	}
 })

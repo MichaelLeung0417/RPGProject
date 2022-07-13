@@ -35,11 +35,7 @@ canvas {
 	align-items: flex-end;
 }
 
-<<<<<<< HEAD
-.player {
-=======
-.battlePlayer{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
+.battlePlayer {
 	background-image: url('./characterImage/charStand.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -50,11 +46,11 @@ canvas {
 	height: 100px;
 }
 
-.playerSlash{
+.playerSlash {
 	animation: playerSlash 3s linear;
 }
 
-.playerMagic{
+.playerMagic {
 	animation: plyerMagic 3s linear;
 }
 
@@ -83,11 +79,7 @@ canvas {
 	height: 100px;
 }
 
-<<<<<<< HEAD
-.enemy {
-=======
-.enemyCat{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
+.enemyCat {
 	background-image: url('./characterImage/enemy_cat1.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -99,29 +91,29 @@ canvas {
 	height: 100px;
 }
 
-.enemyCatSlash{
+.enemyCatSlash {
 	animation: enemyCatSlash 3s linear;
 }
 
-@keyframes playerSlash{
-	0%{
+@keyframes playerSlash {
+	0% {
 		background-image: url('./characterImage/char2.png');
 	}
-	50%{
+	50% {
 		background-image: url('./characterImage/char2.png');
 		transform: translateX(580px) translateY(-300px);
 	}
 
-	60%{
+	60% {
 		background-image: url('./characterImage/char_slash.png');
 		transform: translateX(580px) translateY(-300px);
 	}
 
-	61%{
+	61% {
 		background-image: url('./characterImage/char_left.png');
 	}
 
-	100%{
+	100% {
 		background-image: url('./characterImage/charStand.png');
 		transform: translateX(0px) translateY(0px);
 	}
@@ -131,22 +123,13 @@ canvas {
 	0% {
 		transform: translateX(0px) translateY(0px);
 	}
-<<<<<<< HEAD
-	50% {
-=======
-	100%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
+	100% {
 		transform: translateX(550px) translateY(-300px);
 	}
 }
 
-<<<<<<< HEAD
-@keyframes battlePlayer {
+@keyframes plyerMagic {
 	0% {
-=======
-@keyframes plyerMagic{
-	0%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/char_magic.png');
 	}
 	25% {
@@ -157,13 +140,8 @@ canvas {
 	}
 }
 
-<<<<<<< HEAD
-@keyframes enemy {
+@keyframes enemyCatSlash {
 	0% {
-=======
-@keyframes enemyCatSlash{
-	0%{
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/enemy_cat1.png');
 	}
 	5% {
@@ -189,20 +167,6 @@ canvas {
 		transform: translateX(0px) translateY(0px);
 	}
 }
-
-<<<<<<< HEAD
-/* @keyframes battlePlayer{
-	0%{
-		background-image: url('./characterImage/char2.png');
-	}
-	50%{
-		background-image: url('./characterImage/char2.png');
-		transform: translateX(600px) translateY(-330px);
-	}
-=======
-
->>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
-
 
 #playerCommand {
 	position: relative;
