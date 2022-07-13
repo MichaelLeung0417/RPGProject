@@ -8,11 +8,9 @@ body {
 	font-weight: bold;
 }
 
-.noshow{
-	display: none;
+.noshow {
+	display: none !important;
 }
-
-
 
 canvas {
 	max-width: 100%;
@@ -22,22 +20,26 @@ canvas {
 	flex-wrap: wrap;
 }
 
-#BattleScene{
+#BattleScene {
 	display: flex;
 	justify-content: center;
 }
 
-#BattleScene1{
+#BattleScene1 {
 	/* background: silver; */
 	background-image: url('./classroom2.png');
-	background-size:cover;
+	background-size: cover;
 	width: 750px;
 	height: 600px;
 	display: flex;
 	align-items: flex-end;
 }
 
+<<<<<<< HEAD
+.player {
+=======
 .battlePlayer{
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 	background-image: url('./characterImage/charStand.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -56,7 +58,7 @@ canvas {
 	animation: plyerMagic 3s linear;
 }
 
-.fireball{
+.fireball {
 	background-image: url('./characterImage/fireball.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -69,7 +71,7 @@ canvas {
 	animation: fireball 1s linear;
 }
 
-.Alex{
+.Alex {
 	background-image: url('./characterImage/npc_alex.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -81,7 +83,11 @@ canvas {
 	height: 100px;
 }
 
+<<<<<<< HEAD
+.enemy {
+=======
 .enemyCat{
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 	background-image: url('./characterImage/enemy_cat1.png');
 	background-size: 100px;
 	background-repeat: no-repeat;
@@ -121,59 +127,84 @@ canvas {
 	}
 }
 
-@keyframes fireball{
-	0%{
+@keyframes fireball {
+	0% {
 		transform: translateX(0px) translateY(0px);
 	}
+<<<<<<< HEAD
+	50% {
+=======
 	100%{
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		transform: translateX(550px) translateY(-300px);
 	}
 }
 
+<<<<<<< HEAD
+@keyframes battlePlayer {
+	0% {
+=======
 @keyframes plyerMagic{
 	0%{
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/char_magic.png');
 	}
-	25%{
+	25% {
 		background-image: url('./characterImage/char_magic.png');
 	}
-	100%{
+	100% {
 		background-image: url('./characterImage/charStand.png');
 	}
 }
 
+<<<<<<< HEAD
+@keyframes enemy {
+	0% {
+=======
 @keyframes enemyCatSlash{
 	0%{
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 		background-image: url('./characterImage/enemy_cat1.png');
 	}
-	5%{
+	5% {
 		background-image: url('./characterImage/enemy_cat2.png');
 	}
 
-	50%{
+	50% {
 		background-image: url('./characterImage/enemy_cat2.png');
 		transform: translateX(-580px) translateY(330px);
 	}
 
-	60%{
+	60% {
 		background-image: url('./characterImage/enemy_cat3.png');
 		transform: translateX(-580px) translateY(330px);
 	}
 
-	65%{
+	65% {
 		background-image: url('./characterImage/enemy_cat4.png');
 	}
 
-	100%{
+	100% {
 		background-image: url('./characterImage/enemy_cat1.png');
 		transform: translateX(0px) translateY(0px);
 	}
 }
 
+<<<<<<< HEAD
+/* @keyframes battlePlayer{
+	0%{
+		background-image: url('./characterImage/char2.png');
+	}
+	50%{
+		background-image: url('./characterImage/char2.png');
+		transform: translateX(600px) translateY(-330px);
+	}
+=======
+
+>>>>>>> 53793b9ee73bcbe2b8a63df9e6196f22f10c888c
 
 
-
-#playerCommand{
+#playerCommand {
 	position: relative;
 	background: rgb(88, 27, 27);
 	width: 750px;
@@ -183,31 +214,31 @@ canvas {
 	align-items: flex-end;
 }
 
-.commandBtn{
+.commandBtn {
 	position: relative;
 	width: 100px;
 	height: 50px;
 }
 
-#phyAttack img{
+#phyAttack img {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	margin: 0;
 }
 
-#magicalAttack img{
+#magicalAttack img {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	margin: 0;
 }
 
-#tools{
+#tools {
 	background: rgb(148, 67, 67);
 }
 
-#run img{
+#run img {
 	position: relative;
 	width: 100%;
 	height: 100%;

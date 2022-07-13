@@ -105,9 +105,6 @@ io.on('connection', async function (socket) {
 		player.id = req.session['playing-user']
 		//add player to current game room
 		gameroom.addPlayer(player)
-		//tell client bugs location
-		socket.emit('bugsLocation', bugs.getPosition())
-		console.log(`bugs position is: ${bugs.getPosition()}`)
 	})
 
 	for (let i: number = 0; i < playerArr.length; i++) {
@@ -118,14 +115,20 @@ io.on('connection', async function (socket) {
 			//tell client player Level
 			socket.emit('playerLevel', playerArr[i].getPlayerData().level)
 
+			//tell client bugs hp
+			socket.emit('bugsHp', bugs.getHP())
+
+			//tell client bugs name
+			socket.emit('bugsName', bugs.getName())
+
+			//tell client bugs location
+			socket.emit('bugsLocation', bugs.getPosition())
+
 			//get client keyCode value
 			socket.on('keydown', function (data: number) {
 				const lz = playerArr[i].getPosition()
-				const dir = playerArr[i].getDirection()
 				//tell client player pre location
 				socket.emit('beforeLocation', lz)
-				//tell client player pre direction
-				socket.emit('beforeDir', dir)
 
 				//chenge player location
 				playerArr[i].move(data)
@@ -138,17 +141,18 @@ io.on('connection', async function (socket) {
 
 			//check if player coli with bugs. If true, tell client battle start
 			if (playerArr[i].getPosition() == bugs.getPosition()) {
+				battleEvent.battleStart()
 				socket.emit('battleEvent', battleEvent.getEvent())
 			}
+
+			//listen to client when battle finished
+			socket.on('battleFinished', function (data: boolean) {
+				if ((data = true)) {
+					battleEvent.battleFinished()
+				}
+			})
 		}
 	}
-
-	//listen to client when battle finished
-	socket.on('battleFinished', function (data: boolean) {
-		if ((data = true)) {
-			battleEvent.battleFinished()
-		}
-	})
 })
 
 const sessionMiddleware = expressSession({

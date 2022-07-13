@@ -12,6 +12,10 @@ export class BattleEvent {
 		return this.isEvent
 	}
 
+	battleStart() {
+		this.isEvent = true
+	}
+
 	battleFinished() {
 		this.isEvent = false
 	}
@@ -21,10 +25,4 @@ export class BattleEvent {
 	// 		this.isEvent = true
 	// 	}
 	// }
-
-	public getBattleEventData() {
-		return {
-			isEvent: this.isEvent
-		}
-	}
 }
