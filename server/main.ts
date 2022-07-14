@@ -5,7 +5,6 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import http from 'http'
 import { Server as SocketIO } from 'socket.io'
-import { chat } from './message'
 import { Character } from './gameData/player'
 import Gameroom from './gameData/room'
 import { Monster } from './gameData/monster'
@@ -390,7 +389,6 @@ main.post('/register', async (req, res) => {
 	}
 })
 
-main.use(chat)
 main.use(express.static('../public'))
 main.use(isLogin, express.static('../private'))
 
