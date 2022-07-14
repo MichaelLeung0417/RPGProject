@@ -21,8 +21,8 @@ body {
 
 .character {
 	background-color: rgba(150, 150, 150, 0.2);
-	height: 400px;
-	width: 250px;
+	height: 250px;
+	width: 100px;
 	border: 5px solid #777777;
 	border-right: 0px;
 	display: flex;
@@ -31,14 +31,23 @@ body {
 }
 
 .character > img {
-	width: 200px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
+}
+
+.characterInfo > form > input {
+	row-gap: 20px;
 }
 
 .characterInfo {
 	background-color: rgba(150, 150, 150, 0.2);
-	height: 400px;
+	height: 250px;
 	color: #fff;
 	width: 200px;
 	border: 5px solid #777777;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	row-gap: 20px;
 }
