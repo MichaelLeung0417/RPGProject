@@ -208,7 +208,6 @@ socket.on('battleFinished', (data) => {
 		setTimeout(() => {
 			document.querySelector('#cutscene').classList.add('noshow')
 		}, 1000);
-		init()
 	}
 })
 
