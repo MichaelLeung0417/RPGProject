@@ -141,7 +141,9 @@ io.on('connection', async function (socket) {
 				if (data) {
 					playerArr[i].attack(bugs)
 					bugs.attack(playerArr[i])
-					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					setTimeout(() => {
+						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					}, 6000);
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -152,10 +154,12 @@ io.on('connection', async function (socket) {
 					) {
 						console.log(bugs.getHP())
 						battleEvent.battleFinished()
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
 					}
 				}
 			})
@@ -166,7 +170,9 @@ io.on('connection', async function (socket) {
 				if (data) {
 					playerArr[i].mightyAttack(bugs)
 					bugs.attack(playerArr[i])
-					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					setTimeout(() => {
+						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					}, 4000);
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -177,10 +183,12 @@ io.on('connection', async function (socket) {
 					) {
 						console.log(bugs.getHP())
 						battleEvent.battleFinished()
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
 					}
 				}
 			})

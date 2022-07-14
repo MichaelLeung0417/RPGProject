@@ -134,6 +134,7 @@ socket.on('battleEvent', (data) => {
 		//player sword attack
 		document.querySelector('#phyAttack').addEventListener('click', () => {
 			socket.emit('playerAtk', true)
+			document.querySelector('#playerCommand').style.display = "none"
 			battlePlayer.classList.add('playerSlash')
 			setTimeout(() => {
 				battlePlayer.classList.remove('playerSlash')
@@ -143,6 +144,7 @@ socket.on('battleEvent', (data) => {
 				enemyCat.classList.add('enemyCatSlash')
 				setTimeout(() => {
 					enemyCat.classList.remove('enemyCatSlash')
+					document.querySelector('#playerCommand').style.display = "flex"
 				}, 3000)
 			}, 4000)
 			//enemyCatSlash
@@ -154,6 +156,7 @@ socket.on('battleEvent', (data) => {
 			.querySelector('#magicalAttack')
 			.addEventListener('click', () => {
 				socket.emit('playerMighty', true)
+				document.querySelector('#playerCommand').style.display = "none"
 				battlePlayer.classList.add('playerMagic')
 				//battling player fire ball
 				let fireball = document.createElement('div')
@@ -171,8 +174,9 @@ socket.on('battleEvent', (data) => {
 					enemyCat.classList.add('enemyCatSlash')
 					setTimeout(() => {
 						enemyCat.classList.remove('enemyCatSlash')
+						document.querySelector('#playerCommand').style.display = "flex"
 					}, 3000)
-				}, 4000)
+				}, 2000)
 				//enemyCatSlash
 			})
 		//player magical action
