@@ -143,7 +143,7 @@ io.on('connection', async function (socket) {
 					bugs.attack(playerArr[i])
 					setTimeout(() => {
 						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
-					}, 6000);
+					}, 6000)
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -169,7 +169,8 @@ io.on('connection', async function (socket) {
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
-						}, 2000);
+						}, 2000)
+						playerArr[i].respawn()
 					}
 				}
 			})
@@ -182,7 +183,7 @@ io.on('connection', async function (socket) {
 					bugs.attack(playerArr[i])
 					setTimeout(() => {
 						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
-					}, 4000);
+					}, 4000)
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -191,6 +192,16 @@ io.on('connection', async function (socket) {
 						battleEvent.battleFinished()
 						playerArr[i].levelUp()
 						socket.emit('playerLevel', playerArr[i].getLevel())
+						socket.emit(
+							'battleFinished',
+							battleEvent.battleFinished()
+						)
+						bugs.respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
+					}
+
+					if (playerArr[i].getPlayerData().hp == 0) {
+						battleEvent.battleFinished()
 						setTimeout(() => {
 							socket.emit(
 								'battleFinished',
@@ -209,6 +220,7 @@ io.on('connection', async function (socket) {
 								battleEvent.battleFinished()
 							)
 						}, 2000);
+						playerArr[i].respawn()
 					}
 				}
 			})
@@ -216,6 +228,7 @@ io.on('connection', async function (socket) {
 			socket.on('heal', function (data: boolean) {
 				if (data) {
 					playerArr[i].heal()
+					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
 				}
 			})
 		}
