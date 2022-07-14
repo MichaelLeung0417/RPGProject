@@ -4,14 +4,10 @@ import { Monster } from './monster'
 export default class Gameroom {
 	private onlinePlayers: Character[]
 	private existedBugs: Monster[]
-	private boardColumns: number
-	private boardRows: number
 
 	constructor() {
 		this.onlinePlayers = []
 		this.existedBugs = []
-		this.boardColumns = 16
-		this.boardRows = 16
 	}
 
 	addPlayer(player: Character) {
@@ -26,27 +22,35 @@ export default class Gameroom {
 		return this.onlinePlayers
 	}
 
-	// getBugsInMap() {
-	// 	return this.existedBugs
-	// }
+	getBugsInMap() {
+		return this.existedBugs
+	}
 
-	getAllPlayers() {
+	getAllMapData() {
 		let playerInMap: {
 			x: number
 			y: number
 		}[] = []
 
+		let bugsInMap: {
+			x: number
+			y: number
+		}[] = []
+
 		for (const player of this.onlinePlayers) {
-			while (
-				player.getPlayerData().position.x < this.boardRows &&
-				player.getPlayerData().position.y < this.boardColumns
-			) {
-				playerInMap.push({
-					x: player.getPlayerData().position.x,
-					y: player.getPlayerData().position.y
-				})
-			}
+			playerInMap.push({
+				x: player.getPlayerData().position.x,
+				y: player.getPlayerData().position.y
+			})
 		}
-		return playerInMap
+
+		for (const bugs of this.existedBugs) {
+			bugsInMap.push({
+				x: bugs.getMonsterData().position.x,
+				y: bugs.getMonsterData().position.y
+			})
+		}
+
+		return this.getAllMapData
 	}
 }

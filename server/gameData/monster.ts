@@ -50,4 +50,10 @@ export class Monster {
 	getPosition(): {} {
 		return this.position
 	}
+
+	getMonsterData() {
+		return {
+			position: this.position
+		}
+	}
 }

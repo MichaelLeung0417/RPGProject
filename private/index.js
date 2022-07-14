@@ -10,7 +10,6 @@ let playerDir = 'down'
 let bugsHp = 100
 let playerHp = 100
 let bugsName
-// let checkLocation = [{}]
 
 const socket = io.connect()
 
@@ -66,6 +65,11 @@ function init() {
 			board[i][j] = 0
 		}
 	}
+
+	board[currentLocation.x][currentLocation.y] = 1
+	if (bugsLocation.x !== undefined && bugsLocation.y !== undefined) {
+		board[bugsLocation.x][bugsLocation.y] = 2
+	}
 }
 
 //get bugs location
@@ -96,6 +100,7 @@ socket.on('currentLocation', (data) => {
 	currentLocation = data
 	board[currentLocation.x][currentLocation.y] = 1
 	console.log(`player: ${data.x}`)
+	init()
 })
 
 socket.on('currentDir', (data) => {
@@ -208,7 +213,6 @@ socket.on('battleFinished', (data) => {
 		setTimeout(() => {
 			document.querySelector('#cutscene').classList.add('noshow')
 		}, 1000)
-		init()
 	}
 })
 
@@ -219,6 +223,9 @@ function keydown(e) {
 	}
 	socket.emit('keydown', e.keyCode)
 }
+
+// const ctx2 = canvas.getContext('2d')
+// const
 
 //spritesheet
 // let Modelimg
