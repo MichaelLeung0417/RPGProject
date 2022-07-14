@@ -76,8 +76,9 @@ function init() {
 //get bugs location
 socket.on('bugsLocation', (data) => {
 	bugsLocation = data
-	board[bugsLocation.x][bugsLocation.y] = 2
-	console.log(`bugs: ${data}`)
+	if (bugsLocation.x !== undefined && bugsLocation.y !== undefined) {
+		board[bugsLocation.x][bugsLocation.y] = 2
+	}
 })
 
 //get bugs hp
@@ -128,12 +129,7 @@ socket.on('battleEvent', (data) => {
 	if (data) {
 		//select canvas
 		document.getElementById('canvas').classList.add('noshow')
-		document.getElementById('BattleScene').classList.remove('noshow')
-
-		//battleing player
-		let battlePlayer = document.createElement('div')
-		battlePlayer.classList.add('battlePlayer')
-		document.querySelector('#BattleScene1').appendChild(battlePlayer)
+		document.getElementById('BattleScene1').classList.remove('noshow')
 
 		//player sword attack
 		document.querySelector('#phyAttack').addEventListener('click', () => {
@@ -192,6 +188,11 @@ socket.on('battleEvent', (data) => {
 			socket.emit('heal', true)
 		})
 		//player heal
+
+		//battleing player
+		let battlePlayer = document.createElement('div')
+		battlePlayer.classList.add('battlePlayer')
+		document.querySelector('#BattleScene1').appendChild(battlePlayer)
 
 		//Alex
 		let Alex = document.createElement('div')

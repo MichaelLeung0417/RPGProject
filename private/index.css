@@ -30,13 +30,8 @@ section {
 	align-items: center;
 }
 
-#BattleScene {
-	display: flex;
-	justify-content: center;
-}
-
 #BattleScene1 {
-	/* background: silver; */
+	position: relative;
 	background-image: url('./classroom2.png');
 	background-size: cover;
 	width: 750px;
@@ -84,7 +79,7 @@ section {
 	position: absolute;
 	margin: 0;
 	bottom: 460px;
-	left: 630px;
+	left: 50%;
 	width: 100px;
 	height: 100px;
 }
@@ -96,7 +91,7 @@ section {
 	position: absolute;
 	margin: 0;
 	bottom: 420px;
-	left: 900px;
+	right: 0;
 	width: 100px;
 	height: 100px;
 }
