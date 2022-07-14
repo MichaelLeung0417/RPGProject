@@ -192,10 +192,12 @@ io.on('connection', async function (socket) {
 						battleEvent.battleFinished()
 						playerArr[i].levelUp()
 						socket.emit('playerLevel', playerArr[i].getLevel())
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
 					}
