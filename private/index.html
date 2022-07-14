@@ -18,8 +18,7 @@
 		<section>
 		<div id="canvas"></div>
 		<div id="cutscene" class="noshow"></div>
-		<div id="BattleScene" class="noshow">
-			<div id="BattleScene1">
+			<div id="BattleScene1" class="noshow">
 				<div id="playerCommand">
 					<button id="phyAttack" class="commandBtn">
 						<img src="./characterImage/sword.png" />
@@ -27,19 +26,11 @@
 					<button id="magicalAttack" class="commandBtn">
 						<img src="./characterImage/fireball.png" />
 					</button>
-					<button id="heal" class="commandBtn">heal</button>
-					<button id="run" class="commandBtn">
-						<img src="./characterImage/char_left.png" />
+					<button id="heal" class="commandBtn">
+						<img src="./image/potion.png">
 					</button>
 				</div>
 			</div>
-		</div>
-
-		<div class="logout">
-			<form action="/logout" method="POST">
-			<input type="submit" value="Logout" />
-			</form>
-		</div>
 
 		<div class="info">
 		<div class="status">
@@ -51,17 +42,8 @@
 		<form id="messageBox">
 			<div class="channel">
 				<button id="public">
-					<!-- <div class="chatText">public</div> -->
-					<img
-						class="messagebtnImg"
-						src="./image/publicMessage.jpg"
-					/>
 				</button>
 				<button id="private">
-					<img
-						class="messagebtnImg"
-						src="./image/privateMessage.png"
-					/>
 				</button>
 			</div>
 			<div id="PublicMessagehistroy" name="messagehistroy"></div>
@@ -77,12 +59,17 @@
 					type="text"
 					name="chat"
 				/>
-				<button type="submit" id="send"></button>
 			</div>
 			<select id="loginUser">
 				<option selected>communication</option>
 			</select>
 		</form>
+		</div>
+
+		<div class="logout">
+			<form action="/logout" method="POST">
+			<input type="submit" value="Logout" />
+			</form>
 		</div>
 		</section>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>

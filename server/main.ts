@@ -127,7 +127,6 @@ io.on('connection', async function (socket) {
 				//tell client player current direction
 				socket.emit('currentDir', playerArr[i].getDirection())
 
-				console.log(battleEvent.checkEvent(playerArr[i], bugs))
 				//check if player coli with bugs. If true, tell client battle start
 				if (battleEvent.checkEvent(playerArr[i], bugs)) {
 					socket.emit('battleEvent', battleEvent.getEvent())
