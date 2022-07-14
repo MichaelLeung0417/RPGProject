@@ -202,8 +202,12 @@ socket.on('battleEvent', (data) => {
 //tell server battle is finished
 socket.on('battleFinished', (data) => {
 	if (!data) {
-		document.getElementById('canvas').classList.remove('noshow')
 		document.getElementById('BattleScene').classList.add('noshow')
+		document.querySelector('#cutscene').classList.remove('noshow')
+		document.getElementById('canvas').classList.remove('noshow')
+		setTimeout(() => {
+			document.querySelector('#cutscene').classList.add('noshow')
+		}, 1000);
 		init()
 	}
 })
