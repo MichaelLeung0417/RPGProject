@@ -137,6 +137,7 @@ io.on('connection', async function (socket) {
 
 			//player attack
 			socket.on('playerAtk', function (data: boolean) {
+				console.log('slash')
 				if (data) {
 					playerArr[i].attack(bugs)
 					bugs.attack(playerArr[i])
@@ -145,6 +146,7 @@ io.on('connection', async function (socket) {
 
 			//player mighty attack
 			socket.on('playerMighty', function (data: boolean) {
+				console.log('magic')
 				if (data) {
 					playerArr[i].mightyAttack(bugs)
 					bugs.attack(playerArr[i])
