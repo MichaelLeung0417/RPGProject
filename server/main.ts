@@ -151,10 +151,12 @@ io.on('connection', async function (socket) {
 					if (bugs.getHP() == 0) {
 						battleEvent.battleFinished()
 						playerArr[i].levelUp()
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
 						socket.emit('playerLevel', playerArr[i].getLevel())
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
@@ -162,21 +164,12 @@ io.on('connection', async function (socket) {
 
 					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
-<<<<<<< HEAD
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
-						playerArr[i].respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-=======
 						setTimeout(() => {
 							socket.emit(
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
 						}, 2000);
->>>>>>> 8468d6c3b8420cb961f2aae16d556f1fe74ccc90
 					}
 				}
 			})
@@ -198,31 +191,24 @@ io.on('connection', async function (socket) {
 						battleEvent.battleFinished()
 						playerArr[i].levelUp()
 						socket.emit('playerLevel', playerArr[i].getLevel())
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
-						bugs.respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-					}
-
-					if (playerArr[i].getPlayerData().hp == 0) {
-						battleEvent.battleFinished()
-<<<<<<< HEAD
-						socket.emit(
-							'battleFinished',
-							battleEvent.battleFinished()
-						)
-						playerArr[i].respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-=======
 						setTimeout(() => {
 							socket.emit(
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
 						}, 2000);
->>>>>>> 8468d6c3b8420cb961f2aae16d556f1fe74ccc90
+						bugs.respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
+					}
+
+					if (playerArr[i].getPlayerData().hp == 0) {
+						battleEvent.battleFinished()
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
 					}
 				}
 			})

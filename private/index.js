@@ -181,6 +181,12 @@ socket.on('battleEvent', (data) => {
 			})
 		//player magical action
 
+		//player heal
+			document.querySelector('#heal').addEventListener('click', ()=>{
+				socket.emit('heal', true)
+			})
+		//player heal
+
 		//Alex
 		let Alex = document.createElement('div')
 		Alex.classList.add('Alex')
