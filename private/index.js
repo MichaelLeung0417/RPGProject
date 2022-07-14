@@ -8,6 +8,7 @@ let bugsLocation = {}
 let battleFinished = true
 let playerDir = 'down'
 let bugsHp = 100
+let playerHp = 100
 let bugsName
 // let checkLocation = [{}]
 
@@ -101,6 +102,17 @@ socket.on('currentDir', (data) => {
 	playerDir = data
 })
 
+//get player hp
+socket.on('playerHp', (data) => {
+	document.getElementById('playerHp').innerHTML = data
+	playerHp = data
+})
+
+//get player level
+socket.on('playerLevel', (data) => {
+	document.getElementById('playerLevel').innerHTML = data
+})
+
 // socket.on('allPlayerLocation', (data) => {
 // 	checkLocation = data
 // })
@@ -131,7 +143,7 @@ socket.on('battleEvent', (data) => {
 				setTimeout(() => {
 					enemyCat.classList.remove('enemyCatSlash')
 				}, 3000)
-			}, 6000);
+			}, 6000)
 			//enemyCatSlash
 		})
 		//player sword attack
@@ -169,7 +181,7 @@ socket.on('battleEvent', (data) => {
 })
 
 //check bugs hp
-if (bugsHp == 0) {
+if (bugsHp == 0 || playerHp == 0) {
 	//tell server battle is finished
 	socket.emit('battleFinished', battleFinished)
 }
