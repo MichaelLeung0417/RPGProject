@@ -118,6 +118,8 @@ socket.on('battleEvent', (data) => {
 		battlePlayer.classList.add('battlePlayer')
 		document.querySelector('#BattleScene1').appendChild(battlePlayer)
 
+
+
 		//player sword attack
 		document.querySelector('#phyAttack').addEventListener('click', () => {
 			socket.emit('playerAtk', true)
@@ -131,7 +133,7 @@ socket.on('battleEvent', (data) => {
 				setTimeout(() => {
 					enemyCat.classList.remove('enemyCatSlash')
 				}, 3000)
-			}, 6000);
+			}, 4000)
 			//enemyCatSlash
 		})
 		//player sword attack
@@ -153,6 +155,14 @@ socket.on('battleEvent', (data) => {
 					battlePlayer.classList.remove('playerMagic')
 					fireball.remove()
 				}, 3000)
+				//enemyCatSlash
+				setTimeout(() => {
+					enemyCat.classList.add('enemyCatSlash')
+					setTimeout(() => {
+						enemyCat.classList.remove('enemyCatSlash')
+					}, 3000)
+				}, 4000)
+				//enemyCatSlash
 			})
 		//player magical action
 

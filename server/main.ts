@@ -83,7 +83,6 @@ io.on('connection', async function (socket) {
 			req.session['playing-user']
 		])
 		req.session['isUser'] = false
-		battleEvent.battleFinished()
 		console.log(`${req.session['playing-user']} disconnected`)
 	})
 
@@ -105,6 +104,9 @@ io.on('connection', async function (socket) {
 
 			//tell client player Level
 			socket.emit('playerLevel', playerArr[i].getPlayerData().level)
+
+			//tell client bugs hp
+			socket.emit('bugsHp', bugs.getHP())
 
 			//tell client bugs name
 			socket.emit('bugsName', bugs.getName())
@@ -156,7 +158,6 @@ io.on('connection', async function (socket) {
 					socket.emit('bugsHp', bugs.getHP())
 				}
 			})
-
 			//player heal
 			socket.on('heal', function (data: boolean) {
 				if (data) {
