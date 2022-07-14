@@ -52,6 +52,7 @@ function draw() {
 			} else if (board[i][j] == 0) {
 				noFill()
 			}
+			stroke(50)
 			rect(i * gridSize, j * gridSize, gridSize - 1, gridSize - 1)
 		}
 	}
