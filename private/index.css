@@ -99,7 +99,7 @@ section {
 	position: absolute;
 	margin: 0;
 	bottom: 420px;
-	left: 960px;
+	left: 900px;
 	width: 100px;
 	height: 100px;
 }
@@ -241,6 +241,13 @@ section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+#cutscene{
+	position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    width: 1000px;
+    height: 1000px;
 }
 
 .logout {
