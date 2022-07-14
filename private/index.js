@@ -214,6 +214,7 @@ socket.on('battleFinished', (data) => {
 			document.querySelector('#cutscene').classList.add('noshow')
 		}, 1000)
 	}
+	init()
 })
 
 //tell server client keydown event
