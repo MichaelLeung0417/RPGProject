@@ -79,6 +79,20 @@ export class Character implements Players {
 		}
 	}
 
+	mightyAttack(bugs: Monster) {
+		let damage = 0
+		damage = this.secondary.damage
+
+		while (bugs.getHP() > 0) {
+			let strengthFactor = 1
+
+			if (Math.random() < 1 / 3) {
+				strengthFactor *= 2
+			}
+			bugs.injure(damage * strengthFactor)
+		}
+	}
+
 	switchAttack() {
 		// TODO: Change the attack mode for this player
 		if (this.usePrimaryAttack) {

@@ -139,11 +139,17 @@ io.on('connection', async function (socket) {
 			socket.on('playerAtk', function (data: boolean) {
 				if (data) {
 					playerArr[i].attack(bugs)
+					bugs.attack(playerArr[i])
 				}
 			})
 
-			//bugs attack
-			// socket.emit('bugsAtk', bugs.attack(playerArr[i]))
+			//player mighty attack
+			socket.on('playerMighty', function (data: boolean) {
+				if (data) {
+					playerArr[i].mightyAttack(bugs)
+					bugs.attack(playerArr[i])
+				}
+			})
 
 			//listen to client when battle finished
 			socket.on('battleFinished', function (data: boolean) {
