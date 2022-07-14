@@ -34,7 +34,9 @@ export class Monster {
 	}
 
 	respawn() {
-		return (this.hp = 100)
+		this.hp = 100
+		this.position.x = Math.floor(Math.random() * this.boardRows)
+		this.position.y = Math.floor(Math.random() * this.boardColumns)
 	}
 
 	getHP(): number {
