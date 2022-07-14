@@ -200,18 +200,6 @@ io.on('connection', async function (socket) {
 						socket.emit('bugsLocation', bugs.getPosition())
 					}
 
-					if (bugs.getHP() == 0) {
-						battleEvent.battleFinished()
-						setTimeout(() => {
-							socket.emit(
-								'battleFinished',
-								battleEvent.battleFinished()
-							)
-						}, 2000);
-						bugs.respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-					}
-
 					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
 						setTimeout(() => {
