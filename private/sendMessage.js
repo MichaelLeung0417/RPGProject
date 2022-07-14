@@ -43,7 +43,7 @@ sendbtn.addEventListener('submit', function (event) {
 
 //make selecting communicate target
 socket.on('loginUserList', async function (updatedLoginUserList) {
-	console.log(`${JSON.stringify(updatedLoginUserList)}`)
+	//console.log(`${JSON.stringify(updatedLoginUserList)}`)
 	document.querySelector('#loginUser').innerHTML = ''
 	document.querySelector('#loginUser').innerHTML = `
     <option value="boardcast" selected>boardcast</option>
