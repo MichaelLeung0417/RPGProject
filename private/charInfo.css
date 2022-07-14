@@ -20,9 +20,9 @@ body {
 }
 
 .character {
-	background-color: #fff;
-	height: 80vh;
-	width: 500px;
+	background-color: rgba(150, 150, 150, 0.2);
+	height: 400px;
+	width: 250px;
 	border: 5px solid #777777;
 	border-right: 0px;
 	display: flex;
@@ -36,9 +36,9 @@ body {
 }
 
 .characterInfo {
-	background-color: #000;
-	height: 80vh;
+	background-color: rgba(150, 150, 150, 0.2);
+	height: 400px;
 	color: #fff;
-	width: 500px;
+	width: 200px;
 	border: 5px solid #777777;
 }
