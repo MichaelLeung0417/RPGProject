@@ -33,6 +33,10 @@ export class Monster {
 		return this.hp
 	}
 
+	respawn() {
+		return (this.hp = 100)
+	}
+
 	getHP(): number {
 		return this.hp
 	}

@@ -134,14 +134,16 @@ export class Character implements Players {
 		return this.level
 	}
 
-	levelUp(bugs: Monster): void {
-		if (bugs.getHP() == 0) {
-			this.level += this.level + 1
-		}
+	levelUp(): void {
+		this.level++
 	}
 
 	heal() {
 		this.hp += 10
+	}
+
+	respawn() {
+		return (this.hp = 100)
 	}
 
 	injure(attack: number) {

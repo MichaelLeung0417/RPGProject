@@ -144,16 +144,26 @@ io.on('connection', async function (socket) {
 					socket.emit('bugsHp', bugs.getHP())
 
 					//tell client battle is finished
-					if (
-						bugs.getHP() == 0 ||
-						playerArr[i].getPlayerData().hp == 0
-					) {
-						console.log(bugs.getHP())
+					if (bugs.getHP() == 0) {
+						battleEvent.battleFinished()
+						playerArr[i].levelUp()
+						socket.emit(
+							'battleFinished',
+							battleEvent.battleFinished()
+						)
+						socket.emit('playerLevel', playerArr[i].getLevel())
+						bugs.respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
+					}
+
+					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
 						socket.emit(
 							'battleFinished',
 							battleEvent.battleFinished()
 						)
+						playerArr[i].respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
 					}
 				}
 			})
@@ -169,16 +179,26 @@ io.on('connection', async function (socket) {
 					socket.emit('bugsHp', bugs.getHP())
 
 					//tell client battle is finished
-					if (
-						bugs.getHP() == 0 ||
-						playerArr[i].getPlayerData().hp == 0
-					) {
-						console.log(bugs.getHP())
+					if (bugs.getHP() == 0) {
+						battleEvent.battleFinished()
+						playerArr[i].levelUp()
+						socket.emit('playerLevel', playerArr[i].getLevel())
+						socket.emit(
+							'battleFinished',
+							battleEvent.battleFinished()
+						)
+						bugs.respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
+					}
+
+					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
 						socket.emit(
 							'battleFinished',
 							battleEvent.battleFinished()
 						)
+						playerArr[i].respawn()
+						socket.emit('bugsLocation', bugs.getPosition())
 					}
 				}
 			})
@@ -189,13 +209,6 @@ io.on('connection', async function (socket) {
 					playerArr[i].heal()
 				}
 			})
-
-			// //listen to client when battle finished
-			// socket.on('battleFinished', function (data: boolean) {
-			// 	if (data) {
-			// 		battleEvent.battleFinished()
-			// 	}
-			// })
 		}
 
 		// socket.emit('allPlayerLocation', gameroom.getAllPlayers())

@@ -184,6 +184,7 @@ socket.on('battleFinished', (data) => {
 	if (!data) {
 		document.getElementById('canvas').classList.remove('noshow')
 		document.getElementById('BattleScene').classList.add('noshow')
+		init()
 	}
 })
 
