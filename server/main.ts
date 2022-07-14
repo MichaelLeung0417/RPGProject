@@ -142,6 +142,19 @@ io.on('connection', async function (socket) {
 					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
+
+					//tell client battle is finished
+					if (
+						bugs.getHP() == 0 ||
+						playerArr[i].getPlayerData().hp == 0
+					) {
+						console.log(bugs.getHP())
+						battleEvent.battleFinished()
+						socket.emit(
+							'battleFinished',
+							battleEvent.battleFinished()
+						)
+					}
 				}
 			})
 
@@ -154,6 +167,19 @@ io.on('connection', async function (socket) {
 					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
+
+					//tell client battle is finished
+					if (
+						bugs.getHP() == 0 ||
+						playerArr[i].getPlayerData().hp == 0
+					) {
+						console.log(bugs.getHP())
+						battleEvent.battleFinished()
+						socket.emit(
+							'battleFinished',
+							battleEvent.battleFinished()
+						)
+					}
 				}
 			})
 
@@ -164,12 +190,12 @@ io.on('connection', async function (socket) {
 				}
 			})
 
-			//listen to client when battle finished
-			socket.on('battleFinished', function (data: boolean) {
-				if (data) {
-					battleEvent.battleFinished()
-				}
-			})
+			// //listen to client when battle finished
+			// socket.on('battleFinished', function (data: boolean) {
+			// 	if (data) {
+			// 		battleEvent.battleFinished()
+			// 	}
+			// })
 		}
 
 		// socket.emit('allPlayerLocation', gameroom.getAllPlayers())

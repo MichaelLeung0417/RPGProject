@@ -68,29 +68,13 @@ export class Character implements Players {
 			// TODO: use secondary attack
 			damage = this.secondary.damage
 		}
-
-		while (bugs.getHP() > 0) {
-			let strengthFactor = 1
-
-			if (Math.random() < 1 / 3) {
-				strengthFactor *= 2
-			}
-			bugs.injure(damage * strengthFactor)
-		}
+		bugs.injure(damage)
 	}
 
 	mightyAttack(bugs: Monster) {
 		let damage = 0
 		damage = this.secondary.damage
-
-		while (bugs.getHP() > 0) {
-			let strengthFactor = 1
-
-			if (Math.random() < 1 / 3) {
-				strengthFactor *= 2
-			}
-			bugs.injure(damage * strengthFactor)
-		}
+		bugs.injure(damage)
 	}
 
 	switchAttack() {

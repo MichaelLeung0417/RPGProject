@@ -119,7 +119,6 @@ socket.on('playerLevel', (data) => {
 
 // get battle event
 socket.on('battleEvent', (data) => {
-	console.log(data)
 	if (data) {
 		//select canvas
 		document.getElementById('canvas').classList.add('noshow')
@@ -180,11 +179,13 @@ socket.on('battleEvent', (data) => {
 	}
 })
 
-//check bugs hp
-if (bugsHp == 0 || playerHp == 0) {
-	//tell server battle is finished
-	socket.emit('battleFinished', battleFinished)
-}
+//tell server battle is finished
+socket.on('battleFinished', (data) => {
+	if (!data) {
+		document.getElementById('canvas').classList.remove('noshow')
+		document.getElementById('BattleScene').classList.add('noshow')
+	}
+})
 
 //tell server client keydown event
 function keydown(e) {
