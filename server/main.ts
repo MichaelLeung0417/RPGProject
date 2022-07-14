@@ -148,13 +148,14 @@ io.on('connection', async function (socket) {
 					//tell client battle is finished
 					if (bugs.getHP() == 0) {
 						battleEvent.battleFinished()
-						playerArr[i].levelUp()
 						setTimeout(() => {
 							socket.emit(
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
 						}, 2000)
+						playerArr[i].levelUp()
+
 						socket.emit('playerLevel', playerArr[i].getLevel())
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
@@ -168,6 +169,7 @@ io.on('connection', async function (socket) {
 								battleEvent.battleFinished()
 							)
 						}, 2000)
+
 						playerArr[i].respawn()
 					}
 				}
@@ -188,14 +190,15 @@ io.on('connection', async function (socket) {
 					//tell client battle is finished
 					if (bugs.getHP() == 0) {
 						battleEvent.battleFinished()
-						playerArr[i].levelUp()
-						socket.emit('playerLevel', playerArr[i].getLevel())
 						setTimeout(() => {
 							socket.emit(
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
 						}, 2000)
+						playerArr[i].levelUp()
+						socket.emit('playerLevel', playerArr[i].getLevel())
+
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
 					}
