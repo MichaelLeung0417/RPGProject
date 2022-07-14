@@ -65,8 +65,8 @@ section {
 	background-repeat: no-repeat;
 	position: absolute;
 	margin: 0;
-	bottom: 120px;
-	left: 360px;
+	bottom: 100px;
+	left: 100px;
 	width: 100px;
 	height: 100px;
 	animation: fireball 1s linear;
@@ -106,12 +106,12 @@ section {
 	}
 	50% {
 		background-image: url('./characterImage/char2.png');
-		transform: translateX(580px) translateY(-300px);
+		transform: translateX(550px) translateY(-320px);
 	}
 
 	60% {
 		background-image: url('./characterImage/char_slash.png');
-		transform: translateX(580px) translateY(-300px);
+		transform: translateX(550px) translateY(-320px);
 	}
 
 	61% {
@@ -129,7 +129,7 @@ section {
 		transform: translateX(0px) translateY(0px);
 	}
 	100% {
-		transform: translateX(550px) translateY(-300px);
+		transform: translateX(480px) translateY(-330px);
 	}
 }
 
