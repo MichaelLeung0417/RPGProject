@@ -155,7 +155,7 @@ io.on('connection', async function (socket) {
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
-						}, 2000);
+						}, 2000)
 						socket.emit('playerLevel', playerArr[i].getLevel())
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
@@ -196,7 +196,7 @@ io.on('connection', async function (socket) {
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
-						}, 2000);
+						}, 2000)
 						bugs.respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
 					}
@@ -208,7 +208,7 @@ io.on('connection', async function (socket) {
 								'battleFinished',
 								battleEvent.battleFinished()
 							)
-						}, 2000);
+						}, 2000)
 						playerArr[i].respawn()
 					}
 				}

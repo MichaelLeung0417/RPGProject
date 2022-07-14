@@ -129,12 +129,10 @@ socket.on('battleEvent', (data) => {
 		battlePlayer.classList.add('battlePlayer')
 		document.querySelector('#BattleScene1').appendChild(battlePlayer)
 
-
-
 		//player sword attack
 		document.querySelector('#phyAttack').addEventListener('click', () => {
 			socket.emit('playerAtk', true)
-			document.querySelector('#playerCommand').style.display = "none"
+			document.querySelector('#playerCommand').style.display = 'none'
 			battlePlayer.classList.add('playerSlash')
 			setTimeout(() => {
 				battlePlayer.classList.remove('playerSlash')
@@ -144,7 +142,8 @@ socket.on('battleEvent', (data) => {
 				enemyCat.classList.add('enemyCatSlash')
 				setTimeout(() => {
 					enemyCat.classList.remove('enemyCatSlash')
-					document.querySelector('#playerCommand').style.display = "flex"
+					document.querySelector('#playerCommand').style.display =
+						'flex'
 				}, 3000)
 			}, 4000)
 			//enemyCatSlash
@@ -156,7 +155,7 @@ socket.on('battleEvent', (data) => {
 			.querySelector('#magicalAttack')
 			.addEventListener('click', () => {
 				socket.emit('playerMighty', true)
-				document.querySelector('#playerCommand').style.display = "none"
+				document.querySelector('#playerCommand').style.display = 'none'
 				battlePlayer.classList.add('playerMagic')
 				//battling player fire ball
 				let fireball = document.createElement('div')
@@ -174,7 +173,8 @@ socket.on('battleEvent', (data) => {
 					enemyCat.classList.add('enemyCatSlash')
 					setTimeout(() => {
 						enemyCat.classList.remove('enemyCatSlash')
-						document.querySelector('#playerCommand').style.display = "flex"
+						document.querySelector('#playerCommand').style.display =
+							'flex'
 					}, 3000)
 				}, 2000)
 				//enemyCatSlash
@@ -182,9 +182,9 @@ socket.on('battleEvent', (data) => {
 		//player magical action
 
 		//player heal
-			document.querySelector('#heal').addEventListener('click', ()=>{
-				socket.emit('heal', true)
-			})
+		document.querySelector('#heal').addEventListener('click', () => {
+			socket.emit('heal', true)
+		})
 		//player heal
 
 		//Alex
