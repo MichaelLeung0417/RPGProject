@@ -8,6 +8,7 @@ let bugsLocation = {}
 let battleFinished = true
 let playerDir = 'down'
 let bugsHp = 100
+let playerHp = 100
 let bugsName
 // let checkLocation = [{}]
 
@@ -101,13 +102,23 @@ socket.on('currentDir', (data) => {
 	playerDir = data
 })
 
+//get player hp
+socket.on('playerHp', (data) => {
+	document.getElementById('playerHp').innerHTML = data
+	playerHp = data
+})
+
+//get player level
+socket.on('playerLevel', (data) => {
+	document.getElementById('playerLevel').innerHTML = data
+})
+
 // socket.on('allPlayerLocation', (data) => {
 // 	checkLocation = data
 // })
 
 // get battle event
 socket.on('battleEvent', (data) => {
-	console.log(data)
 	if (data) {
 		//select canvas
 		document.getElementById('canvas').classList.add('noshow')
@@ -178,11 +189,13 @@ socket.on('battleEvent', (data) => {
 	}
 })
 
-//check bugs hp
-if (bugsHp == 0) {
-	//tell server battle is finished
-	socket.emit('battleFinished', battleFinished)
-}
+//tell server battle is finished
+socket.on('battleFinished', (data) => {
+	if (!data) {
+		document.getElementById('canvas').classList.remove('noshow')
+		document.getElementById('BattleScene').classList.add('noshow')
+	}
+})
 
 //tell server client keydown event
 function keydown(e) {
