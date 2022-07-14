@@ -234,11 +234,17 @@ section {
 	align-items: center;
 }
 
+.canvasScene {
+	position: relative;
+}
+
 #cutscene {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.8);
-	width: 1000px;
-	height: 1000px;
+	top: 0;
+	width: 700px;
+	height: 710px;
+	border-radius: 20px;
 }
 
 .logout {

@@ -25,14 +25,12 @@ const server = new http.Server(main)
 export const io = new SocketIO(server)
 
 const gameroom = new Gameroom()
-const battleEvent = new BattleEvent()
 let playerArr = gameroom.getOnlinePlayers()
-let bugs = new Monster()
 
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
-	client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
+	await client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
 		req.session['playing-user']
 	])
 
@@ -44,7 +42,7 @@ io.on('connection', async function (socket) {
 
 	//boardcast
 	socket.on('sendSever', async function (data) {
-		client.query(
+		await client.query(
 			`INSERT INTO text (messages, created_at, updated_at) VALUES ( $1, NOW(), NOW())`,
 			[data.messages]
 		)
@@ -93,11 +91,13 @@ io.on('connection', async function (socket) {
 		player.id = req.session['playing-user']
 		//add player to current game room
 		gameroom.addPlayer(player)
-		gameroom.addBugs(bugs)
 	})
 
 	for (let i: number = 0; i < playerArr.length; i++) {
 		if (req.session['playing-user'] === playerArr[i].id) {
+			let battleEvent = new BattleEvent()
+			let bugs = new Monster()
+			gameroom.addBugs(bugs)
 			//tell client player Hp
 			socket.emit('playerHp', playerArr[i].getPlayerData().hp)
 
@@ -223,8 +223,6 @@ io.on('connection', async function (socket) {
 				}
 			})
 		}
-
-		// socket.emit('allPlayerLocation', gameroom.getAllPlayers())
 	}
 })
 

@@ -33,7 +33,7 @@ interface Players {
 }
 
 export class Character implements Players {
-	public id: number
+	public id: string
 	private name: string
 	private primary: Attack
 	private secondary: Attack
