@@ -182,11 +182,12 @@ function keydown(e) {
 }
 
 //spritesheet
+// let Modelimg
 // const scale = 2
-// const width = 16
-// const height = 18
-// const scaled_width = scale * width
-// const scaled_height = scale * height
+// const modelWidth = 16
+// const modelHeight = 18
+// const scaled_width = scale * modelWidth
+// const scaled_height = scale * modelHeight
 // const cycle_loop = [0, 1, 0, 2]
 // const facing_down = 0
 // const facing_up = 1
@@ -202,20 +203,20 @@ function keydown(e) {
 // }
 
 // function loadImage() {
-// 	img.src =
+// 	Modelimg.src =
 // 		'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
-// 	img.onload = function () {
+// 	Modelimg.onload = function () {
 // 		window.requestAnimationFrame(gameLoop)
 // 	}
 // }
 
 // function drawFrame(frameX, frameY, canvasX, canvasY) {
 // 	ctx.drawImage(
-// 		img,
-// 		frameX * width,
-// 		frameY * height,
-// 		width,
-// 		height,
+// 		Modelimg,
+// 		frameX * modelWidth,
+// 		frameY * modelHeight,
+// 		modelWidth,
+// 		modelHeight,
 // 		canvasX,
 // 		canvasY,
 // 		scaled_width,
