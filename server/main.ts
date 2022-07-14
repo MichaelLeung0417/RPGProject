@@ -83,7 +83,6 @@ io.on('connection', async function (socket) {
 			req.session['playing-user']
 		])
 		req.session['isUser'] = false
-		battleEvent.battleFinished()
 		console.log(`${req.session['playing-user']} disconnected`)
 	})
 
@@ -105,6 +104,9 @@ io.on('connection', async function (socket) {
 
 			//tell client player Level
 			socket.emit('playerLevel', playerArr[i].getPlayerData().level)
+
+			//tell client bugs hp
+			socket.emit('bugsHp', bugs.getHP())
 
 			//tell client bugs name
 			socket.emit('bugsName', bugs.getName())
@@ -139,7 +141,9 @@ io.on('connection', async function (socket) {
 				if (data) {
 					playerArr[i].attack(bugs)
 					bugs.attack(playerArr[i])
-					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					setTimeout(() => {
+						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					}, 6000);
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -158,12 +162,21 @@ io.on('connection', async function (socket) {
 
 					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
+<<<<<<< HEAD
 						socket.emit(
 							'battleFinished',
 							battleEvent.battleFinished()
 						)
 						playerArr[i].respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
+=======
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
+>>>>>>> 8468d6c3b8420cb961f2aae16d556f1fe74ccc90
 					}
 				}
 			})
@@ -174,7 +187,9 @@ io.on('connection', async function (socket) {
 				if (data) {
 					playerArr[i].mightyAttack(bugs)
 					bugs.attack(playerArr[i])
-					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					setTimeout(() => {
+						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
+					}, 4000);
 					//tell client bugs hp
 					socket.emit('bugsHp', bugs.getHP())
 
@@ -193,16 +208,24 @@ io.on('connection', async function (socket) {
 
 					if (playerArr[i].getPlayerData().hp == 0) {
 						battleEvent.battleFinished()
+<<<<<<< HEAD
 						socket.emit(
 							'battleFinished',
 							battleEvent.battleFinished()
 						)
 						playerArr[i].respawn()
 						socket.emit('bugsLocation', bugs.getPosition())
+=======
+						setTimeout(() => {
+							socket.emit(
+								'battleFinished',
+								battleEvent.battleFinished()
+							)
+						}, 2000);
+>>>>>>> 8468d6c3b8420cb961f2aae16d556f1fe74ccc90
 					}
 				}
 			})
-
 			//player heal
 			socket.on('heal', function (data: boolean) {
 				if (data) {
