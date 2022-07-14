@@ -212,7 +212,7 @@ socket.on('battleFinished', (data) => {
 })
 
 //tell server client keydown event
-function keydown(e) {
+function keydown(e) {  
 	if (typing) {
 		return
 	}
