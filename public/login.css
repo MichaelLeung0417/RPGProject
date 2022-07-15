@@ -1,5 +1,5 @@
 body {
-	background-image: url("classroom.png");
+	background-image: url('classroom.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	box-sizing: border-box;
@@ -10,13 +10,13 @@ body {
 	font-family: g;
 }
 
-.fontPage{
+.fontPage {
 	display: flex;
 	justify-content: space-around;
 	align-items: flex-end;
 }
 
-.opening{
+.opening {
 	position: relative;
 	top: 145px;
 	left: 150px;
@@ -29,19 +29,20 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
-.opening section{
+.opening section {
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-h{
+/* [CODE REVIEW] Mark a comment if you wanna keep it. E.g.: Keep it for the future */
+h {
 	position: relative;
 	align-items: center;
 	font-size: 5em;
 	color: rgb(0, 187, 255);
-	-webkit-box-reflect: below -0.46em linear-gradient(transparent, black) ;
+	-webkit-box-reflect: below -0.46em linear-gradient(transparent, black);
 }
 
 .loginPanel {
@@ -67,11 +68,11 @@ h{
 	margin-bottom: 10px;
 }
 
-.username{
+.username {
 	margin-bottom: 10px;
 }
 
-.password{
+.password {
 	margin-bottom: 10px;
 }
 

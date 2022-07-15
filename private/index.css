@@ -17,6 +17,7 @@ body {
 #canvas {
 	border: 10px solid #965f35;
 	border-radius: 20px;
+	display: block;
 }
 
 section {

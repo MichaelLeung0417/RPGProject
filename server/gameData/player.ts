@@ -2,22 +2,17 @@ import { Monster } from './monster'
 
 export interface Attack {
 	damage: number
+	duration: number
 }
 
 class phyAtk implements Attack {
 	//Phy Attack here
-	damage: number
-	constructor(damage: number) {
-		this.damage = damage
-	}
+	constructor(public damage: number, public duration: number) {}
 }
 
 class magicAtk implements Attack {
 	//Magic Attack here
-	damage: number
-	constructor(damage: number) {
-		this.damage = damage
-	}
+	constructor(public damage: number, public duration: number) {}
 }
 
 export interface Position {
@@ -26,8 +21,8 @@ export interface Position {
 }
 
 interface Players {
-	attack(bugs: Monster): void
-	switchAttack(): void
+	attack(usePrimaryAttack: boolean, bugs: Monster): number
+	// switchAttack(): void
 	move(keyCode: number): void
 	levelUp(bugs: Monster): void
 }
@@ -37,7 +32,7 @@ export class Character implements Players {
 	private name: string
 	private primary: Attack
 	private secondary: Attack
-	private usePrimaryAttack: boolean
+	// private usePrimaryAttack: boolean
 	private position: Position
 	private hp: number
 	private level: number
@@ -46,45 +41,50 @@ export class Character implements Players {
 	private direction: string
 
 	constructor(name: string) {
-		this.primary = new phyAtk(30)
-		this.secondary = new magicAtk(40)
+		this.primary = new phyAtk(30, 4000)
+		this.secondary = new magicAtk(40, 6000)
 		this.hp = 100
 		this.level = 1
 		// TODO: set the default value of usePrimaryAttack
 		this.name = name
-		this.usePrimaryAttack = false
+		// this.usePrimaryAttack = false
 		this.position = { x: 1, y: 1 }
 		this.boardColumns = 16
 		this.boardRows = 16
 		this.direction = 'down'
 	}
 
-	attack(bugs: Monster): void {
+	attack(usePrimaryAttack: boolean, bugs: Monster): number {
 		let damage = 0
-		if (this.usePrimaryAttack) {
-			// TODO: use primary attack
-			damage = this.primary.damage
-		} else {
-			// TODO: use secondary attack
-			damage = this.secondary.damage
-		}
+		let attack = this.getAttack(usePrimaryAttack)
+		damage = attack.damage
 		bugs.injure(damage)
+
+		return attack.duration
 	}
 
-	mightyAttack(bugs: Monster) {
-		let damage = 0
-		damage = this.secondary.damage
-		bugs.injure(damage)
-	}
-
-	switchAttack() {
-		// TODO: Change the attack mode for this player
-		if (this.usePrimaryAttack) {
-			this.usePrimaryAttack = false
+	private getAttack(usePrimaryAttack: boolean): Attack {
+		if (usePrimaryAttack) {
+			return this.primary
 		} else {
-			this.usePrimaryAttack = true
+			return this.secondary
 		}
 	}
+
+	// mightyAttack(bugs: Monster) {
+	// 	let damage = 0
+	// 	damage = this.secondary.damage
+	// 	bugs.injure(damage)
+	// }
+
+	// switchAttack() {
+	// 	// TODO: Change the attack mode for this player
+	// 	if (this.usePrimaryAttack) {
+	// 		this.usePrimaryAttack = false
+	// 	} else {
+	// 		this.usePrimaryAttack = true
+	// 	}
+	// }
 
 	move(keyCode: number) {
 		switch (keyCode) {
@@ -127,6 +127,9 @@ export class Character implements Players {
 	}
 
 	getDirection(): string {
+		// if (this.hp <= 0 ){
+		// 	return 'down'
+		// } // [CODE REVIEW] this is for demo only
 		return this.direction
 	}
 
@@ -156,7 +159,7 @@ export class Character implements Players {
 			name: this.name,
 			primary: this.primary,
 			secondary: this.secondary,
-			usePrimaryAttack: this.usePrimaryAttack,
+			// usePrimaryAttack: this.usePrimaryAttack,
 			position: this.position,
 			hp: this.hp,
 			level: this.level,

@@ -24,14 +24,20 @@ const main = express()
 const server = new http.Server(main)
 export const io = new SocketIO(server)
 
-const gameroom = new Gameroom()
-let playerArr = gameroom.getOnlinePlayers()
+const gameroom = new Gameroom() // [CODE REVIEW] query from database to reconstruct gameroom every time the server starts
+let playerArr = gameroom.getOnlinePlayers() // [CODE REVIEW] should put to database
 
 io.on('connection', async function (socket) {
 	console.log(`${socket.id}: Sever connect to client`)
 	const req = socket.request as express.Request
+
+	if (!req.session['isUser'] || req.session['playing-user'] == null) {
+		socket.disconnect()
+		return
+	}
+
 	await client.query(`UPDATE accounts SET login = TRUE WHERE username=$1`, [
-		req.session['playing-user']
+		req.session['playing-user'] // [CODE REVIEW] What if the user didn't login?
 	])
 
 	let updatedLoginUserList = await client.query(`
@@ -47,7 +53,7 @@ io.on('connection', async function (socket) {
 			[data.messages]
 		)
 		let dbData = await client.query(
-			`SELECT messages FROM text ORDER BY id DESC LIMIT 5`
+			`SELECT messages FROM text ORDER BY id DESC LIMIT 5` // [CODE REVIEW] Better rely on created_at DESC. Id should not be used
 		)
 		let boardcastMessage = dbData.rows
 		io.emit('sendClient', boardcastMessage)
@@ -56,6 +62,7 @@ io.on('connection', async function (socket) {
 	//end to end
 	socket.on('private-message', function (data) {
 		io.to(`${data.receiver}`).emit('designateClient', {
+			// [CODE REVIEW] Hard code -chatRoom suffix
 			sender: req.session['playing-user'],
 			messages: data.messages
 		})
@@ -75,28 +82,28 @@ io.on('connection', async function (socket) {
 
 	//offline detection
 	socket.on('disconnect', function () {
-		socket.leave(`${req.session['playing-user']}-chatRoom`)
+		socket.leave(`${req.session['playing-user']}-chatRoom`) // [CODE REVIEW] Once the socket disconnected, it will never come back
 		client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
 			req.session['playing-user']
 		])
-		req.session['isUser'] = false
+		req.session['isUser'] = false // [CODE REVIEW] The request ended with the socket
 		console.log(`${req.session['playing-user']} disconnected`)
 	})
 
 	//add player to game room
-	socket.on('CharacterSubmit', function (data: string) {
-		//new player
-		let player = new Character(data)
-		//generate a player id to each player
-		player.id = req.session['playing-user']
-		//add player to current game room
-		gameroom.addPlayer(player)
-	})
+	// socket.on('CharacterSubmit', function (data: string) {
+	// 	//new player
+	// 	let player = new Character(data)
+	// 	//generate a player id to each player
+	// 	player.id = req.session['playing-user']
+	// 	//add player to current game room
+	// 	gameroom.addPlayer(player)
+	// })
 
 	for (let i: number = 0; i < playerArr.length; i++) {
 		if (req.session['playing-user'] === playerArr[i].id) {
-			let battleEvent = new BattleEvent()
 			let bugs = new Monster()
+			let battleEvent = new BattleEvent(playerArr[i], bugs, socket)
 			gameroom.addBugs(bugs)
 			//tell client player Hp
 			socket.emit('playerHp', playerArr[i].getPlayerData().hp)
@@ -136,84 +143,13 @@ io.on('connection', async function (socket) {
 			//player attack
 			socket.on('playerAtk', function (data: boolean) {
 				console.log('slash')
-				if (data) {
-					playerArr[i].attack(bugs)
-					bugs.attack(playerArr[i])
-					setTimeout(() => {
-						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
-					}, 6000)
-					//tell client bugs hp
-					socket.emit('bugsHp', bugs.getHP())
-
-					//tell client battle is finished
-					if (bugs.getHP() == 0) {
-						battleEvent.battleFinished()
-						setTimeout(() => {
-							socket.emit(
-								'battleFinished',
-								battleEvent.battleFinished()
-							)
-						}, 2000)
-						playerArr[i].levelUp()
-
-						socket.emit('playerLevel', playerArr[i].getLevel())
-						bugs.respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-					}
-
-					if (playerArr[i].getPlayerData().hp == 0) {
-						battleEvent.battleFinished()
-						setTimeout(() => {
-							socket.emit(
-								'battleFinished',
-								battleEvent.battleFinished()
-							)
-						}, 2000)
-
-						playerArr[i].respawn()
-					}
-				}
+				battleEvent.playerAction(true)
 			})
 
 			//player mighty attack
 			socket.on('playerMighty', function (data: boolean) {
 				console.log('magic')
-				if (data) {
-					playerArr[i].mightyAttack(bugs)
-					bugs.attack(playerArr[i])
-					setTimeout(() => {
-						socket.emit('playerHp', playerArr[i].getPlayerData().hp)
-					}, 4000)
-					//tell client bugs hp
-					socket.emit('bugsHp', bugs.getHP())
-
-					//tell client battle is finished
-					if (bugs.getHP() == 0) {
-						battleEvent.battleFinished()
-						setTimeout(() => {
-							socket.emit(
-								'battleFinished',
-								battleEvent.battleFinished()
-							)
-						}, 2000)
-						playerArr[i].levelUp()
-						socket.emit('playerLevel', playerArr[i].getLevel())
-
-						bugs.respawn()
-						socket.emit('bugsLocation', bugs.getPosition())
-					}
-
-					if (playerArr[i].getPlayerData().hp == 0) {
-						battleEvent.battleFinished()
-						setTimeout(() => {
-							socket.emit(
-								'battleFinished',
-								battleEvent.battleFinished()
-							)
-						}, 2000)
-						playerArr[i].respawn()
-					}
-				}
+				battleEvent.playerAction(false)
 			})
 			//player heal
 			socket.on('heal', function (data: boolean) {
@@ -222,6 +158,8 @@ io.on('connection', async function (socket) {
 					socket.emit('playerHp', playerArr[i].getPlayerData().hp)
 				}
 			})
+
+			break
 		}
 	}
 })
@@ -244,7 +182,7 @@ main.use(express.urlencoded())
 main.use(express.json())
 
 main.get('/', (req, res) => {
-	res.redirect('/login.html')
+	res.redirect('/login.html') // [CODE REVIEW] Check login, if logged in, res.send the private/index.html. otherwise, redirect to login.html
 })
 
 //login
@@ -256,28 +194,38 @@ main.post('/login', async (req, res) => {
 			charname: string
 		}[]
 
+		// let playerID: number
+
 		let username: string = req.body.username.trim()
 		let password: string = req.body.password.trim()
 		try {
 			users = (
 				await client.query(
 					'SELECT * FROM accounts WHERE username=$1 AND password=$2',
-					[username, password]
+					[username, password] // [CODE REVIEW] Very serious security issue
 				)
 			).rows
+
+			// playerID = (
+			// 	await client.query(
+			// 		`SELECT id FROM accounts WHERE username=$1 AND password=$2'`,
+			// 		[username, password]
+			// 	)
+			// ).rows
 		} catch (err) {
 			console.error(err)
 			res.status(500).send('Internal Server Error')
 			return
 		}
 		for (const user of users) {
+			// [CODE REVIEW] Unnecessary for-loop
 			if (
 				user.username.trim() === req.body.username.trim() &&
 				user.password.trim() === req.body.password.trim()
 				// && user.charname !== null
 			) {
 				req.session['isUser'] = true
-				req.session['playing-user'] = `${req.body.username.trim()}`
+				req.session['playing-user'] = req.body.username.trim() // [CODE REVIEW] Do not trim
 				res.redirect('/charInfo.html')
 				return
 			}
@@ -305,6 +253,7 @@ main.post('/login', async (req, res) => {
 				password
 			]) !== req.body.password.trim()
 		) {
+			// [CODE REVIEW] Always true
 			res.redirect('/')
 		}
 	} catch (err) {
@@ -331,7 +280,7 @@ const isLogin = (
 main.post('/logout', isLogin, (req, res) => {
 	req.session['isUser'] = false
 	client.query(`UPDATE accounts SET login = FALSE WHERE username=$1`, [
-		req.body.username
+		req.body.username // [CODE REVIEW] Security issue. Logout username according to client's request. Just use req['session']['playing-user]
 	])
 	res.redirect('/')
 })
@@ -342,6 +291,12 @@ main.post('/logout', isLogin, (req, res) => {
 
 //get player's character name
 main.post('/charNameSubmit', isLogin, async (req, res) => {
+	let player = new Character(req.body.charname)
+	//generate a player id to each player
+	player.id = req.session['playing-user']
+	//add player to current game room
+	gameroom.addPlayer(player)
+
 	res.redirect('index.html')
 })
 
@@ -371,6 +326,7 @@ main.post('/register', async (req, res) => {
 		}
 
 		for (const user of users) {
+			// [CODE REVIEW] No need for-loop here
 			if (user.username.trim() === req.body.username.trim()) {
 				res.redirect('/?error=重覆username')
 				return

@@ -44,7 +44,7 @@ sendbtn.addEventListener('submit', function (event) {
 //make selecting communicate target
 socket.on('loginUserList', async function (updatedLoginUserList) {
 	//console.log(`${JSON.stringify(updatedLoginUserList)}`)
-	document.querySelector('#loginUser').innerHTML = ''
+	document.querySelector('#loginUser').innerHTML = '' // [CODE REVIEW] This is not necessary
 	document.querySelector('#loginUser').innerHTML = `
     <option value="boardcast" selected>boardcast</option>
     `
@@ -54,9 +54,9 @@ socket.on('loginUserList', async function (updatedLoginUserList) {
         `
 	}
 
-	document.querySelector('#loginUser').innerHTML += `
-    </select>
-    `
+	// document.querySelector('#loginUser').innerHTML += `
+	// </select>
+	// ` // [CODE REVIEW] this should not be here
 })
 //make selecting communicate target
 
